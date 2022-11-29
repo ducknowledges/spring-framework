@@ -30,7 +30,8 @@ class QuizServiceImplTest {
                 new Quiz("Is this a question?", "yes"),
                 new Quiz("Is this a question with options?", "yes", List.of("yes", "no"))
         );
-        String outputString = "Is this a question?\n" + "Is this a question with options?\n";
+        String outputString = "Is this a question?\n"
+                + "Is this a question with options?\nOptions: yes,no\n";
         QuizDao quizDao = mock(QuizDao.class);
         when(quizDao.getQuizzes()).thenReturn(quizzes);
         QuizService quizService = new QuizServiceImpl(quizDao);
