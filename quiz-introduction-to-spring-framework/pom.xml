@@ -15,20 +15,26 @@
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
 
+        <!-- external dependency libraries -->
         <spring-context.version>5.3.24</spring-context.version>
+        <commons-csv.version>1.9.0</commons-csv.version>
+
+        <!-- test scope libraries -->
         <junit.jupiter.version>5.9.1</junit.jupiter.version>
         <mockito.version>4.9.0</mockito.version>
         <assertj.version>3.23.1</assertj.version>
-        <commons-csv.version>1.9.0</commons-csv.version>
 
-        <!-- maven plugins properties -->
+        <!-- maven plugins -->
         <maven-surefire-plugin.version>3.0.0-M7</maven-surefire-plugin.version>
         <jacoco-maven-plugin.version>0.8.8</jacoco-maven-plugin.version>
         <maven-assembly-plugin.version>3.4.2</maven-assembly-plugin.version>
+        <maven-checkstyle-plugin.version>3.2.0</maven-checkstyle-plugin.version>
+        <checkstyle.version>10.3.4</checkstyle.version>
     </properties>
 
     <dependencies>
 
+        <!-- external dependency libraries -->
         <!-- Spring Framework -->
         <dependency>
             <groupId>org.springframework</groupId>
@@ -36,6 +42,14 @@
             <version>${spring-context.version}</version>
         </dependency>
 
+        <!-- Commons CSV -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-csv</artifactId>
+            <version>${commons-csv.version}</version>
+        </dependency>
+
+        <!-- test scope libraries -->
         <!-- JUnit5 -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
@@ -65,13 +79,6 @@
             <artifactId>assertj-core</artifactId>
             <version>${assertj.version}</version>
             <scope>test</scope>
-        </dependency>
-
-        <!-- Commons CSV -->
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-csv</artifactId>
-            <version>${commons-csv.version}</version>
         </dependency>
 
     </dependencies>
@@ -140,7 +147,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
-                <version>3.2.0</version>
+                <version>${maven-checkstyle-plugin.version}</version>
                 <configuration>
                     <configLocation>custom_google_checkstyle.xml</configLocation>
                     <includeTestSourceDirectory>true</includeTestSourceDirectory>
@@ -165,12 +172,12 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-checkstyle-plugin</artifactId>
-                    <version>3.2.0</version>
+                    <version>${maven-checkstyle-plugin.version}</version>
                     <dependencies>
                         <dependency>
                             <groupId>com.puppycrawl.tools</groupId>
                             <artifactId>checkstyle</artifactId>
-                            <version>10.3.4</version>
+                            <version>${checkstyle.version}</version>
                         </dependency>
                     </dependencies>
                 </plugin>

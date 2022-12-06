@@ -21,6 +21,7 @@
 
   <property name="charset" value="UTF-8"/>
 
+  <!-- custom changes: value from warning to error -->
   <property name="severity" value="error"/>
 
   <property name="fileExtensions" value="java, properties, xml"/>
@@ -250,7 +251,8 @@
       <message key="ws.notPreceded"
              value="GenericWhitespace ''{0}'' is not preceded with whitespace."/>
     </module>
-    <!-- custom changes indentation to 4 -->
+
+    <!-- custom changes: indentation value to 4 -->
     <module name="Indentation">
       <property name="basicOffset" value="4"/>
       <property name="braceAdjustment" value="4"/>
@@ -314,6 +316,9 @@
       <property name="allowSamelineMultipleAnnotations" value="true"/>
     </module>
     <module name="NonEmptyAtclauseDescription"/>
+
+    <!-- custom changes: disable javadoc -->
+    <!--
     <module name="InvalidJavadocPosition"/>
     <module name="JavadocTagContinuationIndentation"/>
     <module name="SummaryJavadoc">
@@ -334,8 +339,6 @@
       <property name="allowedAnnotations" value="Override, Test"/>
       <property name="tokens" value="METHOD_DEF, CTOR_DEF, ANNOTATION_FIELD_DEF, COMPACT_CTOR_DEF"/>
     </module>
-    <!-- custom changes disable missing javadoc -->
-    <!--
     <module name="MissingJavadocMethod">
       <property name="scope" value="public"/>
       <property name="minLineCount" value="2"/>
@@ -351,6 +354,7 @@
       <property name="excludeScope" value="nothing"/>
     </module>
     -->
+
     <module name="MethodName">
       <property name="format" value="^[a-z][a-z0-9]\w*$"/>
       <message key="name.invalidPattern"
