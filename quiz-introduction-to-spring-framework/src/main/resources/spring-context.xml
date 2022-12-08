@@ -4,12 +4,22 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <bean id="parser" class="com.github.ducknowledges.quiz.parser.ParserCsv">
-        <constructor-arg name="pathToCsvResource" value="quiz.csv"/>
+    <bean id="dataReaderCreator"
+          class="com.github.ducknowledges.quiz.reader.DataReaderCreatorResource">
+        <constructor-arg name="resourcePath" value="quiz.csv"/>
     </bean>
 
-    <bean id="quizDao" class="com.github.ducknowledges.quiz.dao.QuizDaoCsv">
-        <constructor-arg name="parser" ref="parser"/>
+    <bean id="parsingFormatChecker"
+          class="com.github.ducknowledges.quiz.parser.formatchecker.ParsingFormatCheckerCsv">
+    </bean>
+
+    <bean id="dataParser" class="com.github.ducknowledges.quiz.parser.DataParserCsv">
+        <constructor-arg name="dataReaderCreator" ref="dataReaderCreator"/>
+        <constructor-arg name="formatChecker" ref="parsingFormatChecker"/>
+    </bean>
+
+    <bean id="quizDao" class="com.github.ducknowledges.quiz.dao.QuizDaoImpl">
+        <constructor-arg name="dataParser" ref="dataParser"/>
     </bean>
 
     <bean id="quizService" class="com.github.ducknowledges.quiz.service.QuizServiceImpl">
