@@ -3,7 +3,6 @@ package com.github.ducknowledges.quiz.service;
 import com.github.ducknowledges.quiz.dao.QuizDao;
 import com.github.ducknowledges.quiz.domain.Quiz;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class QuizServiceImpl implements QuizService {
 
