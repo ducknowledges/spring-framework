@@ -1,0 +1,12 @@
+#Build
+target
+
+# Compiled class file
+*.class
+
+# Package Files #
+*.jar
+
+#IDEA
+.idea
+*.iml

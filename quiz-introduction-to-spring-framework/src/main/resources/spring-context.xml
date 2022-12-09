@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="dataReaderCreator"
+          class="com.github.ducknowledges.quiz.reader.DataReaderCreatorResource">
+        <constructor-arg name="resourcePath" value="quiz.csv"/>
+    </bean>
+
+    <bean id="parsingFormatChecker"
+          class="com.github.ducknowledges.quiz.parser.formatchecker.ParsingFormatCheckerCsv">
+    </bean>
+
+    <bean id="dataParser" class="com.github.ducknowledges.quiz.parser.DataParserCsv">
+        <constructor-arg name="dataReaderCreator" ref="dataReaderCreator"/>
+        <constructor-arg name="formatChecker" ref="parsingFormatChecker"/>
+    </bean>
+
+    <bean id="quizDao" class="com.github.ducknowledges.quiz.dao.QuizDaoImpl">
+        <constructor-arg name="dataParser" ref="dataParser"/>
+    </bean>
+
+    <bean id="quizService" class="com.github.ducknowledges.quiz.service.QuizServiceImpl">
+        <constructor-arg name="quizDao" ref="quizDao"/>
+    </bean>
+
+</beans>
