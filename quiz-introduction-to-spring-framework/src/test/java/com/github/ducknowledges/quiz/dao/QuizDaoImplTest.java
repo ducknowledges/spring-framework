@@ -5,11 +5,12 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import com.github.ducknowledges.quiz.domain.Quiz;
-import com.github.ducknowledges.quiz.parser.DataParser;
+import com.github.ducknowledges.quiz.parser.DataParserCsv;
 import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+@DisplayName("Class QuizDaoImpl")
 class QuizDaoImplTest {
 
     @Test
@@ -19,10 +20,10 @@ class QuizDaoImplTest {
         List<String> strings2 = List.of("Is this a question with options?", "yes", "yes", "no");
         List<List<String>> records = List.of(strings1, strings2);
         List<Quiz> quizzes = List.of(
-                new Quiz("Is this a question?", "yes"),
-                new Quiz("Is this a question with options?", "yes", List.of("yes", "no"))
+            new Quiz("Is this a question?", "yes"),
+            new Quiz("Is this a question with options?", "yes", List.of("yes", "no"))
         );
-        DataParser<List<String>> parser = (DataParser<List<String>>) mock(DataParser.class);
+        DataParserCsv parser = mock(DataParserCsv.class);
         when(parser.parseToRecords()).thenReturn(records);
         QuizDao quizDao = new QuizDaoImpl(parser);
         assertThat(quizDao.getQuizzes()).hasSize(2).hasSameElementsAs(quizzes);
