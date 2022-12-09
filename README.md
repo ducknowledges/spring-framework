@@ -3,8 +3,9 @@
 ## Course topics
 
 - [x] Introduction to Spring Framework
+  - [X] [Task][task-1]
+- [X] Spring Application Configuration
   - [ ] [Task]()
-- [ ] Spring Application Configuration
 - [ ] Fundamentals of software architecture
 - [ ] Spring AOP
 - [ ] Spring Boot
@@ -38,3 +39,5 @@
 - [ ] Spring Cloud Config, Spring Cloud Bus, Spring Cloud Service Discovery with Eureka, Ribbon and Feign
 - [ ] Zuul, Hystrix Circuit Breaker, Sleuth, Zipkin, Hystrix Dashboard, Secure Configuration Properties
 - [ ] Overview of Additional Spring Technologies, Rapid Application Development
+
+[task-1]:https://github.com/ducknowledges/2022-11-otus-spring-kononov/tree/main/quiz-introduction-to-spring-framework
