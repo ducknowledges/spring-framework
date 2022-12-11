@@ -8,5 +8,5 @@ import java.nio.file.Path;
 public interface DataReaderCreator {
     BufferedReader createReader() throws IOException;
 
-    String getReadablePath();
+    String getDataPath();
 }

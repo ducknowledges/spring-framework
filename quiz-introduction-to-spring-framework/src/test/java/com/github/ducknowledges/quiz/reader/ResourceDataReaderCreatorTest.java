@@ -10,21 +10,21 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-@DisplayName("Class DataReaderCreatorResource")
-class DataReaderCreatorResourceTest {
+@DisplayName("Class ResourceDataReaderCreator")
+class ResourceDataReaderCreatorTest {
 
-    private DataReaderCreatorResource dataReaderCreator;
+    private ResourceDataReaderCreator dataReaderCreator;
 
     @BeforeEach
     void setUp() {
-        dataReaderCreator  = new DataReaderCreatorResource("quizTest.csv");
+        dataReaderCreator  = new ResourceDataReaderCreator("quizTest.csv");
     }
 
     @Test
     @DisplayName("correctly created by the constructor")
     void shouldHaveCorrectConstructor() {
         String path = "quizTest.csv";
-        assertThat(dataReaderCreator.getReadablePath()).isEqualTo(path);
+        assertThat(dataReaderCreator.getDataPath()).isEqualTo(path);
     }
 
     @Test
@@ -42,7 +42,7 @@ class DataReaderCreatorResourceTest {
     @DisplayName("should throw IOException with message")
     void shouldThrowException() {
         String wrongPath = "file.csv";
-        DataReaderCreator dataReaderCreator  = new DataReaderCreatorResource(wrongPath);
+        DataReaderCreator dataReaderCreator  = new ResourceDataReaderCreator(wrongPath);
         assertThatThrownBy(dataReaderCreator::createReader)
                 .isInstanceOf(IOException.class)
                 .hasMessage("input stream is null");

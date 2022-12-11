@@ -5,7 +5,7 @@
         http://www.springframework.org/schema/beans/spring-beans.xsd">
 
     <bean id="dataReaderCreator"
-          class="com.github.ducknowledges.quiz.reader.DataReaderCreatorResource">
+          class="com.github.ducknowledges.quiz.reader.ResourceDataReaderCreator">
         <constructor-arg name="resourcePath" value="quiz.csv"/>
     </bean>
 
