@@ -27,7 +27,7 @@ public class DataParserCsv implements DataParser<List<String>> {
     @Override
     public List<List<String>> parseToRecords() {
         List<CSVRecord> records;
-        String parsedPath = dataReaderCreator.getReadablePath();
+        String parsedPath = dataReaderCreator.getDataPath();
         try (Reader csvReader = dataReaderCreator.createReader()) {
             records = CSVFormat.RFC4180.parse(csvReader).getRecords();
             if (!formatChecker.hasWrongFormattedRecords(records)) {
