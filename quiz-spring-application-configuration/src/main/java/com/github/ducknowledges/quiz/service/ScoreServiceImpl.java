@@ -17,6 +17,7 @@ public class ScoreServiceImpl implements ScoreService {
         this.communicationService = communicationService;
     }
 
+    @Override
     public void summarizeScore(User user) {
         Score score = user.getScore();
         StringBuilder scoreReport = new StringBuilder()
