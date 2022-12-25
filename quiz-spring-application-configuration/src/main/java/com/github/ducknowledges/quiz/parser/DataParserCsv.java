@@ -1,9 +1,8 @@
 package com.github.ducknowledges.quiz.parser;
 
-import static com.github.ducknowledges.quiz.parser.DataParserError.PARSE_DATA_ERROR;
-import static com.github.ducknowledges.quiz.parser.DataParserError.PARSE_FORMAT_ERROR;
-
 import com.github.ducknowledges.quiz.domain.Record;
+import com.github.ducknowledges.quiz.parser.exception.DataParserException;
+import com.github.ducknowledges.quiz.parser.exception.DataParserException.ParserError;
 import com.github.ducknowledges.quiz.parser.recordchecker.RecordChecker;
 import com.github.ducknowledges.quiz.reader.DataReader;
 import com.github.ducknowledges.quiz.service.CommunicationService;
@@ -34,37 +33,38 @@ public class DataParserCsv implements DataParser {
     @Override
     public List<Record> parseToRecords() {
         Optional<Reader> readerOptional = dataReader.createReader();
-        try (Reader csvReader = readerOptional.orElseThrow(IOException::new)) {
+        String error;
+        try (Reader csvReader = readerOptional.orElseThrow(
+            () -> new DataParserException(ParserError.ACCESS_ERROR))) {
             List<Record> records = readToRecords(csvReader);
-            List<Record> wrongRecords = recordChecker.filterWrongRecords(records);
-            if (wrongRecords.isEmpty()) {
-                return records;
-            }
-            communicationService.reportErrorToUser(
-                getParseFormatError(wrongRecords)
-            );
+            return getCheckedRecords(records);
+        } catch (DataParserException e) {
+            error = e.getMessage(dataReader.getDataPath());
         } catch (IOException e) {
-            communicationService.reportErrorToUser(
-                getParseDataError()
-            );
+            error = ParserError.ACCESS_ERROR.message(dataReader.getDataPath()) + e.getMessage();
         }
+        communicationService.reportErrorToUser(error);
         return List.of();
     }
 
-    private List<Record> readToRecords(Reader reader) throws IOException {
-        return CSVFormat.RFC4180.parse(reader).getRecords()
-            .stream()
-            .map(csvRecord -> new Record(csvRecord.toList(), csvRecord.getRecordNumber()))
-            .collect(Collectors.toList());
+    private List<Record> readToRecords(Reader reader) throws DataParserException {
+        try {
+            return CSVFormat.RFC4180.parse(reader).getRecords()
+                .stream()
+                .map(csvRecord -> new Record(csvRecord.toList(), csvRecord.getRecordNumber()))
+                .collect(Collectors.toList());
+        } catch (IOException e) {
+            throw new DataParserException(ParserError.PARSE_ERROR, e.getMessage());
+        }
     }
 
-    private String getParseDataError() {
-        return PARSE_DATA_ERROR.message(dataReader.getDataPath());
-    }
-
-    private String getParseFormatError(List<Record> records) {
-        List<Long> recordNumbers = getRecordNumbers(records);
-        return PARSE_FORMAT_ERROR.message(dataReader.getDataPath(), recordNumbers.toString());
+    private List<Record> getCheckedRecords(List<Record> records) throws DataParserException {
+        List<Record> wrongRecords = recordChecker.filterWrongRecords(records);
+        if (!wrongRecords.isEmpty()) {
+            String description = getRecordNumbers(wrongRecords).toString();
+            throw new DataParserException(ParserError.RECORD_ERROR, description);
+        }
+        return records;
     }
 
     private List<Long> getRecordNumbers(List<Record> records) {

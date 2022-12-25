@@ -8,6 +8,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import com.github.ducknowledges.quiz.domain.Record;
+import com.github.ducknowledges.quiz.parser.exception.DataParserException.ParserError;
 import com.github.ducknowledges.quiz.parser.recordchecker.RecordChecker;
 import com.github.ducknowledges.quiz.parser.recordchecker.RecordCheckerImpl;
 import com.github.ducknowledges.quiz.reader.DataReader;
@@ -84,7 +85,7 @@ class DataParserCsvTest {
     }
 
     @Test
-    @DisplayName("return empty list if csv file has wrong records")
+    @DisplayName("return empty list if csv resource has wrong records")
     void shouldReturnEmptyListWhenWrongRecordCsv() {
         when(dataReader.createReader()).thenReturn(Optional.of(reader));
         when(recordChecker.filterWrongRecords(any())).thenReturn(wrongRecords);
@@ -96,7 +97,7 @@ class DataParserCsvTest {
     }
 
     @Test
-    @DisplayName("report error to user if csv file has wrong format")
+    @DisplayName("report error to user if csv data has wrong format")
     void shouldReportErrorToUserWhenWrongRecordCsv() {
         when(dataReader.getDataPath()).thenReturn("path");
         when(dataReader.createReader()).thenReturn(Optional.of(reader));
@@ -105,13 +106,17 @@ class DataParserCsvTest {
             dataReader, recordChecker, communicationService
         );
         dataParserCsv.parseToRecords();
-        String expected = "path: has wrong format" + System.lineSeparator()
-            + List.of(wrongRecords.get(0).getRecordNumber(), wrongRecords.get(1).getRecordNumber());
+        String expected = ParserError.RECORD_ERROR.message(dataReader.getDataPath())
+            + System.lineSeparator()
+            + List.of(
+                wrongRecords.get(0).getRecordNumber(),
+                wrongRecords.get(1).getRecordNumber()
+            );
         verify(communicationService, times(1)).reportErrorToUser(expected);
     }
 
     @Test
-    @DisplayName("return empty list if csv file not available")
+    @DisplayName("return empty list if csv resource is not available")
     void shouldReturnEmptyListWhenWrongResourcePath() {
         when(dataReader.createReader()).thenReturn(Optional.empty());
         DataParserCsv dataParserCsv = new DataParserCsv(
@@ -121,16 +126,17 @@ class DataParserCsvTest {
     }
 
     @Test
-    @DisplayName("report error to user if csv file not available")
-    void shouldReportErrorToUserWhenWrongResourcePath() {
+    @DisplayName("report error to user if csv resource is not available")
+    void shouldReportErrorToUserWhenResourceIsNotAvailable() {
         when(dataReader.getDataPath()).thenReturn("path");
         when(dataReader.createReader()).thenReturn(Optional.empty());
         DataParserCsv dataParserCsv = new DataParserCsv(
             dataReader, recordChecker, communicationService
         );
         dataParserCsv.parseToRecords();
-        String expected = "path: can't parse data";
+        String expected = ParserError.ACCESS_ERROR
+            .message(dataReader.getDataPath())
+            + System.lineSeparator();
         verify(communicationService, times(1)).reportErrorToUser(expected);
     }
-
 }
