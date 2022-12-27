@@ -5,12 +5,14 @@
 - [x] Introduction to Spring Framework
   - [X] [Task][task-1]
 - [X] Spring Application Configuration
-  - [ ] [Task]()
-- [ ] Fundamentals of software architecture
-- [ ] Spring AOP
-- [ ] Spring Boot
+  - [X] [Task](task-2)
+- [X] Fundamentals of software architecture
+- [X] Spring AOP
+- [X] Spring Boot
+  - [ ] [Task](task-3)
 - [ ] Advanced Configuration (Part 1) - Scopes, Lifecycle
 - [ ] Advanced Configuration (Part 2) - Conditionals, Events, Testing
+  - [ ] [Task](task-4)
 - [ ] DAO on Spring JDBC
 - [ ] Fundamentals of ORM, JPA, Hibernate as a JPA provider
 - [ ] JPQL, Spring ORM, DAO based on Spring ORM + JPA
@@ -41,3 +43,4 @@
 - [ ] Overview of Additional Spring Technologies, Rapid Application Development
 
 [task-1]:https://github.com/ducknowledges/2022-11-otus-spring-kononov/tree/main/quiz-introduction-to-spring-framework
+[task-2]:https://github.com/ducknowledges/2022-11-otus-spring-kononov/tree/main/quiz-spring-application-configuration
