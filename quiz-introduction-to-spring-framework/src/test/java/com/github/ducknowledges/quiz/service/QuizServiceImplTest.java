@@ -1,13 +1,10 @@
 package com.github.ducknowledges.quiz.service;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
-import com.github.ducknowledges.quiz.dao.QuizDao;
 import com.github.ducknowledges.quiz.domain.Quiz;
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -16,27 +13,27 @@ import org.junit.jupiter.api.Test;
 @DisplayName("Class QuizServiceImpl")
 class QuizServiceImplTest {
 
-    private ByteArrayOutputStream out;
+    List<Quiz> quizzes;
+    private CommunicationService communicationService;
+    private QuizService quizService;
 
     @BeforeEach
-    public void setup() {
-        out = new ByteArrayOutputStream();
-        System.setOut(new PrintStream(out));
+    void setUp() {
+        quizzes = List.of(
+            new Quiz("Is this a question with options?", "yes", List.of("yes", "no")),
+            new Quiz("Is this a question?", "yes")
+        );
+        communicationService = mock(CommunicationService.class);
+        quizService = new QuizServiceImpl(communicationService);
+
     }
 
     @Test
-    @DisplayName("print question to console")
-    void shouldPrintQuestionToConsole() {
-        List<Quiz> quizzes = List.of(
-                new Quiz("Is this a question?", "yes"),
-                new Quiz("Is this a question with options?", "yes", List.of("yes", "no"))
-        );
-        String outputString = "Is this a question?\n"
-                + "Is this a question with options?\nOptions: yes,no\n";
-        QuizDao quizDao = mock(QuizDao.class);
-        when(quizDao.getQuizzes()).thenReturn(quizzes);
-        QuizService quizService = new QuizServiceImpl(quizDao);
-        quizService.run();
-        assertThat(out.toString()).isEqualTo(outputString);
+    @DisplayName("should correctly report user question from quiz")
+    void shouldAskQuestionsToUser() {
+        quizService.askQuiz(quizzes);
+        verify(communicationService, times(1)).reportToUser("Is this a question with options?"
+            + System.lineSeparator() + "Options: yes, no");
+        verify(communicationService, times(1)).reportToUser("Is this a question?");
     }
 }
