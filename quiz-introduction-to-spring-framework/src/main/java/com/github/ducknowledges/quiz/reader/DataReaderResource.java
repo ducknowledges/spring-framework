@@ -1,16 +1,17 @@
 package com.github.ducknowledges.quiz.reader;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.Reader;
 import java.nio.charset.StandardCharsets;
+import java.util.Optional;
 
-public class ResourceDataReaderCreator implements DataReaderCreator {
+public class DataReaderResource implements DataReader {
 
     private final String resourcePath;
 
-    public ResourceDataReaderCreator(String resourcePath) {
+    public DataReaderResource(String resourcePath) {
         this.resourcePath = resourcePath;
     }
 
@@ -20,12 +21,14 @@ public class ResourceDataReaderCreator implements DataReaderCreator {
     }
 
     @Override
-    public BufferedReader createReader() throws IOException {
+    public Optional<Reader> createReader() {
         ClassLoader classLoader = getClass().getClassLoader();
         InputStream inputStream = classLoader.getResourceAsStream(resourcePath);
         if (inputStream == null) {
-            throw new IOException("input stream is null");
+            return Optional.empty();
         }
-        return new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8));
+        return Optional.of(
+            new BufferedReader(
+                new InputStreamReader(inputStream, StandardCharsets.UTF_8)));
     }
 }
