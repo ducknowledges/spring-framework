@@ -13,45 +13,59 @@ import org.junit.jupiter.api.Test;
 class QuizTest {
 
     private Quiz quiz;
+    private Quiz quizWithOptions;
     private String question;
-    private String rightAnswer;
-    private List<String> answerOptions;
-
+    private String answer;
+    private List<String> options;
 
     @BeforeEach
     void setUp() {
         question = "Is this a question?";
-        rightAnswer = "yes";
-        answerOptions = List.of("yes", "no");
-        quiz = new Quiz(question, rightAnswer, answerOptions);
+        answer = "yes";
+        options = List.of("yes", "no");
+        quizWithOptions = new Quiz(question, answer, options);
+        quiz = new Quiz(question, answer);
     }
 
     @Test
     @DisplayName("correctly created by the constructor with 3 arguments")
     void shouldHaveCorrectConstructorWithThreeArguments() {
         assertAll(
-                () -> assertThat(quiz.getQuestion()).isEqualTo(question),
-                () -> assertThat(quiz.getRightAnswer()).isEqualTo(rightAnswer),
-                () -> assertThat(quiz.getAnswerOptions()).hasSize(2).isEqualTo(answerOptions)
+                () -> assertThat(quizWithOptions.getQuestion()).isEqualTo(question),
+                () -> assertThat(quizWithOptions.getAnswer()).isEqualTo(answer),
+                () -> assertThat(quizWithOptions.getOptions()).hasSize(2).isEqualTo(options)
         );
     }
 
     @Test
     @DisplayName("correctly created by the constructor with 2 arguments")
     void shouldHaveCorrectConstructorWithTwoArguments() {
-        Quiz quiz = new Quiz(question, rightAnswer);
         assertAll(
                 () -> assertThat(quiz.getQuestion()).isEqualTo(question),
-                () -> assertThat(quiz.getRightAnswer()).isEqualTo(rightAnswer),
-                () -> assertThat(quiz.getAnswerOptions()).isEmpty()
+                () -> assertThat(quiz.getAnswer()).isEqualTo(answer),
+                () -> assertThat(quiz.getOptions()).isEmpty()
         );
+    }
+
+    @Test
+    @DisplayName("should return true if quiz has options")
+    void shouldReturnTrueWhenHasOptions() {
+        assertThat(quizWithOptions.hasOptions()).isTrue();
+    }
+
+    @Test
+    @DisplayName("should return false if quiz has no options")
+    void shouldReturnFalseWhenHasNoOptions() {
+        assertThat(quiz.hasOptions()).isFalse();
     }
 
     @Test
     @DisplayName("has correctly hashCode")
     void shouldHaveCorrectHashCode() {
-        int hashCode = Objects.hash(question, rightAnswer, answerOptions);
-        assertThat(quiz.hashCode()).isEqualTo(hashCode);
+        int hashCode1 = Objects.hash(question, answer, options);
+        int hashCode2 = Objects.hash(question, answer, List.of());
+        assertThat(quizWithOptions.hashCode()).isEqualTo(hashCode1);
+        assertThat(quiz.hashCode()).isEqualTo(hashCode2);
     }
 
     @Test
@@ -59,10 +73,15 @@ class QuizTest {
     void shouldHaveCorrectToSting() {
         String string = "Quiz{"
                 + "question='" + question + '\''
-                + ", rightAnswer='" + rightAnswer + '\''
-                + ", answerOptions=" + answerOptions
+                + ", rightAnswer='" + answer + '\''
+                + ", answerOptions=" + options
                 + '}';
-        Quiz quiz = new Quiz(question, rightAnswer, answerOptions);
+        assertThat(quizWithOptions.toString()).isEqualTo(string);
+        string = "Quiz{"
+            + "question='" + question + '\''
+            + ", rightAnswer='" + answer + '\''
+            + ", answerOptions=" + List.of()
+            + '}';
         assertThat(quiz.toString()).isEqualTo(string);
     }
 

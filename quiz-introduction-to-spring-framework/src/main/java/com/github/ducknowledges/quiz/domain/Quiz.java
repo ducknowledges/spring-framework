@@ -6,29 +6,35 @@ import java.util.Objects;
 public class Quiz {
 
     private final String question;
-    private final String rightAnswer;
-    private final List<String> answerOptions;
+    private final List<String> options;
+    private final String answer;
+
 
     public Quiz(String question, String rightAnswer) {
         this(question, rightAnswer, List.of());
     }
 
-    public Quiz(String question, String rightAnswer, List<String> answerOptions) {
+    public Quiz(String question, String answer, List<String> options) {
         this.question = question;
-        this.rightAnswer = rightAnswer;
-        this.answerOptions = answerOptions;
+        this.options = options;
+        this.answer = answer;
+
     }
 
     public String getQuestion() {
         return question;
     }
 
-    public String getRightAnswer() {
-        return rightAnswer;
+    public String getAnswer() {
+        return answer;
     }
 
-    public List<String> getAnswerOptions() {
-        return answerOptions;
+    public List<String> getOptions() {
+        return options;
+    }
+
+    public boolean hasOptions() {
+        return !options.isEmpty();
     }
 
     @Override
@@ -41,21 +47,21 @@ public class Quiz {
         }
         Quiz quiz = (Quiz) o;
         return question.equals(quiz.question)
-                && rightAnswer.equals(quiz.rightAnswer)
-                && answerOptions.equals(quiz.answerOptions);
+                && answer.equals(quiz.answer)
+                && options.equals(quiz.options);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(question, rightAnswer, answerOptions);
+        return Objects.hash(question, answer, options);
     }
 
     @Override
     public String toString() {
         return "Quiz{"
                 + "question='" + question + '\''
-                + ", rightAnswer='" + rightAnswer + '\''
-                + ", answerOptions=" + answerOptions
+                + ", rightAnswer='" + answer + '\''
+                + ", answerOptions=" + options
                 + '}';
     }
 }
