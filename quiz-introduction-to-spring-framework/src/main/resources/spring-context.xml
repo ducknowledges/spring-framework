@@ -4,26 +4,41 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <bean id="dataReaderCreator"
-          class="com.github.ducknowledges.quiz.reader.ResourceDataReaderCreator">
+    <!-- Service -->
+    <bean id="serviceLocator" class="com.github.ducknowledges.quiz.servicelocator.ServiceLocator"/>
+    <bean id="ioService" factory-bean="serviceLocator" factory-method="createIoServiceInstance"/>
+    <bean id="communicationService" class="com.github.ducknowledges.quiz.service.CommunicationServiceImpl">
+        <constructor-arg name="ioService" ref="ioService"/>
+    </bean>
+    <bean id="quizService" class="com.github.ducknowledges.quiz.service.QuizServiceImpl">
+        <constructor-arg name="communicationService" ref="communicationService"/>
+    </bean>
+    <bean id="quizManager" class="com.github.ducknowledges.quiz.service.QuizManagerServiceImpl">
+        <constructor-arg name="quizDao" ref="quizDao"/>
+        <constructor-arg name="quizService" ref="quizService"/>
+    </bean>
+
+    <!-- Reader -->
+    <bean id="dataReader"
+          class="com.github.ducknowledges.quiz.reader.DataReaderResource">
         <constructor-arg name="resourcePath" value="quiz.csv"/>
     </bean>
 
-    <bean id="parsingFormatChecker"
-          class="com.github.ducknowledges.quiz.parser.formatchecker.ParsingFormatCheckerCsv">
+    <!-- Parser -->
+    <bean id="recordChecker"
+          class="com.github.ducknowledges.quiz.parser.recordchecker.RecordCheckerImpl">
     </bean>
 
     <bean id="dataParser" class="com.github.ducknowledges.quiz.parser.DataParserCsv">
-        <constructor-arg name="dataReaderCreator" ref="dataReaderCreator"/>
-        <constructor-arg name="formatChecker" ref="parsingFormatChecker"/>
+        <constructor-arg name="dataReader" ref="dataReader"/>
+        <constructor-arg name="recordChecker" ref="recordChecker"/>
+        <constructor-arg name="communicationService" ref="communicationService"/>
     </bean>
 
+    <!-- DAO -->
     <bean id="quizDao" class="com.github.ducknowledges.quiz.dao.QuizDaoImpl">
         <constructor-arg name="dataParser" ref="dataParser"/>
     </bean>
 
-    <bean id="quizService" class="com.github.ducknowledges.quiz.service.QuizServiceImpl">
-        <constructor-arg name="quizDao" ref="quizDao"/>
-    </bean>
 
 </beans>
