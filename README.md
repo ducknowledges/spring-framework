@@ -5,7 +5,7 @@
 - [x] Introduction to Spring Framework
   - [X] [Task][task-1]
 - [X] Spring Application Configuration
-  - [X] [Task](task-2)
+  - [X] [Task][task-2]
 - [X] Fundamentals of software architecture
 - [X] Spring AOP
 - [X] Spring Boot
