@@ -11,7 +11,8 @@ spring:
     encoding: "UTF-8"
 
 quiz:
-  locale: en
-  ru-quiz-path: quiz_ru.csv
-  en-quiz-path: quiz_en.csv
+  locale: ru_RU
+  path:
+    en: quiz_en.csv
+    ru: quiz_ru.csv
   success-score: 4
