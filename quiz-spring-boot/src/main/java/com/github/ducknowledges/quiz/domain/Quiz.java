@@ -46,9 +46,9 @@ public class Quiz {
             return false;
         }
         Quiz quiz = (Quiz) o;
-        return question.equals(quiz.question)
-                && answer.equals(quiz.answer)
-                && options.equals(quiz.options);
+        return Objects.equals(question, quiz.question)
+            && Objects.equals(options, quiz.options)
+            && Objects.equals(answer, quiz.answer);
     }
 
     @Override
