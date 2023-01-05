@@ -1,11 +1,9 @@
 package com.github.ducknowledges.quiz.parser;
 
-import static com.github.ducknowledges.quiz.parser.exception.DataParserException.ParserError.PARSE_ERROR;
-import static com.github.ducknowledges.quiz.parser.exception.DataParserRecordException.ParserError.RECORD_ERROR;
-
 import com.github.ducknowledges.quiz.domain.Record;
 import com.github.ducknowledges.quiz.parser.exception.DataParserException;
-import com.github.ducknowledges.quiz.parser.exception.DataParserRecordException;
+import com.github.ducknowledges.quiz.parser.exception.DataParserFormatException;
+import com.github.ducknowledges.quiz.parser.exception.DataParserReadException;
 import com.github.ducknowledges.quiz.parser.recordchecker.RecordChecker;
 import com.github.ducknowledges.quiz.reader.DataReader;
 import com.github.ducknowledges.quiz.service.CommunicationService;
@@ -40,13 +38,11 @@ public class DataParserCsv implements DataParser {
             return getCheckedRecords(records);
         } catch (DataParserException e) {
             communicationService.reportErrorToUser(e.getMessage());
-        } catch (DataParserRecordException e) {
-            communicationService.reportErrorToUser(e.getMessage());
         }
         return List.of();
     }
 
-    private List<Record> getRecords() throws DataParserException {
+    private List<Record> getRecords() {
         Optional<Reader> readerOptional = dataReader.createReader();
         try (Reader csvReader = readerOptional.orElseThrow(IOException::new)) {
             return CSVFormat.RFC4180.parse(csvReader).getRecords()
@@ -54,15 +50,15 @@ public class DataParserCsv implements DataParser {
                 .map(csvRecord -> new Record(csvRecord.toList(), csvRecord.getRecordNumber()))
                 .collect(Collectors.toList());
         } catch (IOException e) {
-            throw new DataParserException(PARSE_ERROR, dataReader.getDataPath());
+            throw new DataParserReadException(dataReader.getDataPath(), e);
         }
     }
 
-    private List<Record> getCheckedRecords(List<Record> records) throws DataParserRecordException {
+    private List<Record> getCheckedRecords(List<Record> records) {
         List<Record> wrongRecords = recordChecker.filterWrongRecords(records);
         if (!wrongRecords.isEmpty()) {
             String description = getRecordNumbersDescription(wrongRecords);
-            throw new DataParserRecordException(RECORD_ERROR, description);
+            throw new DataParserFormatException(description);
         }
         return records;
     }
