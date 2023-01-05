@@ -7,7 +7,6 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.nio.charset.StandardCharsets;
 import java.util.Optional;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -15,9 +14,8 @@ public class DataReaderResource implements DataReader {
 
     private final String resourcePath;
 
-    @Autowired
     public DataReaderResource(AppProps props) {
-        this.resourcePath = props.getResourcePath();
+        this.resourcePath = props.getPath();
     }
 
     @Override
