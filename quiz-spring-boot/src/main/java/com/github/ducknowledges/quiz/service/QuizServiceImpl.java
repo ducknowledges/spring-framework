@@ -3,15 +3,20 @@ package com.github.ducknowledges.quiz.service;
 import com.github.ducknowledges.quiz.domain.Quiz;
 import com.github.ducknowledges.quiz.domain.Score;
 import java.util.List;
+import java.util.Objects;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class QuizServiceImpl implements QuizService {
+
+    private final MessageService messageService;
     private final CommunicationService communicationService;
 
     @Autowired
-    public QuizServiceImpl(CommunicationService communicationService) {
+    public QuizServiceImpl(MessageService messageService,
+                           CommunicationService communicationService) {
+        this.messageService = messageService;
         this.communicationService = communicationService;
     }
 
@@ -28,7 +33,7 @@ public class QuizServiceImpl implements QuizService {
     private boolean isSuccessQuiz(Quiz quiz) {
         String question = quizToQuestion(quiz);
         String answer = communicationService.askToUser(question);
-        return quiz.getAnswer().equals(answer);
+        return Objects.equals(quiz.getAnswer(), answer);
     }
 
     private String quizToQuestion(Quiz quiz) {
@@ -38,6 +43,7 @@ public class QuizServiceImpl implements QuizService {
         if (quiz.hasOptions()) {
             question
                 .append(System.lineSeparator())
+                .append(messageService.getMessage("quiz.options"))
                 .append(String.join(", ", quiz.getOptions()));
         }
         return question.toString();
