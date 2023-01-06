@@ -1,7 +1,5 @@
 package com.github.ducknowledges.quiz.parser;
 
-import static com.github.ducknowledges.quiz.parser.exception.DataParserException.ParserError.PARSE_ERROR;
-import static com.github.ducknowledges.quiz.parser.exception.DataParserRecordException.ParserError.RECORD_ERROR;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
@@ -107,7 +105,7 @@ class DataParserCsvTest {
             dataReader, recordChecker, communicationService
         );
         dataParserCsv.parseToRecords();
-        String expected = RECORD_ERROR.message() + " "
+        String expected = "Parsed data has wrong formatted lines "
             + List.of(
                 wrongRecords.get(0).getRecordNumber(),
                 wrongRecords.get(1).getRecordNumber()
@@ -134,7 +132,7 @@ class DataParserCsvTest {
             dataReader, recordChecker, communicationService
         );
         dataParserCsv.parseToRecords();
-        String expected = PARSE_ERROR.message() + " path";
+        String expected = "Can't read data path";
         verify(communicationService, times(1)).reportErrorToUser(expected);
     }
 }

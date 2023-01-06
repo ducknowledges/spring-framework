@@ -18,6 +18,7 @@ import org.junit.jupiter.api.Test;
 class QuizServiceImplTest {
 
     List<Quiz> quizzes;
+    private MessageService messageService;
     private CommunicationService communicationService;
     private QuizService quizService;
 
@@ -27,9 +28,9 @@ class QuizServiceImplTest {
             new Quiz("Is this a question with options?", "yes", List.of("yes", "no")),
             new Quiz("Is this a question?", "yes")
         );
-
+        messageService = mock(MessageService.class);
         communicationService = mock(CommunicationService.class);
-        quizService = new QuizServiceImpl(communicationService);
+        quizService = new QuizServiceImpl(messageService, communicationService);
 
     }
 
@@ -47,7 +48,6 @@ class QuizServiceImplTest {
     @DisplayName("should complete quiz with failure attempt")
     void shouldReturnScoreWithFailingAttempt() {
         when(communicationService.askToUser(anyString())).thenReturn("no");
-        QuizService quizService = new QuizServiceImpl(communicationService);
         Score actual = quizService.getScoreForQuiz(quizzes);
         Score expected = new Score(0, 2);
         assertThat(actual).isEqualTo(expected);
@@ -55,10 +55,17 @@ class QuizServiceImplTest {
 
     @Test
     @DisplayName("should correctly ask to user question from quiz")
-    void shouldAskQuestionsToUser() {
+    void shouldAskQuestionToUser() {
+        quizService.getScoreForQuiz(quizzes);
+        verify(communicationService, times(1)).askToUser("Is this a question?");
+    }
+
+    @Test
+    @DisplayName("should correctly ask to user question with options from quiz")
+    void shouldAskQuestionWithOptionToUser() {
+        when(messageService.getMessage("quiz.options")).thenReturn("Options:");
         quizService.getScoreForQuiz(quizzes);
         verify(communicationService, times(1)).askToUser("Is this a question with options?"
-            + System.lineSeparator() + "yes, no");
-        verify(communicationService, times(1)).askToUser("Is this a question?");
+            + System.lineSeparator() + "Options:yes, no");
     }
 }
