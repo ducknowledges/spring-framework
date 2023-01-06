@@ -2,9 +2,9 @@ package com.github.ducknowledges.quiz.service;
 
 import com.github.ducknowledges.quiz.config.AppProps;
 import org.springframework.context.MessageSource;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
-@Component
+@Service
 public class MessageServiceImpl implements MessageService {
 
     private final MessageSource messageSource;
