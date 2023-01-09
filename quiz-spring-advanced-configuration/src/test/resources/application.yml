@@ -1,0 +1,16 @@
+logging:
+  level:
+    root: OFF
+
+spring:
+  main:
+    allow-bean-definition-overriding: true
+  messages:
+    basename: "i18n/appmessages"
+    encoding: "UTF-8"
+
+quiz:
+  locale: en
+  path:
+    en: quiz_en-test.csv
+  success-score: 1

@@ -1,0 +1,22 @@
+#Maven
+!.mvn/wrapper/maven-wrapper.jar
+
+#Build
+target/
+!**/src/main/**/target/
+!**/src/test/**/target/
+
+# Compiled class file
+*.class
+
+# Package Files #
+*.jar
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+#Other
+HELP.md
