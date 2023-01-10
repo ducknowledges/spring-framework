@@ -13,6 +13,12 @@ public class User {
         this.score = new Score();
     }
 
+    public User() {
+        this.firstName = "";
+        this.lastName = "";
+        this.score = new Score();
+    }
+
     public String getFirstName() {
         return firstName;
     }
