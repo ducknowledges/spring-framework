@@ -31,9 +31,9 @@ public class ScoreServiceImpl implements ScoreService {
         Score score = user.getScore();
         String messageCode;
         if (score.getSuccessAttempts() >= successScore) {
-            messageCode = "success.user";
+            messageCode = "score.success";
         } else {
-            messageCode = "fail.user";
+            messageCode = "score.fail";
         }
         return messageService.getMessage(messageCode, new String[] {user.getFullName()});
     }
@@ -43,7 +43,7 @@ public class ScoreServiceImpl implements ScoreService {
         String successAttempts = String.valueOf(score.getSuccessAttempts());
         String failingAttempts = String.valueOf(score.getFailingAttempts());
         return messageService.getMessage(
-            "result.score",
+            "score.result",
             new String[]{successAttempts, failingAttempts});
     }
 }

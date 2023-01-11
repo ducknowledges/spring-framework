@@ -25,17 +25,17 @@ public class UserServiceImpl implements UserService {
     }
 
     private void greetUser() {
-        String helloMessage = messageService.getMessage("hello.user");
+        String helloMessage = messageService.getMessage("user.hello");
         communicationService.reportToUser(helloMessage);
     }
 
     private String askFirstName() {
-        String firstNameMessage = messageService.getMessage("firstname.user");
+        String firstNameMessage = messageService.getMessage("user.firstname");
         return communicationService.askToUser(firstNameMessage);
     }
 
     private String askLastName() {
-        String lastNameMessage = messageService.getMessage("lastname.user");
+        String lastNameMessage = messageService.getMessage("user.lastname");
         return communicationService.askToUser(lastNameMessage);
     }
 
