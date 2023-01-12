@@ -2,9 +2,9 @@ package com.github.ducknowledges.quiz.integrationtest;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
+import com.github.ducknowledges.quiz.commands.QuizCommands;
 import com.github.ducknowledges.quiz.service.IoService;
 import com.github.ducknowledges.quiz.service.IoServiceStream;
-import com.github.ducknowledges.quiz.service.QuizManagerService;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
@@ -19,8 +19,8 @@ import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
 
 @SpringBootTest
-@DisplayName("Integration Test QuizServiceImpl")
-public class QuizManagerServiceImplIntegrationTest {
+@DisplayName("Integration Quiz Test")
+public class QuizIntegrationTest {
 
     private static InputStream in;
     private static OutputStream out;
@@ -43,34 +43,38 @@ public class QuizManagerServiceImplIntegrationTest {
         public IoService ioService() {
             return new IoServiceStream(in, out, err);
         }
-
     }
 
     @Autowired
-    private QuizManagerService quizManagerService;
+    private QuizCommands quizCommands;
 
     @Test
     @DisplayName("should complete quiz")
     void shouldCompleteQuiz() {
-        StringBuilder expected = new StringBuilder();
-        expected
-            .append("Please, introduce yourself!")
-            .append(System.lineSeparator())
-            .append("Enter firstName:")
-            .append(System.lineSeparator())
-            .append("Enter lastName:")
-            .append(System.lineSeparator())
-            .append("Is this a question?")
-            .append(System.lineSeparator())
-            .append("Is this a question with options?")
-            .append(System.lineSeparator())
-            .append("Options:yes, no")
-            .append(System.lineSeparator())
-            .append("firstName lastName, congratulations! You pass the quiz")
-            .append(System.lineSeparator())
-            .append("Score: success answers=1, failing answers=1")
-            .append(System.lineSeparator());
-        quizManagerService.run();
-        assertThat(out.toString()).isEqualTo(expected.toString());
+        String userGreet = quizCommands.login();
+        quizCommands.run();
+        quizCommands.logout();
+        assertThat(userGreet).isEqualTo("firstName lastName you are logged in!");
+        String expected = getExpected();
+        assertThat(out.toString()).isEqualTo(expected);
+    }
+
+    private String getExpected() {
+        return "Please, introduce yourself!"
+            + System.lineSeparator()
+            + "Enter first name:"
+            + System.lineSeparator()
+            + "Enter last name:"
+            + System.lineSeparator()
+            + "Is this a question?"
+            + System.lineSeparator()
+            + "Is this a question with options?"
+            + System.lineSeparator()
+            + "Options:yes, no"
+            + System.lineSeparator()
+            + "firstName lastName, congratulations! You pass the quiz."
+            + System.lineSeparator()
+            + "Score: success answers=1, failing answers=1"
+            + System.lineSeparator();
     }
 }

@@ -1,10 +1,14 @@
 logging:
   level:
-    root: OFF
+    root: off
 
 spring:
   main:
     allow-bean-definition-overriding: true
+    banner-mode: off
+  shell:
+    interactive:
+      enabled: false
   messages:
     basename: "i18n/appmessages"
     encoding: "UTF-8"
