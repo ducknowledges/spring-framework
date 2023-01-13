@@ -37,11 +37,11 @@ class UserServiceImplTest {
     }
 
     @Test
-    @DisplayName("should use communication service")
+    @DisplayName("should use communication service correctly")
     void shouldInvokeCommunicationService() {
-        when(messageService.getMessage("hello.user")).thenReturn("Please, introduce yourself");
-        when(messageService.getMessage("firstname.user")).thenReturn("Enter firstName:");
-        when(messageService.getMessage("lastname.user")).thenReturn("Enter lastName:");
+        when(messageService.getMessage("user.hello")).thenReturn("Please, introduce yourself");
+        when(messageService.getMessage("user.firstname")).thenReturn("Enter firstName:");
+        when(messageService.getMessage("user.lastname")).thenReturn("Enter lastName:");
 
         userService.createUser();
         verify(communicationService, times(1)).reportToUser("Please, introduce yourself");

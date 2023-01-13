@@ -36,7 +36,7 @@ class ScoreServiceImplTest {
 
         messageService = mock(MessageServiceImpl.class);
         when(messageService.getMessage(
-            "result.score", new String[]{"4", "1"}))
+            "score.result", new String[]{"4", "1"}))
             .thenReturn("Score: success answers=4, failing answers=1");
 
 
@@ -47,14 +47,14 @@ class ScoreServiceImplTest {
     @DisplayName("should summarize user passed score")
     void summarizePassedScore() {
         when(messageService.getMessage(
-            "success.user", new String[]{user.getFullName()}))
-            .thenReturn("firstName lastName, congratulations! You pass the quiz");
+            "score.success", new String[]{user.getFullName()}))
+            .thenReturn("firstName lastName, congratulations! You pass the quiz.");
         when(props.getSuccessScore()).thenReturn(4);
         ScoreService scoreService = new ScoreServiceImpl(
             props, messageService, communicationService);
         scoreService.summarizeScore(user);
 
-        String reportedMessage = "firstName lastName, congratulations! You pass the quiz"
+        String reportedMessage = "firstName lastName, congratulations! You pass the quiz."
             + System.lineSeparator()
             + "Score: success answers=4, failing answers=1";
         verify(communicationService, times(1)).reportToUser(reportedMessage);
@@ -64,14 +64,14 @@ class ScoreServiceImplTest {
     @DisplayName("should summarize user failed score")
     void summarizeFailedScore() {
         when(messageService.getMessage(
-            "fail.user", new String[]{user.getFullName()}))
-            .thenReturn("firstName lastName, sorry! You fail the quiz");
+            "score.fail", new String[]{user.getFullName()}))
+            .thenReturn("firstName lastName, sorry! You fail the quiz.");
         when(props.getSuccessScore()).thenReturn(5);
         ScoreService scoreService = new ScoreServiceImpl(
             props, messageService, communicationService);
         scoreService.summarizeScore(user);
 
-        String reportedMessage = "firstName lastName, sorry! You fail the quiz"
+        String reportedMessage = "firstName lastName, sorry! You fail the quiz."
             + System.lineSeparator()
             + "Score: success answers=4, failing answers=1";
         verify(communicationService, times(1)).reportToUser(reportedMessage);
