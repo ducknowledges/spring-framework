@@ -18,3 +18,4 @@
 - The program should ask the user for the last name and first name, ask 5 questions from the CSV file and display the test result.
 
 ## Demonstration
+<a href="https://asciinema.org/a/R9P6NgipYTThrF4QsW7dbFVoA"><img src="https://asciinema.org/a/R9P6NgipYTThrF4QsW7dbFVoA.svg" width="627"/></a>
