@@ -7,8 +7,5 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class QuizApplication {
     public static void main(String[] args) {
         SpringApplication.run(QuizApplication.class, args);
-        //ApplicationContext context = SpringApplication.run(QuizApplication.class, args);
-        //QuizManagerService quizManagerService = context.getBean(QuizManagerServiceImpl.class);
-        //quizManagerService.run();
     }
 }
