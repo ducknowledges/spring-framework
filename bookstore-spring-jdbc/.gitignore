@@ -30,5 +30,8 @@ hs_err_pid*
 *.iml
 *.ipr
 
+# Data Base
+*.db
+
 #Other
 HELP.md
