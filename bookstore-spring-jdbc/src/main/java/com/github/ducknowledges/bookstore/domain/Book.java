@@ -11,9 +11,9 @@ public class Book {
 
     public Book(String name, Author author, Genre genre) {
         this.id = null;
-        this.name = name;
-        this.author = author;
-        this.genre = genre;
+        this.name = Objects.requireNonNull(name);
+        this.author = Objects.requireNonNull(author);
+        this.genre = Objects.requireNonNull(genre);
     }
 
     public Book(int id, String name, Author author, Genre genre) {
@@ -58,14 +58,13 @@ public class Book {
             return false;
         }
         Book book = (Book) o;
-        return Objects.equals(id, book.id)
-            && Objects.equals(name, book.name)
-            && Objects.equals(author, book.author)
-            && Objects.equals(genre, book.genre);
+        return name.equals(book.name)
+            && author.equals(book.author)
+            && genre.equals(book.genre);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, author, genre);
+        return Objects.hash(name, author, genre);
     }
 }
