@@ -9,12 +9,12 @@ public class Author {
 
     public Author(String name) {
         this.id = null;
-        this.name = name;
+        this.name = Objects.requireNonNull(name);
     }
 
     public Author(int id, String name) {
         this.id = id;
-        this.name = name;
+        this.name = Objects.requireNonNull(name);
     }
 
     public Integer getId() {
@@ -34,11 +34,11 @@ public class Author {
             return false;
         }
         Author author = (Author) o;
-        return Objects.equals(id, author.id) && Objects.equals(name, author.name);
+        return name.equals(author.name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name);
+        return Objects.hash(name);
     }
 }
