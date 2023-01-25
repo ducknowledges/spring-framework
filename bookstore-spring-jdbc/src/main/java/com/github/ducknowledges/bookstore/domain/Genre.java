@@ -9,12 +9,12 @@ public class Genre {
 
     public Genre(String name) {
         this.id = null;
-        this.name = name;
+        this.name = Objects.requireNonNull(name);
     }
 
     public Genre(int id, String name) {
         this.id = id;
-        this.name = name;
+        this.name = Objects.requireNonNull(name);
     }
 
     public int getId() {
@@ -34,11 +34,11 @@ public class Genre {
             return false;
         }
         Genre genre = (Genre) o;
-        return Objects.equals(id, genre.id) && Objects.equals(name, genre.name);
+        return Objects.equals(name, genre.name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name);
+        return Objects.hash(name);
     }
 }
