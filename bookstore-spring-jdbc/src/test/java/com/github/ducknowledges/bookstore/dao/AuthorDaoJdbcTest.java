@@ -1,6 +1,8 @@
 package com.github.ducknowledges.bookstore.dao;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
 
 import com.github.ducknowledges.bookstore.dao.mapper.AuthorRowMapper;
@@ -23,9 +25,6 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 class AuthorDaoJdbcTest {
 
     @MockBean
-    private AuthorRowMapper authorRowMapper;
-
-    @MockBean
     private NamedParameterJdbcTemplate jdbc;
 
     @Autowired
@@ -35,9 +34,12 @@ class AuthorDaoJdbcTest {
     @DisplayName("should read author by id")
     void shouldReadAuthorById() {
         Author author = new Author(1, "author");
-        when(jdbc.queryForObject("select id, name from author where id = :id",
-            Map.of("id", author.getId()), authorRowMapper)).thenReturn(author);
 
+        when(jdbc.queryForObject(
+            eq("select id, name from author where id = :id"),
+            eq(Map.of("id", 1)),
+            any(AuthorRowMapper.class))
+        ).thenReturn(author);
         Optional<Author> expectedAuthor = Optional.of(author);
         Optional<Author> actualAuthor = authorDao.readById(author.getId());
         assertThat(actualAuthor).isEqualTo(expectedAuthor);
@@ -48,8 +50,9 @@ class AuthorDaoJdbcTest {
     void shouldReturnEmptyBook() {
         int notExistId = 2;
         when(jdbc.queryForObject(
-            "select id, name from author where id = :id",
-            Map.of("id", notExistId), authorRowMapper)
+            eq("select id, name from author where id = :id"),
+            eq(Map.of("id", 1)),
+            any(AuthorRowMapper.class))
         ).thenThrow(EmptyResultDataAccessException.class);
         Optional<Author> expectedAuthor = Optional.empty();
         Optional<Author> actualAuthor = authorDao.readById(notExistId);
@@ -60,8 +63,10 @@ class AuthorDaoJdbcTest {
     @DisplayName("should read all authors")
     void shouldReadAllAuthors() {
         Author author = new Author(1, "author");
-        when(jdbc.query("select id, name from author", authorRowMapper))
-            .thenReturn(List.of(author));
+        when(jdbc.query(
+            eq("select id, name from author"),
+            any(AuthorRowMapper.class))
+        ).thenReturn(List.of(author));
 
         List<Author> expectedAuthors = List.of(author);
         List<Author> actualAuthors = authorDao.readAll();
