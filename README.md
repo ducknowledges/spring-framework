@@ -15,10 +15,12 @@
   - [X] [Task][task-4]
 - [X] DAO on Spring JDBC
   - [ ] [Task][task-5]
-- [ ] Fundamentals of ORM, JPA, Hibernate as a JPA provider
+- [X] Fundamentals of ORM, JPA, Hibernate as a JPA provider
 - [ ] JPQL, Spring ORM, DAO based on Spring ORM + JPA
+  - [ ] [Task][task-6]
 - [ ] Transactions, Spring Tx
 - [ ] Spring Data: Spring Data JPA
+  - [ ] [Task][task-7]
 - [ ] SQL and NoSQL databases
 - [ ] Spring Data for connecting to non-relational databases
 - [ ] Introduction to Spring MVC, Spring MVC on Spring Boot
@@ -47,4 +49,6 @@
 [task-2]:https://github.com/ducknowledges/2022-11-otus-spring-kononov/tree/main/quiz-spring-application-configuration
 [task-3]:https://github.com/ducknowledges/2022-11-otus-spring-kononov/tree/main/quiz-spring-boot
 [task-4]:https://github.com/ducknowledges/2022-11-otus-spring-kononov/tree/main/quiz-spring-advanced-configuration
-[task-5]:https://github.com/ducknowledges/2022-11-otus-spring-kononov/tree/main/
+[task-5]:https://github.com/ducknowledges/2022-11-otus-spring-kononov/tree/main/bookstore-spring-jdbc
+[task-6]:https://github.com/ducknowledges/2022-11-otus-spring-kononov/tree/main/
+[task-7]:https://github.com/ducknowledges/2022-11-otus-spring-kononov/tree/main/
