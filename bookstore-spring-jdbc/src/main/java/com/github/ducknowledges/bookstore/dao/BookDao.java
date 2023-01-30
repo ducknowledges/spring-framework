@@ -8,5 +8,6 @@ import com.github.ducknowledges.bookstore.domain.Book;
 
 public interface BookDao extends CreateDao<Book>,
     ReadDao<Book>, UpdateDao<Book>, DeleteDao {
-    int count();
+
+    Boolean existsById(long id);
 }

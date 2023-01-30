@@ -21,13 +21,13 @@ class BookPrintFormatterTest {
     @Test
     @DisplayName("should format books to text")
     void testFormat() {
-        Author author1 = new Author(1, "author");
-        Genre genre1 = new Genre(1, "genre");
-        Book book1 = new Book(1, "book", author1, genre1);
+        Author author1 = new Author(1L, "author");
+        Genre genre1 = new Genre(1L, "genre");
+        Book book1 = new Book(1L, "book", author1, genre1);
 
-        Author author2 = new Author(2, "author");
-        Genre genre2 = new Genre(2, "genre");
-        Book book2 = new Book(2, "book", author2, genre2);
+        Author author2 = new Author(2L, "author");
+        Genre genre2 = new Genre(2L, "genre");
+        Book book2 = new Book(2L, "book", author2, genre2);
 
         StringBuilder stringBuilder = new StringBuilder("Books:" + System.lineSeparator());
         stringBuilder

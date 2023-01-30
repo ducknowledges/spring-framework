@@ -23,17 +23,10 @@ public class BookDaoJdbc implements BookDao {
     }
 
     @Override
-    public int count() {
-        Integer count = jdbc.getJdbcOperations()
-            .queryForObject("select count(*) from BOOK", Integer.class);
-        return isNull(count) ? 0 : count;
-    }
-
-    @Override
     public void create(Book book) {
         String name = book.getName();
-        int authorId = book.getAuthor().getId();
-        int genreId = book.getGenre().getId();
+        long authorId = book.getAuthor().getId();
+        long genreId = book.getGenre().getId();
         jdbc.update(
             "insert into BOOK(NAME, AUTHOR_ID, GENRE_ID)\n"
                 + "values (:name, :authorId, :genreId)",
@@ -41,7 +34,13 @@ public class BookDaoJdbc implements BookDao {
     }
 
     @Override
-    public Optional<Book> readById(int id) {
+    public Boolean existsById(long id) {
+        return jdbc.queryForObject("select exists(select id from book where id = :id)",
+            Map.of("id", id), Boolean.class);
+    }
+
+    @Override
+    public Optional<Book> readById(long id) {
         Book book;
         try {
             book = jdbc.queryForObject(
@@ -82,10 +81,10 @@ public class BookDaoJdbc implements BookDao {
 
     @Override
     public void update(Book book) {
-        int id = book.getId();
+        long id = book.getId();
         String name = book.getName();
-        int authorId = book.getAuthor().getId();
-        int genreId = book.getGenre().getId();
+        long authorId = book.getAuthor().getId();
+        long genreId = book.getGenre().getId();
         jdbc.update(
             "update BOOK\n"
                 + "SET NAME      = :name,\n"
@@ -96,7 +95,7 @@ public class BookDaoJdbc implements BookDao {
     }
 
     @Override
-    public void delete(int id) {
+    public void delete(long id) {
         jdbc.update("delete from BOOK where ID = :id", Map.of("id", id));
     }
 

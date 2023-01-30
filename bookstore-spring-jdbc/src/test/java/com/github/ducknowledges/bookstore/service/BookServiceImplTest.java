@@ -1,25 +1,18 @@
 package com.github.ducknowledges.bookstore.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import com.github.ducknowledges.bookstore.dao.BookDao;
-import com.github.ducknowledges.bookstore.dao.GenreDao;
 import com.github.ducknowledges.bookstore.domain.Author;
 import com.github.ducknowledges.bookstore.domain.Book;
 import com.github.ducknowledges.bookstore.domain.Genre;
-import com.github.ducknowledges.bookstore.service.exception.BookServiceException;
 import java.util.List;
 import java.util.Optional;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,16 +41,16 @@ class BookServiceImplTest {
 
     @BeforeAll
     static void setUpAll() {
-        author = new Author(1, "author");
-        genre = new Genre(1, "genre");
-        book = new Book(1, "book", author, genre);
+        author = new Author(1L, "author");
+        genre = new Genre(1L, "genre");
+        book = new Book(1L, "book", author, genre);
     }
 
     @Test
     @DisplayName("should create book")
     void shouldCreateBook() {
-        when(authorService.getAuthorById(anyInt())).thenReturn(Optional.of(author));
-        when(genreService.getGenreById(anyInt())).thenReturn(Optional.of(genre));
+        when(authorService.getAuthor(anyInt())).thenReturn(Optional.of(author));
+        when(genreService.getGenre(anyInt())).thenReturn(Optional.of(genre));
 
         bookService.createBook(book);
         verify(bookDao, times(1)).create(book);
@@ -67,19 +60,21 @@ class BookServiceImplTest {
     @DisplayName("should return book by id")
     void shouldReturnBookById() {
         int id = 1;
-        when(bookDao.readById(id)).thenReturn(Optional.of(book));
-        bookService.getBook(id);
+        Optional<Book> expected = Optional.of(book);
+        when(bookDao.readById(id)).thenReturn(expected);
+        Optional<Book> actual = bookService.getBook(id);
+        assertThat(actual).isEqualTo(expected);
         verify(bookDao, times(1)).readById(id);
     }
 
     @Test
-    @DisplayName("should throw exception when book not exist")
-    void shouldThrowExceptionWhenBookNotExist() {
+    @DisplayName("should return empty book by id")
+    void shouldReturnEmptyBookById() {
         int id = 1;
-        when(bookDao.readById(id)).thenReturn(Optional.empty());
-        assertThatThrownBy(() -> bookService.getBook(id))
-            .isInstanceOf(BookServiceException.class)
-            .hasMessage("Book does not exist");
+        Optional<Book> expected = Optional.empty();
+        when(bookDao.readById(id)).thenReturn(expected);
+        Optional<Book> actual = bookService.getBook(id);
+        assertThat(actual).isEqualTo(expected);
         verify(bookDao, times(1)).readById(id);
     }
 
