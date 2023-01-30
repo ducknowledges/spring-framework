@@ -10,6 +10,6 @@ import org.springframework.stereotype.Component;
 public class GenreRowMapper implements RowMapper<Genre> {
     @Override
     public Genre mapRow(ResultSet rs, int rowNumber) throws SQLException {
-        return new Genre(rs.getInt("id"), rs.getString("name"));
+        return new Genre(rs.getLong("id"), rs.getString("name"));
     }
 }

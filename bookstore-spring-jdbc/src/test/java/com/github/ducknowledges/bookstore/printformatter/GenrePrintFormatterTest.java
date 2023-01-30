@@ -20,8 +20,8 @@ class GenrePrintFormatterTest {
     @Test
     @DisplayName("should format genres to text")
     void testFormat() {
-        Genre genre1 = new Genre(1, "genre1");
-        Genre genre2 = new Genre(2, "genre2");
+        Genre genre1 = new Genre(1L, "genre1");
+        Genre genre2 = new Genre(2L, "genre2");
 
         StringBuilder stringBuilder = new StringBuilder("Genres:" + System.lineSeparator());
         stringBuilder

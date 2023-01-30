@@ -4,7 +4,7 @@ import java.util.Objects;
 
 public class Genre {
 
-    private final Integer id;
+    private final Long id;
     private final String name;
 
     public Genre(String name) {
@@ -12,12 +12,12 @@ public class Genre {
         this.name = Objects.requireNonNull(name);
     }
 
-    public Genre(int id, String name) {
+    public Genre(Long id, String name) {
         this.id = id;
         this.name = Objects.requireNonNull(name);
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
