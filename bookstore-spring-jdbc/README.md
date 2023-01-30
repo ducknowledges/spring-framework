@@ -14,4 +14,4 @@
 - All properties are described in application.yml
 
 ## Demonstration
-<a href="https://asciinema.org/a/aOa1UJd3PWUIBGkMOvvcfDqLi" target="_blank"><img src="https://asciinema.org/a/aOa1UJd3PWUIBGkMOvvcfDqLi.svg" width="627" /></a>
+<a href="https://asciinema.org/a/5lRhrJBK2GBjk1f2gwUu8jT6G" target="_blank"><img src="https://asciinema.org/a/5lRhrJBK2GBjk1f2gwUu8jT6G.svg" width="627" /></a>
