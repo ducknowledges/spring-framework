@@ -1,6 +1,6 @@
 create table book
 (
-    id        int auto_increment primary key,
+    id        bigint auto_increment primary key,
     name      varchar(255) not null,
     author_id int          not null,
     genre_id  int          not null

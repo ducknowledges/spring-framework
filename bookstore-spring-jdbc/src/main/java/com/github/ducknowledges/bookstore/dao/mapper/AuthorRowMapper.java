@@ -10,6 +10,6 @@ import org.springframework.stereotype.Component;
 public class AuthorRowMapper implements RowMapper<Author> {
     @Override
     public Author mapRow(ResultSet rs, int rowNumber) throws SQLException {
-        return new Author(rs.getInt("id"), rs.getString("name"));
+        return new Author(rs.getLong("id"), rs.getString("name"));
     }
 }

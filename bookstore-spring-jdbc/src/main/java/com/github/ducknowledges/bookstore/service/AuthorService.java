@@ -6,7 +6,7 @@ import java.util.Optional;
 
 public interface AuthorService {
 
-    Optional<Author> getAuthorById(int authorId);
+    Optional<Author> getAuthor(long id);
 
     List<Author> getAuthors();
 }

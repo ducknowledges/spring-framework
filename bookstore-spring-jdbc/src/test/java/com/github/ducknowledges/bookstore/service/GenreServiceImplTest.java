@@ -26,18 +26,18 @@ class GenreServiceImplTest {
     @Test
     @DisplayName("should get genre by id")
     void shouldGetGenreById() {
-        Genre genre = new Genre(1, "genre");
+        Genre genre = new Genre(1L, "genre");
         when(genreDao.readById(genre.getId())).thenReturn(Optional.of(genre));
 
         Optional<Genre> expectedAuthor = Optional.of(genre);
-        Optional<Genre> actualAuthor = genreService.getGenreById(genre.getId());
+        Optional<Genre> actualAuthor = genreService.getGenre(genre.getId());
         assertThat(actualAuthor).isEqualTo(expectedAuthor);
     }
 
     @Test
     @DisplayName("should get all genres")
     void shouldGetGenres() {
-        Genre genre = new Genre(1, "genre");
+        Genre genre = new Genre(1L, "genre");
         when(genreDao.readAll()).thenReturn(List.of(genre));
 
         List<Genre> expectedGenres = List.of(genre);

@@ -7,7 +7,6 @@ import com.github.ducknowledges.bookstore.printformatter.PrintFormatter;
 import com.github.ducknowledges.bookstore.service.AuthorService;
 import com.github.ducknowledges.bookstore.service.BookService;
 import com.github.ducknowledges.bookstore.service.GenreService;
-import com.github.ducknowledges.bookstore.service.exception.BookServiceException;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.shell.standard.ShellComponent;
@@ -33,14 +32,14 @@ public class BookCommand {
     }
 
     @ShellMethod(value = "Create book command", key = "create-book")
-    public String create(@ShellOption String name,
+    public String createBook(@ShellOption String name,
                          @ShellOption int authorId,
                          @ShellOption int genreId) {
-        Optional<Author> author = authorService.getAuthorById(authorId);
+        Optional<Author> author = authorService.getAuthor(authorId);
         if (author.isEmpty()) {
             return  "Author does not exist";
         }
-        Optional<Genre> genre = genreService.getGenreById(genreId);
+        Optional<Genre> genre = genreService.getGenre(genreId);
         if (genre.isEmpty()) {
             return "Genre does not exist";
         }
@@ -50,42 +49,39 @@ public class BookCommand {
     }
 
     @ShellMethod(value = "Read book command", key = "read-book")
-    public String book(@ShellOption int bookId) {
-        try {
-            Book book = bookService.getBook(bookId);
-            return printFormatter.format(book);
-        } catch (BookServiceException e) {
-            return e.getMessage();
+    public String getBook(@ShellOption long bookId) {
+        Optional<Book> book = bookService.getBook(bookId);
+        if (book.isPresent()) {
+            return printFormatter.format(book.get());
         }
+        return "Book doesn't exist";
     }
 
     @ShellMethod(value = "Read all books command", key = "read-books")
-    public String books() {
+    public String getBooks() {
         List<Book> books = bookService.getBooks();
         return printFormatter.format(books);
     }
 
     @ShellMethod(value = "Update book command", key = "update-book")
-    public String update(@ShellOption int bookId,
+    public String update(@ShellOption long bookId,
                          @ShellOption String name,
                          @ShellOption int authorId,
                          @ShellOption int genreId) {
-        Optional<Author> author = authorService.getAuthorById(authorId);
+        if (!bookService.bookExists(bookId)) {
+            return "Book doesn't exist";
+        }
+        Optional<Author> author = authorService.getAuthor(authorId);
         if (author.isEmpty()) {
             return "Author does not exist";
         }
-        Optional<Genre> genre = genreService.getGenreById(genreId);
+        Optional<Genre> genre = genreService.getGenre(genreId);
         if (genre.isEmpty()) {
             return "Genre does not exist";
         }
-
-        try {
-            Book book = new Book(bookId, name, author.get(), genre.get());
-            bookService.update(book);
-            return "Book was updated";
-        } catch (BookServiceException e) {
-            return e.getMessage();
-        }
+        Book book = new Book(bookId, name, author.get(), genre.get());
+        bookService.update(book);
+        return "Book was updated";
     }
 
     @ShellMethod(value = "Delete book command", key = "delete-book")

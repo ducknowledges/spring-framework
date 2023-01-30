@@ -21,7 +21,7 @@ public class AuthorDaoJdbc implements AuthorDao {
     }
 
     @Override
-    public Optional<Author> readById(int id) {
+    public Optional<Author> readById(long id) {
         Author author;
         try {
             author = jdbc.queryForObject("select id, name from author where id = :id",

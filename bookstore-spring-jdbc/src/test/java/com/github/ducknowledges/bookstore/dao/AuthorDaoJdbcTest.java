@@ -33,25 +33,25 @@ class AuthorDaoJdbcTest {
     @Test
     @DisplayName("should read author by id")
     void shouldReadAuthorById() {
-        Author author = new Author(1, "author");
-
+        Author author = new Author(1L, "author");
         when(jdbc.queryForObject(
             eq("select id, name from author where id = :id"),
-            eq(Map.of("id", 1)),
+            eq(Map.of("id", author.getId())),
             any(AuthorRowMapper.class))
         ).thenReturn(author);
+
         Optional<Author> expectedAuthor = Optional.of(author);
         Optional<Author> actualAuthor = authorDao.readById(author.getId());
         assertThat(actualAuthor).isEqualTo(expectedAuthor);
     }
 
     @Test
-    @DisplayName("should return empty book by id if book does not exist")
-    void shouldReturnEmptyBook() {
-        int notExistId = 2;
+    @DisplayName("should return empty author by id if author does not exist")
+    void shouldReturnEmptyAuthor() {
+        long notExistId = 3;
         when(jdbc.queryForObject(
             eq("select id, name from author where id = :id"),
-            eq(Map.of("id", 1)),
+            eq(Map.of("id", notExistId)),
             any(AuthorRowMapper.class))
         ).thenThrow(EmptyResultDataAccessException.class);
         Optional<Author> expectedAuthor = Optional.empty();
@@ -62,7 +62,7 @@ class AuthorDaoJdbcTest {
     @Test
     @DisplayName("should read all authors")
     void shouldReadAllAuthors() {
-        Author author = new Author(1, "author");
+        Author author = new Author(1L, "author");
         when(jdbc.query(
             eq("select id, name from author"),
             any(AuthorRowMapper.class))
