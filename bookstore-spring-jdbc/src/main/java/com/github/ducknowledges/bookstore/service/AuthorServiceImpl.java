@@ -15,9 +15,8 @@ public class AuthorServiceImpl implements AuthorService {
         this.authorDao = authorDao;
     }
 
-
     @Override
-    public Optional<Author> getAuthorById(int id) {
+    public Optional<Author> getAuthor(long id) {
         return authorDao.readById(id);
     }
 

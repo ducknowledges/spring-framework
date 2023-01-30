@@ -30,18 +30,18 @@ class AuthorServiceImplTest {
     @Test
     @DisplayName("should get author by id")
     void shouldGetAuthorById() {
-        Author author = new Author(1, "author");
+        Author author = new Author(1L, "author");
         when(authorDao.readById(author.getId())).thenReturn(Optional.of(author));
 
         Optional<Author> expectedAuthor = Optional.of(author);
-        Optional<Author> actualAuthor = authorService.getAuthorById(author.getId());
+        Optional<Author> actualAuthor = authorService.getAuthor(author.getId());
         assertThat(actualAuthor).isEqualTo(expectedAuthor);
     }
 
     @Test
     @DisplayName("should get all authors")
     void shouldGetAuthors() {
-        Author author = new Author(1, "author");
+        Author author = new Author(1L, "author");
         when(authorDao.readAll()).thenReturn(List.of(author));
 
         List<Author> expectedAuthors = List.of(author);

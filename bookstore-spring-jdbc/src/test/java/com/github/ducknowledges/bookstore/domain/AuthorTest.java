@@ -11,7 +11,7 @@ class AuthorTest {
     @Test
     @DisplayName("correctly created by the constructor")
     void shouldHaveCorrectConstructor() {
-        Author author = new Author(1, "name");
+        Author author = new Author(1L, "name");
         assertAll(
             () -> assertThat(author.getId()).isEqualTo(1),
             () -> assertThat(author.getName()).isEqualTo("name")
@@ -30,7 +30,7 @@ class AuthorTest {
     @Test
     @DisplayName("should has correct equality")
     void shouldHasCorrectEquality() {
-        assertThat(new Author(1, "name"))
-            .isEqualTo(new Author(1, "name"));
+        assertThat(new Author(1L, "name"))
+            .isEqualTo(new Author(1L, "name"));
     }
 }
