@@ -4,7 +4,7 @@ import java.util.Objects;
 
 public class Book {
 
-    private final Integer id;
+    private final Long id;
     private final String name;
     private final Author author;
     private final Genre genre;
@@ -16,14 +16,14 @@ public class Book {
         this.genre = Objects.requireNonNull(genre);
     }
 
-    public Book(int id, String name, Author author, Genre genre) {
+    public Book(Long id, String name, Author author, Genre genre) {
         this.id = id;
         this.name = name;
         this.author = author;
         this.genre = genre;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 

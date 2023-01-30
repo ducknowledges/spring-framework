@@ -19,8 +19,8 @@ class AuthorPrintFormatterTest {
     @Test
     @DisplayName("should format authors to text")
     void testFormat() {
-        Author author1 = new Author(1, "author1");
-        Author author2 = new Author(2, "author2");
+        Author author1 = new Author(1L, "author1");
+        Author author2 = new Author(2L, "author2");
 
         StringBuilder stringBuilder = new StringBuilder("Authors:" + System.lineSeparator());
         stringBuilder

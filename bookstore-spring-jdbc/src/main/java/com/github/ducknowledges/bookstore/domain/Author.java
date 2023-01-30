@@ -4,7 +4,7 @@ import java.util.Objects;
 
 public class Author {
 
-    private final Integer id;
+    private final Long id;
     private final String name;
 
     public Author(String name) {
@@ -12,12 +12,12 @@ public class Author {
         this.name = Objects.requireNonNull(name);
     }
 
-    public Author(int id, String name) {
+    public Author(Long id, String name) {
         this.id = id;
         this.name = Objects.requireNonNull(name);
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 

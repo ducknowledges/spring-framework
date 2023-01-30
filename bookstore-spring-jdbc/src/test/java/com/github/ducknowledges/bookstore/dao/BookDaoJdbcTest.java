@@ -33,31 +33,35 @@ class BookDaoJdbcTest {
     @BeforeAll
     static void setUpAll() {
         existingBookCount = 1;
-        Author author = new Author(1, "author1");
-        Genre genre = new Genre(1, "genre1");
-        existingBook = new Book(1, "book1", author, genre);
+        Author author = new Author(1L, "author1");
+        Genre genre = new Genre(1L, "genre1");
+        existingBook = new Book(1L, "book1", author, genre);
     }
 
     @Autowired
     private BookDaoJdbc bookDao;
 
     @Test
-    @DisplayName("should return books counter")
-    void shouldReturnBooksCounter() {
-        int actualCounter = bookDao.count();
-        assertThat(actualCounter).isEqualTo(existingBookCount);
-    }
-
-    @Test
     @DisplayName("should create book")
     void shouldCreateBook() {
-        Author author = new Author(2, "author2");
-        Genre genre = new Genre(2, "genre2");
-        Book book = new Book(2, "book", author, genre);
+        Author author = new Author(2L, "author2");
+        Genre genre = new Genre(2L, "genre2");
+        Book book = new Book(2L, "book", author, genre);
         bookDao.create(book);
         Optional<Book> expectedBook = Optional.of(book);
         Optional<Book> actualBook = bookDao.readById(existingBookCount + 1);
         assertThat(actualBook).isEqualTo(expectedBook);
+    }
+
+    @Test
+    @DisplayName("should check existing book by id")
+    void shouldCheckExistingBookById() {
+        long existedId = 1;
+        long notExistedId = 3;
+        boolean actual = bookDao.existsById(existedId);
+        assertThat(actual).isTrue();
+        actual = bookDao.existsById(notExistedId);
+        assertThat(actual).isFalse();
     }
 
     @Test
@@ -78,6 +82,7 @@ class BookDaoJdbcTest {
     }
 
     @Test
+    @DisplayName("should return all books")
     void readAll() {
         List<Book> expectedBooks = List.of(existingBook);
         List<Book> actualBooks = bookDao.readAll();
@@ -86,8 +91,8 @@ class BookDaoJdbcTest {
 
     @Test
     void update() {
-        Author newAuthor = new Author(2, "author2");
-        Genre newGenre = new Genre(2, "genre2");
+        Author newAuthor = new Author(2L, "author2");
+        Genre newGenre = new Genre(2L, "genre2");
         Book newBook = new Book(existingBook.getId(), "newBook", newAuthor, newGenre);
         bookDao.update(newBook);
         Optional<Book> expectedBook = Optional.of(newBook);

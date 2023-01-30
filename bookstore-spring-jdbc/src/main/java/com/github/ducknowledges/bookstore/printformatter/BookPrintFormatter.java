@@ -11,7 +11,7 @@ public class BookPrintFormatter implements PrintFormatter<Book> {
 
     @Override
     public String format(Book book) {
-        int id = book.getId();
+        long id = book.getId();
         String name = book.getName();
         String author = book.getAuthor().getName();
         String genre = book.getGenre().getName();

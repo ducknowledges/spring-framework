@@ -21,10 +21,10 @@ public class GenreDaoJdbc implements GenreDao {
     }
 
     @Override
-    public Optional<Genre> readById(int id) {
+    public Optional<Genre> readById(long id) {
         Genre genre;
         try {
-            genre = jdbc.queryForObject("select ID, NAME from GENRE where ID = :id",
+            genre = jdbc.queryForObject("select id, name from genre where id = :id",
                 Map.of("id", id), genreMapper);
         } catch (EmptyResultDataAccessException e) {
             genre = null;
@@ -34,6 +34,6 @@ public class GenreDaoJdbc implements GenreDao {
 
     @Override
     public List<Genre> readAll() {
-        return jdbc.query("select ID, NAME from GENRE", genreMapper);
+        return jdbc.query("select id, name from genre", genreMapper);
     }
 }

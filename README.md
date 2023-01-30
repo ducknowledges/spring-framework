@@ -20,6 +20,7 @@
   - [ ] [Task][task-6]
 - [X] Transactions, Spring Tx
 - [ ] Spring Data: Spring Data JPA
+  - [ ] [Task][task-7]
 - [ ] SQL and NoSQL databases
 - [ ] Spring Data for connecting to non-relational databases
 - [ ] Introduction to Spring MVC, Spring MVC on Spring Boot
@@ -50,4 +51,4 @@
 [task-4]:https://github.com/ducknowledges/2022-11-otus-spring-kononov/tree/main/quiz-spring-advanced-configuration
 [task-5]:https://github.com/ducknowledges/2022-11-otus-spring-kononov/tree/main/bookstore-spring-jdbc
 [task-6]:https://github.com/ducknowledges/2022-11-otus-spring-kononov/tree/main/
-
+[task-7]:https://github.com/ducknowledges/2022-11-otus-spring-kononov/tree/main/

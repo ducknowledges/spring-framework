@@ -11,7 +11,7 @@ class GenreTest {
     @Test
     @DisplayName("correctly created by the constructor")
     void shouldHaveCorrectConstructor() {
-        Genre genre = new Genre(1, "name");
+        Genre genre = new Genre(1L, "name");
         assertAll(
             () -> assertThat(genre.getId()).isEqualTo(1),
             () -> assertThat(genre.getName()).isEqualTo("name")
@@ -30,7 +30,7 @@ class GenreTest {
     @Test
     @DisplayName("should has correct equality")
     void shouldHasCorrectEquality() {
-        assertThat(new Genre(1, "name"))
-            .isEqualTo(new Genre(1, "name"));
+        assertThat(new Genre(1L, "name"))
+            .isEqualTo(new Genre(1L, "name"));
     }
 }
