@@ -15,9 +15,10 @@
   - [X] [Task][task-4]
 - [X] DAO on Spring JDBC
   - [X] [Task][task-5]
-- [ ] Fundamentals of ORM, JPA, Hibernate as a JPA provider
-- [ ] JPQL, Spring ORM, DAO based on Spring ORM + JPA
-- [ ] Transactions, Spring Tx
+- [X] Fundamentals of ORM, JPA, Hibernate as a JPA provider
+- [X] JPQL, Spring ORM, DAO based on Spring ORM + JPA
+  - [ ] [Task][task-6]
+- [X] Transactions, Spring Tx
 - [ ] Spring Data: Spring Data JPA
 - [ ] SQL and NoSQL databases
 - [ ] Spring Data for connecting to non-relational databases
@@ -48,3 +49,5 @@
 [task-3]:https://github.com/ducknowledges/2022-11-otus-spring-kononov/tree/main/quiz-spring-boot
 [task-4]:https://github.com/ducknowledges/2022-11-otus-spring-kononov/tree/main/quiz-spring-advanced-configuration
 [task-5]:https://github.com/ducknowledges/2022-11-otus-spring-kononov/tree/main/bookstore-spring-jdbc
+[task-6]:https://github.com/ducknowledges/2022-11-otus-spring-kononov/tree/main/
+
