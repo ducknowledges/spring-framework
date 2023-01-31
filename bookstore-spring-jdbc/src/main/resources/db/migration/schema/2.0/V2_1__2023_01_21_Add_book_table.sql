@@ -2,8 +2,8 @@ create table book
 (
     id        bigint auto_increment primary key,
     name      varchar(255) not null,
-    author_id int          not null,
-    genre_id  int          not null
+    author_id bigint          not null,
+    genre_id  bigint          not null
 );
 
 alter table book
