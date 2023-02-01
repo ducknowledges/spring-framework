@@ -6,5 +6,5 @@ import java.util.Optional;
 public interface ReadDao<T> {
     Optional<T> readById(long id);
 
-    List<T> readAll();
+    List<T> readAll(int from, int size);
 }
