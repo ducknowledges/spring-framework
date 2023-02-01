@@ -23,7 +23,7 @@
 
         <!-- external dependency libraries -->
         <h2.version>2.1.214</h2.version>
-        <spring.shell.version>2.1.4</spring.shell.version>
+        <spring.shell.version>2.1.6</spring.shell.version>
         <flyway-core.version>9.12.0</flyway-core.version>
 
         <!-- maven plugins -->
@@ -72,6 +72,19 @@
         </dependency>
 
     </dependencies>
+
+    <dependencyManagement>
+        <dependencies>
+            <!-- Resolve conflict spring-boot-starter-data-jpa vs spring-shell-starter -->
+            <!-- https://mvnrepository.com/artifact/net.java.dev.jna/jna -->
+            <dependency>
+                <groupId>net.java.dev.jna</groupId>
+                <artifactId>jna</artifactId>
+                <version>5.12.1</version>
+            </dependency>
+
+        </dependencies>
+    </dependencyManagement>
 
     <build>
 
