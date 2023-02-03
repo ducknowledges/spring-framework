@@ -29,9 +29,15 @@ class BookCommentPrintFormatterTest {
 
         StringBuilder stringBuilder = new StringBuilder("Comments:" + System.lineSeparator());
         stringBuilder
-            .append("id: " + comment1.getId() + " content: " + comment1.getContent())
+            .append(
+                "id: " + comment1.getId()
+                    + " content: " + comment1.getContent()
+                    + " book_id: " + comment1.getBook().getId())
             .append(System.lineSeparator())
-            .append("id: " + comment2.getId() + " content: " + comment2.getContent())
+            .append(
+                "id: " + comment2.getId()
+                    + " content: " + comment2.getContent()
+                    + " book_id: " + comment2.getBook().getId())
             .append(System.lineSeparator());
 
         String expected = stringBuilder.toString();
