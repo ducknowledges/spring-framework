@@ -39,23 +39,8 @@ public class BookCommentDaoJpa implements BookCommentDao {
     }
 
     @Override
-    public List<BookComment> readAllByBookId(long bookId) {
-        return manager.createQuery("select c from BookComment c where c.book.id = :bookId",
-                BookComment.class)
-            .setParameter("bookId", bookId)
-            .getResultList();
-    }
-
-    @Override
     public BookComment update(BookComment comment) {
         return this.save(comment);
-    }
-
-    @Override
-    public void deleteAllByBookId(long bookId) {
-        manager.createQuery("delete from BookComment c where c.book.id = :bookId")
-             .setParameter("bookId", bookId)
-             .executeUpdate();
     }
 
     @Override

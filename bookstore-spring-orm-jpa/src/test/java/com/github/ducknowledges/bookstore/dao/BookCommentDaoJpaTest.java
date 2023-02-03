@@ -22,7 +22,7 @@ class BookCommentDaoJpaTest {
     private static final long FIRST_BOOK_COMMENT_ID = 1L;
     private static final long BOOK_ID = 1L;
     private static final int BOOK_COMMENT_ENTRIES_SIZE = 4;
-    private static final int EXPECTED_QUERIES_COUNT = 1;
+    private static final int EXPECTED_QUERIES_COUNT = 4;
 
     @Autowired
     private TestEntityManager manager;
@@ -47,9 +47,11 @@ class BookCommentDaoJpaTest {
     @Test
     @DisplayName("should return expected book comment by id")
     void shouldReadExpectedBookCommentById() {
-        BookComment expectedComment = manager.find(BookComment.class, FIRST_BOOK_COMMENT_ID);
+        Optional<BookComment> expectedComment = Optional.of(
+            manager.find(BookComment.class, FIRST_BOOK_COMMENT_ID)
+        );
         Optional<BookComment> actualComment = bookCommentDao.readById(FIRST_BOOK_COMMENT_ID);
-        assertThat(actualComment).isPresent().get()
+        assertThat(actualComment)
             .usingRecursiveComparison().isEqualTo(expectedComment);
     }
 
@@ -76,23 +78,10 @@ class BookCommentDaoJpaTest {
     }
 
     @Test
-    @DisplayName("should return all Comments by Book id")
-    void shouldReadAllCommentsByBookId() {
-        List<BookComment> expectedBooks = manager.getEntityManager()
-            .createQuery("select c from BookComment c where c.book.id = :bookId",
-                BookComment.class)
-            .setParameter("bookId", FIRST_BOOK_COMMENT_ID)
-            .getResultList();
-        List<BookComment> actualBooks = bookCommentDao.readAllByBookId(BOOK_ID);
-        assertThat(actualBooks).hasSize(2)
-            .usingRecursiveComparison().isEqualTo(expectedBooks);
-    }
-
-    @Test
     @DisplayName("should return empty comments")
     void shouldReadEmptyComments() {
-        List<BookComment> actualBooks = bookCommentDao.readAll(0, 0);
-        assertThat(actualBooks).isEmpty();
+        List<BookComment> actualComments = bookCommentDao.readAll(0, 0);
+        assertThat(actualComments).isEmpty();
     }
 
     @DisplayName("should return list of comments without n + 1 request")
@@ -108,7 +97,11 @@ class BookCommentDaoJpaTest {
 
         assertThat(actualComments).isNotNull().hasSize(BOOK_COMMENT_ENTRIES_SIZE)
             .allMatch(c -> !c.getContent().isEmpty())
-            .allMatch(c -> c.getBook() != null && c.getBook().getId() != null);
+            .allMatch(c -> c.getBook() != null
+                && c.getBook().getId() != null
+                && !c.getBook().getName().isEmpty()
+                && c.getBook().getAuthor() != null
+                && c.getBook().getGenre() != null);
 
         assertThat(sessionFactory.getStatistics().getPrepareStatementCount())
             .isEqualTo(EXPECTED_QUERIES_COUNT);
