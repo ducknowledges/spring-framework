@@ -12,10 +12,10 @@ public class BookCommentPrintFormatter implements PrintFormatter<BookComment> {
     @Override
     public String format(BookComment comment) {
         return String.format(
-            "id: %d content: %s book_id: %d",
+            "id: %d content: %s book: %s",
             comment.getId(),
             comment.getContent(),
-            comment.getBook().getId());
+            comment.getBook().getName());
     }
 
     @Override
