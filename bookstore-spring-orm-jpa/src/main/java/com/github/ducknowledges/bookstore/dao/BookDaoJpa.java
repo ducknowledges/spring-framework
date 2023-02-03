@@ -20,13 +20,10 @@ public class BookDaoJpa implements BookDao {
     }
 
     @Override
-    public Book save(Book book) {
-        if (isNull(book.getId())) {
-            manager.persist(book);
-            return book;
-        }
-        return manager.merge(book);
+    public Book create(Book book) {
+        return this.save(book);
     }
+
 
     @Override
     public Optional<Book> readById(long id) {
@@ -43,8 +40,21 @@ public class BookDaoJpa implements BookDao {
     }
 
     @Override
+    public Book update(Book book) {
+        return this.save(book);
+    }
+
+    @Override
     public void delete(long id) {
         Optional<Book> book = this.readById(id);
         book.ifPresent(manager::remove);
+    }
+
+    private Book save(Book book) {
+        if (isNull(book.getId())) {
+            manager.persist(book);
+            return book;
+        }
+        return manager.merge(book);
     }
 }

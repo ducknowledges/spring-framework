@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import com.github.ducknowledges.bookstore.domain.Author;
 import com.github.ducknowledges.bookstore.domain.Book;
+import com.github.ducknowledges.bookstore.domain.BookComment;
 import com.github.ducknowledges.bookstore.domain.Genre;
 import java.util.List;
 import java.util.Optional;
@@ -37,7 +38,7 @@ class BookDaoJpaTest {
         Genre genre = new Genre(1L, "genre1");
         Book book = new Book("book4", author, genre);
 
-        Book actualBook = bookDao.save(book);
+        Book actualBook = bookDao.create(book);
         assertThat(actualBook.getId()).isPositive().isEqualTo(BOOK_ENTRIES_SIZE + 1);
 
         manager.detach(book);
@@ -105,18 +106,18 @@ class BookDaoJpaTest {
         Author newAuthor = new Author(2L, "author2");
         Genre newGenre = new Genre(2L, "genre2");
         Book book = new Book(FIRST_BOOK_ID, "newBook", newAuthor, newGenre);
-        Book actualBook = bookDao.save(book);
+        Book actualBook = bookDao.update(book);
         manager.flush();
         Book expectedBook = manager.find(Book.class, FIRST_BOOK_ID);
         assertThat(actualBook).usingRecursiveComparison().isEqualTo(expectedBook);
 
     }
 
-    @DisplayName("should delete book by id")
+    @DisplayName("should delete book by id with child comments")
     @Test
-    void shouldDeleteBookById() {
+    void shouldDeleteBookByIdWithChildComments() {
         bookDao.delete(FIRST_BOOK_ID);
-        Book actialBook = manager.find(Book.class, FIRST_BOOK_ID);
-        assertThat(actialBook).isNull();
+        Book actualBook = manager.find(Book.class, FIRST_BOOK_ID);
+        assertThat(actualBook).isNull();
     }
 }
