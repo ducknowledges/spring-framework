@@ -1,6 +1,8 @@
 package com.github.ducknowledges.bookstore.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import com.github.ducknowledges.bookstore.dao.GenreDao;
@@ -37,11 +39,13 @@ class GenreServiceImplTest {
     @Test
     @DisplayName("should get all genres")
     void shouldGetGenres() {
+        int from = 1;
+        int size = 1;
         Genre genre = new Genre(1L, "genre");
-        when(genreDao.readAll()).thenReturn(List.of(genre));
+        when(genreDao.readAll(from, size)).thenReturn(List.of(genre));
 
         List<Genre> expectedGenres = List.of(genre);
-        List<Genre> actualGenre = genreService.getGenres();
+        List<Genre> actualGenre = genreService.getGenres(from, size);
         assertThat(actualGenre).isEqualTo(expectedGenres);
     }
 }
