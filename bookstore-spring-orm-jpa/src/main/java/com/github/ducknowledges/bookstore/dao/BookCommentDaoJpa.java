@@ -2,13 +2,11 @@ package com.github.ducknowledges.bookstore.dao;
 
 import static java.util.Objects.isNull;
 
-import com.github.ducknowledges.bookstore.domain.Book;
 import com.github.ducknowledges.bookstore.domain.BookComment;
 import java.util.List;
 import java.util.Optional;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.TypedQuery;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -22,12 +20,8 @@ public class BookCommentDaoJpa implements BookCommentDao {
     }
 
     @Override
-    public BookComment save(BookComment comment) {
-        if (isNull(comment.getId())) {
-            manager.persist(comment);
-            return comment;
-        }
-        return manager.merge(comment);
+    public BookComment create(BookComment comment) {
+        return this.save(comment);
     }
 
     @Override
@@ -53,8 +47,28 @@ public class BookCommentDaoJpa implements BookCommentDao {
     }
 
     @Override
+    public BookComment update(BookComment comment) {
+        return this.save(comment);
+    }
+
+    @Override
+    public void deleteAllByBookId(long bookId) {
+        manager.createQuery("delete from BookComment c where c.book.id = :bookId")
+             .setParameter("bookId", bookId)
+             .executeUpdate();
+    }
+
+    @Override
     public void delete(long id) {
         Optional<BookComment> comment = this.readById(id);
         comment.ifPresent(manager::remove);
+    }
+
+    private BookComment save(BookComment comment) {
+        if (isNull(comment.getId())) {
+            manager.persist(comment);
+            return comment;
+        }
+        return manager.merge(comment);
     }
 }

@@ -37,7 +37,7 @@ class BookCommentDaoJpaTest {
         book.setId(BOOK_ID);
         BookComment bookComment = new BookComment("new comment", book);
 
-        BookComment actualComment = bookCommentDao.save(bookComment);
+        BookComment actualComment = bookCommentDao.create(bookComment);
         assertThat(actualComment.getId()).isPositive().isEqualTo(BOOK_COMMENT_ENTRIES_SIZE + 1);
 
         BookComment expectedBookComment = manager.find(BookComment.class, actualComment.getId());
@@ -121,7 +121,7 @@ class BookCommentDaoJpaTest {
         Book book = new Book();
         book.setId(BOOK_ID + 1);
         BookComment newComment = new BookComment(comment.getId(), "new content", book);
-        BookComment actualComment = bookCommentDao.save(newComment);
+        BookComment actualComment = bookCommentDao.update(newComment);
         BookComment expectedComment = manager.find(BookComment.class, FIRST_BOOK_COMMENT_ID);
 
         assertThat(actualComment).usingRecursiveComparison().isEqualTo(expectedComment);
@@ -137,7 +137,7 @@ class BookCommentDaoJpaTest {
             "new comment",
             comment.getBook()
         );
-        bookCommentDao.save(actualComment);
+        bookCommentDao.update(actualComment);
         BookComment expectedComment = manager.find(BookComment.class, FIRST_BOOK_COMMENT_ID);
         assertThat(actualComment).usingRecursiveComparison().isEqualTo(expectedComment);
 
