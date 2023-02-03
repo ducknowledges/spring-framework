@@ -1,8 +1,6 @@
 package com.github.ducknowledges.bookstore.service;
 
 import com.github.ducknowledges.bookstore.dao.BookCommentDao;
-import com.github.ducknowledges.bookstore.dao.BookDao;
-import com.github.ducknowledges.bookstore.domain.Book;
 import com.github.ducknowledges.bookstore.domain.BookComment;
 import java.util.List;
 import java.util.Optional;
@@ -21,7 +19,7 @@ public class BookCommentServiceImpl implements BookCommentService {
     @Override
     @Transactional
     public BookComment createComment(BookComment comment) {
-        return bookCommentDao.save(comment);
+        return bookCommentDao.create(comment);
     }
 
     @Override
@@ -45,7 +43,7 @@ public class BookCommentServiceImpl implements BookCommentService {
     @Override
     @Transactional
     public BookComment update(BookComment comment) {
-        return bookCommentDao.save(comment);
+        return bookCommentDao.update(comment);
     }
 
     @Override

@@ -41,7 +41,7 @@ class BookCommentServiceImplTest {
     @DisplayName("should create book comment")
     void shouldCreateBook() {
         bookCommentService.createComment(comment);
-        verify(bookCommentDao, times(1)).save(comment);
+        verify(bookCommentDao, times(1)).create(comment);
     }
 
     @Test
@@ -91,10 +91,10 @@ class BookCommentServiceImplTest {
     @DisplayName("should update comment's content")
     void shouldUpdateComment() {
         comment.setContent("new content");
-        when(bookCommentDao.save(comment)).thenReturn(comment);
+        when(bookCommentDao.update(comment)).thenReturn(comment);
         BookComment updatedComment = bookCommentService.update(comment);
         assertThat(updatedComment).isEqualTo(comment);
-        verify(bookCommentDao, times(1)).save(comment);
+        verify(bookCommentDao, times(1)).update(comment);
     }
 
     @Test
