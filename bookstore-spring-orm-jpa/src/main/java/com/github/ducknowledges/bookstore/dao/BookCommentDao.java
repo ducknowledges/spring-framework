@@ -1,19 +1,18 @@
 package com.github.ducknowledges.bookstore.dao;
 
-import com.github.ducknowledges.bookstore.dao.crud.CreateDao;
-import com.github.ducknowledges.bookstore.dao.crud.DeleteDao;
-import com.github.ducknowledges.bookstore.dao.crud.ReadDao;
-import com.github.ducknowledges.bookstore.dao.crud.UpdateDao;
 import com.github.ducknowledges.bookstore.domain.BookComment;
 import java.util.List;
+import java.util.Optional;
 
-public interface BookCommentDao extends CreateDao<BookComment>,
-                                        ReadDao<BookComment>,
-                                        UpdateDao<BookComment>,
-                                        DeleteDao {
+public interface BookCommentDao {
 
-    List<BookComment> readAllByBookId(long bookId);
+    BookComment create(BookComment type);
 
-    void deleteAllByBookId(long bookId);
+    Optional<BookComment> readById(long id);
 
+    List<BookComment> readAll(int from, int size);
+
+    BookComment update(BookComment comment);
+
+    void delete(long id);
 }

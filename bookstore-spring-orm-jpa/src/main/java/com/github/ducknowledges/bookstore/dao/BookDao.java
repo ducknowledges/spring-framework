@@ -1,13 +1,17 @@
 package com.github.ducknowledges.bookstore.dao;
 
-import com.github.ducknowledges.bookstore.dao.crud.CreateDao;
-import com.github.ducknowledges.bookstore.dao.crud.DeleteDao;
-import com.github.ducknowledges.bookstore.dao.crud.ReadDao;
-import com.github.ducknowledges.bookstore.dao.crud.UpdateDao;
 import com.github.ducknowledges.bookstore.domain.Book;
+import java.util.List;
+import java.util.Optional;
 
-public interface BookDao extends CreateDao<Book>,
-                                ReadDao<Book>,
-                                UpdateDao<Book>,
-                                DeleteDao {
+public interface BookDao {
+    Book create(Book book);
+
+    Optional<Book> readById(long id);
+
+    List<Book> readAll(int from, int size);
+
+    Book update(Book book);
+
+    void delete(long id);
 }
