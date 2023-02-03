@@ -23,8 +23,12 @@ public class BookComment {
     @Column(name = "content", nullable = false)
     private String content;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "book_id", referencedColumnName = "id", nullable = false)
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(
+        name = "book_id",
+        referencedColumnName = "id",
+        nullable = false,
+        updatable = false)
     private Book book;
 
     public BookComment() {
@@ -75,12 +79,11 @@ public class BookComment {
         }
         BookComment that = (BookComment) o;
         return Objects.equals(id, that.id)
-            && content.equals(that.content)
-            && book.equals(that.book);
+            && content.equals(that.content);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, content, book);
+        return Objects.hash(id, content);
     }
 }
