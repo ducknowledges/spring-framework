@@ -1,5 +1,6 @@
 package com.github.ducknowledges.bookstore.domain;
 
+import java.util.List;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -31,6 +33,10 @@ public class Book {
     @JoinColumn(name = "genre_id", nullable = false)
     private Genre genre;
 
+    @OneToMany(fetch = FetchType.LAZY, orphanRemoval = true)
+    @JoinColumn(name = "book_id", referencedColumnName = "id", updatable = false)
+    private List<BookComment> comments;
+
     public Book() {}
 
     public Book(String name, Author author, Genre genre) {
@@ -38,6 +44,7 @@ public class Book {
         this.name = Objects.requireNonNull(name);
         this.author = Objects.requireNonNull(author);
         this.genre = Objects.requireNonNull(genre);
+        this.comments = List.of();
     }
 
     public Book(Long id, String name, Author author, Genre genre) {
@@ -45,6 +52,7 @@ public class Book {
         this.name = Objects.requireNonNull(name);
         this.author = Objects.requireNonNull(author);
         this.genre = Objects.requireNonNull(genre);
+        this.comments = List.of();
     }
 
     public Long getId() {
@@ -77,6 +85,14 @@ public class Book {
 
     public void setGenre(Genre genre) {
         this.genre = Objects.requireNonNull(genre);
+    }
+
+    public List<BookComment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<BookComment> comments) {
+        this.comments = Objects.requireNonNull(comments);
     }
 
     @Override
