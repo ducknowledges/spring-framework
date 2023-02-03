@@ -73,7 +73,7 @@ public class BookCommand {
                          @ShellOption int authorId,
                          @ShellOption int genreId) {
         Optional<Book> book = bookService.getBook(bookId);
-        if (book.isPresent()) {
+        if (book.isEmpty()) {
             return "Book doesn't exist";
         }
         Optional<Author> author = authorService.getAuthor(authorId);
