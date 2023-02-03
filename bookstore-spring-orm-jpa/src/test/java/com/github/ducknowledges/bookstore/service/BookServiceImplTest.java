@@ -5,6 +5,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import com.github.ducknowledges.bookstore.dao.BookCommentDao;
 import com.github.ducknowledges.bookstore.dao.BookDao;
 import com.github.ducknowledges.bookstore.domain.Author;
 import com.github.ducknowledges.bookstore.domain.Book;
@@ -25,6 +26,9 @@ class BookServiceImplTest {
     @MockBean
     private BookDao bookDao;
 
+    @MockBean
+    private BookCommentDao commentDao;
+
     @Autowired
     private BookService bookService;
 
@@ -41,7 +45,7 @@ class BookServiceImplTest {
     @DisplayName("should create book")
     void shouldCreateBook() {
         bookService.createBook(book);
-        verify(bookDao, times(1)).save(book);
+        verify(bookDao, times(1)).create(book);
     }
 
     @Test
@@ -83,14 +87,15 @@ class BookServiceImplTest {
         long id = 1;
         when(bookDao.readById(id)).thenReturn(Optional.of(book));
         bookService.update(book);
-        verify(bookDao, times(1)).save(book);
+        verify(bookDao, times(1)).update(book);
     }
 
     @Test
-    @DisplayName("should delete book")
-    void shouldDeleteBook() {
+    @DisplayName("should delete book with all comments")
+    void shouldDeleteBookWithAllComments() {
         long id = 1;
         bookService.delete(id);
         verify(bookDao, times(1)).delete(id);
+        verify(commentDao, times(1)).deleteAllByBookId(id);
     }
 }

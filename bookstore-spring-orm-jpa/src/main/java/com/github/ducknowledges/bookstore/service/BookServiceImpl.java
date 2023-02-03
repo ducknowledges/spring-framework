@@ -1,10 +1,10 @@
 package com.github.ducknowledges.bookstore.service;
 
+import com.github.ducknowledges.bookstore.dao.BookCommentDao;
 import com.github.ducknowledges.bookstore.dao.BookDao;
 import com.github.ducknowledges.bookstore.domain.Book;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -12,15 +12,17 @@ import org.springframework.transaction.annotation.Transactional;
 public class BookServiceImpl implements BookService {
 
     private final BookDao bookDao;
+    private final BookCommentDao commentDao;
 
-    public BookServiceImpl(BookDao bookDao) {
+    public BookServiceImpl(BookDao bookDao, BookCommentDao commentDao) {
         this.bookDao = bookDao;
+        this.commentDao = commentDao;
     }
 
     @Override
     @Transactional
     public Book createBook(Book book) {
-        return bookDao.save(book);
+        return bookDao.create(book);
     }
 
     @Override
@@ -38,12 +40,13 @@ public class BookServiceImpl implements BookService {
     @Override
     @Transactional
     public Book update(Book book) {
-        return bookDao.save(book);
+        return bookDao.update(book);
     }
 
     @Override
     @Transactional
     public void delete(long id) {
         bookDao.delete(id);
+        commentDao.deleteAllByBookId(id);
     }
 }

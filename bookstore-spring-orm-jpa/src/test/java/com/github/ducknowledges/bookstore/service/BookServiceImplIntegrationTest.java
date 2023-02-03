@@ -7,17 +7,21 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import com.github.ducknowledges.bookstore.dao.AuthorDao;
+import com.github.ducknowledges.bookstore.dao.BookCommentDao;
+import com.github.ducknowledges.bookstore.dao.BookCommentDaoJpa;
 import com.github.ducknowledges.bookstore.dao.BookDao;
 import com.github.ducknowledges.bookstore.dao.BookDaoJpa;
 import com.github.ducknowledges.bookstore.dao.GenreDao;
 import com.github.ducknowledges.bookstore.dao.GenreDaoJpa;
 import com.github.ducknowledges.bookstore.domain.Author;
 import com.github.ducknowledges.bookstore.domain.Book;
+import com.github.ducknowledges.bookstore.domain.BookComment;
 import com.github.ducknowledges.bookstore.domain.Genre;
 import java.util.List;
 import java.util.Optional;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +31,9 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
 
 @DataJpaTest
-@Import({BookServiceImpl.class, BookDaoJpa.class})
+@Import({
+    BookServiceImpl.class, BookDaoJpa.class,
+    BookCommentServiceImpl.class, BookCommentDaoJpa.class})
 @DisplayName("Class BookServiceImpl")
 class BookServiceImplIntegrationTest {
 
@@ -36,6 +42,9 @@ class BookServiceImplIntegrationTest {
 
     @Autowired
     private BookServiceImpl bookService;
+
+    @Autowired
+    private BookCommentService commentService;
 
     private Book book;
     private Author author;
@@ -86,7 +95,7 @@ class BookServiceImplIntegrationTest {
     }
 
     @Test
-    @DisplayName("should throw exception when book does not exist")
+    @DisplayName("should update book")
     void shouldUpdateBook() {
         book.setName("new book");
         book.setAuthor(author);
@@ -99,12 +108,19 @@ class BookServiceImplIntegrationTest {
     }
 
     @Test
-    @DisplayName("should delete book")
-    void shouldDeleteBook() {
+    @DisplayName("should delete book with orphan comments")
+    void shouldDeleteBookWithOrphanComments() {
         Optional<Book> bookBefore = bookService.getBook(FIRST_BOOK_ID);
         assertThat(bookBefore).isPresent();
+
+        List<BookComment> orphanCommentsBefore = commentService.getCommentsByBookId(FIRST_BOOK_ID);
+        assertThat(orphanCommentsBefore).hasSize(2);
+
         bookService.delete(FIRST_BOOK_ID);
         Optional<Book> bookAfter = bookService.getBook(FIRST_BOOK_ID);
         assertThat(bookAfter).isEmpty();
+
+        List<BookComment> orphanCommentsAfter = commentService.getCommentsByBookId(FIRST_BOOK_ID);
+        assertThat(orphanCommentsAfter).isEmpty();
     }
 }
