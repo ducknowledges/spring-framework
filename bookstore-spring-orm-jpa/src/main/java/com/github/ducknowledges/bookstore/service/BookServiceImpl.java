@@ -47,6 +47,5 @@ public class BookServiceImpl implements BookService {
     @Transactional
     public void delete(long id) {
         bookDao.delete(id);
-        commentDao.deleteAllByBookId(id);
     }
 }

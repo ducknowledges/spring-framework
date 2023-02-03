@@ -96,6 +96,5 @@ class BookServiceImplTest {
         long id = 1;
         bookService.delete(id);
         verify(bookDao, times(1)).delete(id);
-        verify(commentDao, times(1)).deleteAllByBookId(id);
     }
 }
