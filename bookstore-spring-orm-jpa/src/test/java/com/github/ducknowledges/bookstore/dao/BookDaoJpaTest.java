@@ -41,18 +41,18 @@ class BookDaoJpaTest {
         Book actualBook = bookDao.create(book);
         assertThat(actualBook.getId()).isPositive().isEqualTo(BOOK_ENTRIES_SIZE + 1);
 
-        manager.detach(book);
+        manager.detach(actualBook);
 
         Book expectedBook = manager.find(Book.class, book.getId());
-        assertThat(book).usingRecursiveComparison().isEqualTo(expectedBook);
+        assertThat(actualBook).usingRecursiveComparison().isEqualTo(expectedBook);
     }
 
     @Test
     @DisplayName("should return expected book by id")
     void shouldReadExpectedBookById() {
-        Book expectedBook = manager.find(Book.class, FIRST_BOOK_ID);
+        Optional<Book> expectedBook = Optional.of(manager.find(Book.class, FIRST_BOOK_ID));
         Optional<Book> actualBook = bookDao.readById(FIRST_BOOK_ID);
-        assertThat(actualBook).isPresent().get()
+        assertThat(actualBook)
             .usingRecursiveComparison().isEqualTo(expectedBook);
     }
 
@@ -113,11 +113,21 @@ class BookDaoJpaTest {
 
     }
 
-    @DisplayName("should delete book by id with child comments")
+    @DisplayName("should delete book by id with orphan comments")
     @Test
     void shouldDeleteBookByIdWithChildComments() {
+        List<BookComment> orphanCommentsBefore = manager.getEntityManager().createQuery(
+            "select c from BookComment c where c.book.id = :bookId", BookComment.class)
+            .setParameter("bookId", FIRST_BOOK_ID).getResultList();
+        assertThat(orphanCommentsBefore).hasSize(2);
+
         bookDao.delete(FIRST_BOOK_ID);
         Book actualBook = manager.find(Book.class, FIRST_BOOK_ID);
         assertThat(actualBook).isNull();
+
+        List<BookComment> orphanCommentsAfter = manager.getEntityManager().createQuery(
+                "select c from BookComment c where c.book.id = :bookId", BookComment.class)
+            .setParameter("bookId", FIRST_BOOK_ID).getResultList();
+        assertThat(orphanCommentsAfter).isEmpty();
     }
 }
