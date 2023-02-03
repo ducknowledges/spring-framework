@@ -1,5 +1,5 @@
 package com.github.ducknowledges.bookstore.dao.crud;
 
-public interface UpdateDao<T> {
-    T update(T type);
+public interface CreateDao<T> {
+    T create(T type);
 }
