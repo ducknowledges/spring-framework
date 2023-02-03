@@ -8,5 +8,5 @@ public interface AuthorService {
 
     Optional<Author> getAuthor(long id);
 
-    List<Author> getAuthors();
+    List<Author> getAuthors(int from, int size);
 }
