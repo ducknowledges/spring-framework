@@ -23,12 +23,11 @@ public class Author {
     public Author() {}
 
     public Author(String name) {
-        this.id = null;
         this.name = Objects.requireNonNull(name);
     }
 
     public Author(Long id, String name) {
-        this.id = id;
+        this.id = Objects.requireNonNull(id);
         this.name = Objects.requireNonNull(name);
     }
 
@@ -37,7 +36,7 @@ public class Author {
     }
 
     public void setId(Long id) {
-        this.id = id;
+        this.id = Objects.requireNonNull(id);
     }
 
     public String getName() {
@@ -45,7 +44,7 @@ public class Author {
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.name = Objects.requireNonNull(name);
     }
 
     @Override
