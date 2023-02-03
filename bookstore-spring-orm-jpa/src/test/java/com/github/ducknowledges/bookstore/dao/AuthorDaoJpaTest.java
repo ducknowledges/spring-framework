@@ -18,6 +18,7 @@ import org.springframework.context.annotation.Import;
 class AuthorDaoJpaTest {
 
     private static final long FIRST_AUTHOR_ID = 1L;
+    private static final int AUTHOR_ENTRIES_SIZE = 2;
 
     @Autowired
     private TestEntityManager manager;
@@ -37,10 +38,8 @@ class AuthorDaoJpaTest {
     @Test
     @DisplayName("should return empty author by id if author does not exist")
     void shouldReturnEmptyAuthor() {
-        Author author = manager.find(Author.class, FIRST_AUTHOR_ID + 1);
-        Optional<Author> expectedAuthor = Optional.ofNullable(author);
-        Optional<Author> actualAuthor = authorDao.readById(FIRST_AUTHOR_ID + 1);
-        assertThat(actualAuthor).isEqualTo(expectedAuthor);
+        Optional<Author> actualAuthor = authorDao.readById(AUTHOR_ENTRIES_SIZE + 1);
+        assertThat(actualAuthor).isEmpty();
     }
 
     @Test
@@ -48,8 +47,22 @@ class AuthorDaoJpaTest {
     void shouldReadAllAuthors() {
         List<Author> expectedAuthors = manager.getEntityManager()
             .createQuery("select a from Author a", Author.class)
+            .setFirstResult((int) FIRST_AUTHOR_ID - 1)
+            .setMaxResults(AUTHOR_ENTRIES_SIZE)
             .getResultList();
-        List<Author> actualAuthors = authorDao.readAll();
-        assertThat(actualAuthors).isEqualTo(expectedAuthors);
+        List<Author> actualAuthors = authorDao.readAll((int) FIRST_AUTHOR_ID, AUTHOR_ENTRIES_SIZE);
+        assertThat(actualAuthors).usingRecursiveComparison().isEqualTo(expectedAuthors);
+    }
+
+    @Test
+    @DisplayName("should return empty authors")
+    void shouldReadEmptyAuthors() {
+        List<Author> expectedAuthors = manager.getEntityManager()
+            .createQuery("select a from Author a", Author.class)
+            .setFirstResult(0)
+            .setMaxResults(0)
+            .getResultList();
+        List<Author> actualAuthors = authorDao.readAll(0, 0);
+        assertThat(actualAuthors).usingRecursiveComparison().isEqualTo(expectedAuthors);
     }
 }
