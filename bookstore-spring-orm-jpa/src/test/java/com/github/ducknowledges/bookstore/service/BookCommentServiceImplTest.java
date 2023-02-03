@@ -1,15 +1,15 @@
 package com.github.ducknowledges.bookstore.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import com.github.ducknowledges.bookstore.dao.BookCommentDao;
-import com.github.ducknowledges.bookstore.domain.Author;
+import com.github.ducknowledges.bookstore.dao.BookDao;
 import com.github.ducknowledges.bookstore.domain.Book;
 import com.github.ducknowledges.bookstore.domain.BookComment;
-import com.github.ducknowledges.bookstore.domain.Genre;
 import java.util.List;
 import java.util.Optional;
 import org.junit.jupiter.api.BeforeAll;
@@ -26,8 +26,11 @@ class BookCommentServiceImplTest {
     @MockBean
     private BookCommentDao bookCommentDao;
 
+    @MockBean
+    private BookDao bookDao;
+
     @Autowired
-    private BookCommentService bookCommentService;
+    private BookCommentService commentService;
 
     private static BookComment comment;
 
@@ -40,7 +43,7 @@ class BookCommentServiceImplTest {
     @Test
     @DisplayName("should create book comment")
     void shouldCreateBook() {
-        bookCommentService.createComment(comment);
+        commentService.createComment(comment);
         verify(bookCommentDao, times(1)).create(comment);
     }
 
@@ -50,7 +53,7 @@ class BookCommentServiceImplTest {
         long id = 1;
         Optional<BookComment> expectedComment = Optional.of(comment);
         when(bookCommentDao.readById(id)).thenReturn(expectedComment);
-        Optional<BookComment> actualComment = bookCommentService.getComment(id);
+        Optional<BookComment> actualComment = commentService.getComment(id);
         assertThat(actualComment).isEqualTo(expectedComment);
         verify(bookCommentDao, times(1)).readById(id);
     }
@@ -61,7 +64,7 @@ class BookCommentServiceImplTest {
         long id = 1;
         Optional<BookComment> expectedComment = Optional.empty();
         when(bookCommentDao.readById(id)).thenReturn(expectedComment);
-        Optional<BookComment> actualComment = bookCommentService.getComment(id);
+        Optional<BookComment> actualComment = commentService.getComment(id);
         assertThat(actualComment).isEqualTo(expectedComment);
         verify(bookCommentDao, times(1)).readById(id);
     }
@@ -73,7 +76,7 @@ class BookCommentServiceImplTest {
         int size = 1;
         when(bookCommentDao.readAll(from, size)).thenReturn(List.of(comment));
         List<BookComment> expectedComments = List.of(comment);
-        List<BookComment> actualComments = bookCommentService.getComments(from, size);
+        List<BookComment> actualComments = commentService.getComments(from, size);
         assertThat(actualComments).isEqualTo(expectedComments);
     }
 
@@ -81,9 +84,21 @@ class BookCommentServiceImplTest {
     @DisplayName("should return all comments by book id")
     void shouldReturnAllCommentsByBookId() {
         long bookId = 1L;
-        when(bookCommentDao.readAllByBookId(bookId)).thenReturn(List.of(comment));
+        Book book = mock(Book.class);
+        when(book.getComments()).thenReturn(List.of(comment));
+        when(bookDao.readById(bookId)).thenReturn(Optional.of(book));
         List<BookComment> expectedComments = List.of(comment);
-        List<BookComment> actualComments = bookCommentService.getCommentsByBookId(bookId);
+        List<BookComment> actualComments = commentService.getCommentsByBookId(bookId);
+        assertThat(actualComments).isEqualTo(expectedComments);
+    }
+
+    @Test
+    @DisplayName("should return empty comments if book id not exist")
+    void shouldReturnEmptyCommentsIfBookIdNotExist() {
+        long bookId = 1L;
+        when(bookDao.readById(bookId)).thenReturn(Optional.empty());
+        List<BookComment> expectedComments = List.of();
+        List<BookComment> actualComments = commentService.getCommentsByBookId(bookId);
         assertThat(actualComments).isEqualTo(expectedComments);
     }
 
@@ -92,7 +107,7 @@ class BookCommentServiceImplTest {
     void shouldUpdateComment() {
         comment.setContent("new content");
         when(bookCommentDao.update(comment)).thenReturn(comment);
-        BookComment updatedComment = bookCommentService.update(comment);
+        BookComment updatedComment = commentService.update(comment);
         assertThat(updatedComment).isEqualTo(comment);
         verify(bookCommentDao, times(1)).update(comment);
     }
@@ -101,7 +116,7 @@ class BookCommentServiceImplTest {
     @DisplayName("should delete comment")
     void shouldDeleteComment() {
         long id = 1;
-        bookCommentService.delete(id);
+        commentService.delete(id);
         verify(bookCommentDao, times(1)).delete(id);
     }
 }
