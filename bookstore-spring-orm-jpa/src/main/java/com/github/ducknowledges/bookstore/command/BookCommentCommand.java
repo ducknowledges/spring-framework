@@ -76,7 +76,7 @@ public class BookCommentCommand {
         return "Comment was updated: " + printFormatter.format(updatedComment);
     }
 
-    @ShellMethod(value = "Delete book command", key = "delete-book")
+    @ShellMethod(value = "Delete book command", key = "delete-comment")
     public String delete(@ShellOption int bookId) {
         bookService.delete(bookId);
         return "Book was deleted";
