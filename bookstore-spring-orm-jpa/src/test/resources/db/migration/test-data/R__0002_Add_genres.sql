@@ -1,2 +1,3 @@
 insert into genre(name)
-values ('genre1'), ('genre2');
+values ('genre1'),
+       ('genre2');
