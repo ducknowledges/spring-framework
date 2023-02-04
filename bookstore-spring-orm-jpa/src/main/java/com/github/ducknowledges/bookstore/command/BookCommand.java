@@ -5,7 +5,6 @@ import com.github.ducknowledges.bookstore.domain.Book;
 import com.github.ducknowledges.bookstore.domain.Genre;
 import com.github.ducknowledges.bookstore.printformatter.PrintFormatter;
 import com.github.ducknowledges.bookstore.service.AuthorService;
-import com.github.ducknowledges.bookstore.service.BookCommentService;
 import com.github.ducknowledges.bookstore.service.BookService;
 import com.github.ducknowledges.bookstore.service.GenreService;
 import java.util.List;
@@ -20,27 +19,25 @@ public class BookCommand {
     private final BookService bookService;
     private final AuthorService authorService;
     private final GenreService genreService;
-    private final BookCommentService commentService;
     private final PrintFormatter<Book> printFormatter;
 
     public BookCommand(BookService bookService,
                        AuthorService authorService,
                        GenreService genreService,
-                       BookCommentService commentService, PrintFormatter<Book> printFormatter) {
+                       PrintFormatter<Book> printFormatter) {
         this.bookService = bookService;
         this.authorService = authorService;
         this.genreService = genreService;
-        this.commentService = commentService;
         this.printFormatter = printFormatter;
     }
 
     @ShellMethod(value = "Create book command", key = "create-book")
     public String createBook(@ShellOption String name,
-                         @ShellOption int authorId,
-                         @ShellOption int genreId) {
+                             @ShellOption int authorId,
+                             @ShellOption int genreId) {
         Optional<Author> author = authorService.getAuthor(authorId);
         if (author.isEmpty()) {
-            return  "Author does not exist";
+            return "Author does not exist";
         }
         Optional<Genre> genre = genreService.getGenre(genreId);
         if (genre.isEmpty()) {
@@ -54,10 +51,8 @@ public class BookCommand {
     @ShellMethod(value = "Read book command", key = "read-book")
     public String getBook(@ShellOption long bookId) {
         Optional<Book> book = bookService.getBook(bookId);
-        if (book.isPresent()) {
-            return printFormatter.format(book.get());
-        }
-        return "Book doesn't exist";
+        return book.map(printFormatter::format)
+            .orElse("Book doesn't exist");
     }
 
     @ShellMethod(value = "Read all books command", key = "read-books")
@@ -72,10 +67,6 @@ public class BookCommand {
                          @ShellOption String name,
                          @ShellOption int authorId,
                          @ShellOption int genreId) {
-        Optional<Book> book = bookService.getBook(bookId);
-        if (book.isEmpty()) {
-            return "Book doesn't exist";
-        }
         Optional<Author> author = authorService.getAuthor(authorId);
         if (author.isEmpty()) {
             return "Author does not exist";
