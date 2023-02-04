@@ -20,7 +20,7 @@ class BookPrintFormatterTest {
 
     @Test
     @DisplayName("should format books to text")
-    void testFormat() {
+    void shouldFormatBooksToText() {
         Author author1 = new Author(1L, "author");
         Genre genre1 = new Genre(1L, "genre");
         Book book1 = new Book(1L, "book", author1, genre1);
