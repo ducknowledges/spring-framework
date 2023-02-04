@@ -18,7 +18,7 @@ class AuthorPrintFormatterTest {
 
     @Test
     @DisplayName("should format authors to text")
-    void testFormat() {
+    void shouldFormatAuthorsToText() {
         Author author1 = new Author(1L, "author1");
         Author author2 = new Author(2L, "author2");
 
