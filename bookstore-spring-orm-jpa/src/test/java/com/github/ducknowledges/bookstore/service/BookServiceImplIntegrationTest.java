@@ -1,44 +1,36 @@
 package com.github.ducknowledges.bookstore.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.ArgumentMatchers.anyInt;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 
-import com.github.ducknowledges.bookstore.dao.AuthorDao;
-import com.github.ducknowledges.bookstore.dao.BookCommentDao;
 import com.github.ducknowledges.bookstore.dao.BookCommentDaoJpa;
-import com.github.ducknowledges.bookstore.dao.BookDao;
 import com.github.ducknowledges.bookstore.dao.BookDaoJpa;
-import com.github.ducknowledges.bookstore.dao.GenreDao;
-import com.github.ducknowledges.bookstore.dao.GenreDaoJpa;
 import com.github.ducknowledges.bookstore.domain.Author;
 import com.github.ducknowledges.bookstore.domain.Book;
 import com.github.ducknowledges.bookstore.domain.BookComment;
 import com.github.ducknowledges.bookstore.domain.Genre;
 import java.util.List;
 import java.util.Optional;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.context.annotation.Import;
 
 @DataJpaTest
 @Import({
     BookServiceImpl.class, BookDaoJpa.class,
     BookCommentServiceImpl.class, BookCommentDaoJpa.class})
-@DisplayName("Class BookServiceImpl")
+@DisplayName("Class BookServiceImplIntegrationTest")
 class BookServiceImplIntegrationTest {
 
     private static final long FIRST_BOOK_ID = 1L;
     private static final long BOOK_ENTRIES_SIZE = 3;
+    private static final long FIRST_AUTHOR_ID = 1L;
+    private static final long FIRST_GENRE_ID = 1L;
+
+    @Autowired
+    private TestEntityManager manager;
 
     @Autowired
     private BookServiceImpl bookService;
@@ -46,31 +38,23 @@ class BookServiceImplIntegrationTest {
     @Autowired
     private BookCommentService commentService;
 
-    private Book book;
-    private Author author;
-    private Genre genre;
-
-    @BeforeEach
-    void setUp() {
-        author = new Author(1L, "author1");
-        genre = new Genre(1L, "genre1");
-        book = new Book(FIRST_BOOK_ID, "book1", author, genre);
-    }
-
     @Test
     @DisplayName("should create book")
     void shouldCreateBook() {
+        Author author = manager.find(Author.class, FIRST_AUTHOR_ID);
+        Genre genre = manager.find(Genre.class, FIRST_GENRE_ID);
         Book newBook = new Book("book4", author, genre);
+
         Book actualBook = bookService.createBook(newBook);
-        book.setId(BOOK_ENTRIES_SIZE + 1);
-        book.setName("book4");
-        assertThat(actualBook).usingRecursiveComparison().isEqualTo(book);
+        Book expectedBook = manager.find(Book.class, BOOK_ENTRIES_SIZE + 1);
+        assertThat(actualBook).usingRecursiveComparison().isEqualTo(expectedBook);
     }
 
     @Test
     @DisplayName("should return book by id")
     void shouldReturnBookById() {
-        Optional<Book> expectedBook = Optional.of(book);
+        Book book = manager.find(Book.class, FIRST_BOOK_ID);
+        Optional<Book> expectedBook = Optional.ofNullable(book);
         Optional<Book> actualBook = bookService.getBook(FIRST_BOOK_ID);
         assertThat(actualBook).usingRecursiveComparison().isEqualTo(expectedBook);
     }
@@ -78,17 +62,25 @@ class BookServiceImplIntegrationTest {
     @Test
     @DisplayName("should return empty book by id")
     void shouldReturnEmptyBookById() {
-        Optional<Book> expected = Optional.empty();
-        Optional<Book> actual = bookService.getBook(BOOK_ENTRIES_SIZE + 1);
-        assertThat(actual).usingRecursiveComparison().isEqualTo(expected);
+        Book book = manager.find(Book.class, BOOK_ENTRIES_SIZE + 1);
+        Optional<Book> expectedBook = Optional.ofNullable(book);
+        Optional<Book> actualBook = bookService.getBook(BOOK_ENTRIES_SIZE + 1);
+        assertThat(actualBook).usingRecursiveComparison().isEqualTo(expectedBook);
     }
 
     @Test
     @DisplayName("should return all books")
     void shouldReturnAllBooks() {
-        int from = 1;
+        int from = 0;
         int size = 1;
-        List<Book> expectedBooks = List.of(book);
+        List<Book> expectedBooks = manager.getEntityManager()
+            .createQuery(
+                "select b from Book b join fetch b.author join fetch b.genre",
+                Book.class)
+            .setFirstResult(from)
+            .setMaxResults(size)
+            .getResultList();
+
         List<Book> actualBooks = bookService.getBooks(from, size);
         assertThat(actualBooks)
             .usingRecursiveComparison().isEqualTo(expectedBooks);
@@ -97,9 +89,7 @@ class BookServiceImplIntegrationTest {
     @Test
     @DisplayName("should update book")
     void shouldUpdateBook() {
-        book.setName("new book");
-        book.setAuthor(author);
-        book.setGenre(genre);
+        Book book = manager.find(Book.class, FIRST_GENRE_ID);
         bookService.update(book);
         Optional<Book> expectedBook = Optional.of(book);
         Optional<Book> actualBook = bookService.getBook(book.getId());
