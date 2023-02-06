@@ -22,9 +22,9 @@ public class BookGenreCommand {
     }
 
     @ShellMethod(value = "Read all genres command", key = "read-genres")
-    public String getGenres(@ShellOption int from,
-                            @ShellOption int size) {
-        List<Genre> genres = genreService.getGenres(from, size);
+    public String getGenres(@ShellOption long fromId,
+                            @ShellOption long toId) {
+        List<Genre> genres = genreService.getGenres(fromId, toId);
         return printformatter.format(genres);
     }
 
