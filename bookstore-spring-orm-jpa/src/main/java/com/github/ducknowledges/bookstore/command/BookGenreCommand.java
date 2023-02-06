@@ -29,8 +29,8 @@ public class BookGenreCommand {
     }
 
     @ShellMethod(value = "Read genre command", key = "read-genre")
-    public String getAuthor(@ShellOption long authorId) {
-        Optional<Genre> author = genreService.getGenre(authorId);
+    public String getAuthor(@ShellOption long genreId) {
+        Optional<Genre> author = genreService.getGenre(genreId);
         if (author.isPresent()) {
             return printformatter.format(author.get());
         }
