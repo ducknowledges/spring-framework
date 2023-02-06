@@ -43,9 +43,9 @@ public class BookCommentCommand {
     }
 
     @ShellMethod(value = "Read all comments command", key = "read-comments")
-    public String getComments(@ShellOption int from,
-                              @ShellOption int size) {
-        List<BookComment> comments = commentService.getComments(from, size);
+    public String getComments(@ShellOption long fromId,
+                              @ShellOption long toId) {
+        List<BookComment> comments = commentService.getComments(fromId, toId);
         return printFormatter.format(comments);
     }
 
