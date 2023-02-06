@@ -23,10 +23,12 @@ public class GenreDaoJpa implements GenreDao {
     }
 
     @Override
-    public List<Genre> readAll(int from, int size) {
-        return manager.createQuery("select g from Genre g", Genre.class)
-            .setFirstResult(from < 1 ? 0 : from - 1)
-            .setMaxResults(size < 1 ? 0 : size)
+    public List<Genre> readAll(long fromId, long toId) {
+        return manager.createQuery(
+            "select g from Genre g where g.id >= :fromId and g.id <= :toId",
+                Genre.class)
+            .setParameter("fromId", fromId)
+            .setParameter("toId", toId)
             .getResultList();
     }
 }

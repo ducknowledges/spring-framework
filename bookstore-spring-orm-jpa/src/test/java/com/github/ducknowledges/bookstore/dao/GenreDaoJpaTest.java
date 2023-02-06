@@ -18,7 +18,7 @@ import org.springframework.context.annotation.Import;
 class GenreDaoJpaTest {
 
     private static final long FIRST_GENRE_ID = 1L;
-    private static final int GENRE_ENTRIES_SIZE = 2;
+    private static final long GENRE_ENTRIES_SIZE = 2;
 
     @Autowired
     private TestEntityManager manager;
@@ -45,12 +45,15 @@ class GenreDaoJpaTest {
     @Test
     @DisplayName("should read all genre")
     void shouldReadAllGenres() {
-        List<Genre> expectedGenres = manager.getEntityManager()
-            .createQuery("select g from Genre g", Genre.class)
-            .setFirstResult((int) FIRST_GENRE_ID - 1)
-            .setMaxResults(GENRE_ENTRIES_SIZE)
+        List<Genre> expectedGenres = manager.getEntityManager().createQuery(
+                "select g from Genre g where g.id >= :fromId and g.id <= :toId",
+                Genre.class)
+            .setParameter("fromId", FIRST_GENRE_ID)
+            .setParameter("toId", FIRST_GENRE_ID + 1)
             .getResultList();
-        List<Genre> actualGenres = genreDao.readAll((int) FIRST_GENRE_ID, GENRE_ENTRIES_SIZE);
+        List<Genre> actualGenres = genreDao.readAll(
+            FIRST_GENRE_ID,
+            FIRST_GENRE_ID + 1);
         assertThat(actualGenres)
             .usingRecursiveComparison().isEqualTo(expectedGenres);
     }
@@ -58,12 +61,10 @@ class GenreDaoJpaTest {
     @Test
     @DisplayName("should return empty genre")
     void shouldReadEmptyGenres() {
-        List<Genre> expectedGenres = manager.getEntityManager()
-            .createQuery("select g from Genre g", Genre.class)
-            .setFirstResult(0)
-            .setMaxResults(0)
-            .getResultList();
-        List<Genre> actualGenres = genreDao.readAll(0, 0);
-        assertThat(actualGenres).usingRecursiveComparison().isEqualTo(expectedGenres);
+        List<Genre> actualGenres = genreDao.readAll(
+            GENRE_ENTRIES_SIZE + 1,
+            GENRE_ENTRIES_SIZE + 2
+        );
+        assertThat(actualGenres).isEmpty();
     }
 }

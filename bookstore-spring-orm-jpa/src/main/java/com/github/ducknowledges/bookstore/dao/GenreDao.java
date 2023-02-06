@@ -7,5 +7,5 @@ import java.util.Optional;
 public interface GenreDao {
     Optional<Genre> readById(long id);
 
-    List<Genre> readAll(int from, int size);
+    List<Genre> readAll(long fromId, long toId);
 }
