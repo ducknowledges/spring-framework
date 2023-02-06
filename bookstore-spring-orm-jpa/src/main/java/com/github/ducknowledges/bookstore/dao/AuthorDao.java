@@ -7,5 +7,5 @@ import java.util.Optional;
 public interface AuthorDao {
     Optional<Author> readById(long id);
 
-    List<Author> readAll(int from, int size);
+    List<Author> readAll(long fromId, long toId);
 }

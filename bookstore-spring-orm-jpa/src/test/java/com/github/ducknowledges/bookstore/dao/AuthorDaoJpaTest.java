@@ -18,7 +18,7 @@ import org.springframework.context.annotation.Import;
 class AuthorDaoJpaTest {
 
     private static final long FIRST_AUTHOR_ID = 1L;
-    private static final int AUTHOR_ENTRIES_SIZE = 2;
+    private static final long AUTHOR_ENTRIES_SIZE = 2;
 
     @Autowired
     private TestEntityManager manager;
@@ -46,23 +46,23 @@ class AuthorDaoJpaTest {
     @DisplayName("should read all authors")
     void shouldReadAllAuthors() {
         List<Author> expectedAuthors = manager.getEntityManager()
-            .createQuery("select a from Author a", Author.class)
-            .setFirstResult((int) FIRST_AUTHOR_ID - 1)
-            .setMaxResults(AUTHOR_ENTRIES_SIZE)
+            .createQuery(
+                "select a from Author a where a.id >= :fromId and a.id <= :toId",
+                Author.class)
+            .setParameter("fromId", FIRST_AUTHOR_ID)
+            .setParameter("toId", FIRST_AUTHOR_ID + 2)
             .getResultList();
-        List<Author> actualAuthors = authorDao.readAll((int) FIRST_AUTHOR_ID, AUTHOR_ENTRIES_SIZE);
-        assertThat(actualAuthors).usingRecursiveComparison().isEqualTo(expectedAuthors);
+        List<Author> actualAuthors = authorDao.readAll(FIRST_AUTHOR_ID, FIRST_AUTHOR_ID + 2);
+        assertThat(actualAuthors).hasSize(2).usingRecursiveComparison().isEqualTo(expectedAuthors);
     }
 
     @Test
     @DisplayName("should return empty authors")
     void shouldReadEmptyAuthors() {
-        List<Author> expectedAuthors = manager.getEntityManager()
-            .createQuery("select a from Author a", Author.class)
-            .setFirstResult(0)
-            .setMaxResults(0)
-            .getResultList();
-        List<Author> actualAuthors = authorDao.readAll(0, 0);
-        assertThat(actualAuthors).usingRecursiveComparison().isEqualTo(expectedAuthors);
+        List<Author> actualAuthors = authorDao.readAll(
+            AUTHOR_ENTRIES_SIZE + 1,
+            AUTHOR_ENTRIES_SIZE + 2
+        );
+        assertThat(actualAuthors).isEmpty();
     }
 }

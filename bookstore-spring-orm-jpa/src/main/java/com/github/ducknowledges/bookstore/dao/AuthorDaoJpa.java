@@ -23,10 +23,12 @@ public class AuthorDaoJpa implements AuthorDao {
     }
 
     @Override
-    public List<Author> readAll(int from, int size) {
-        return manager.createQuery("select a from Author a", Author.class)
-            .setFirstResult(from < 1 ? 0 : from - 1)
-            .setMaxResults(size < 1 ? 0 : size)
+    public List<Author> readAll(long fromId, long toId) {
+        return manager.createQuery(
+            "select a from Author a where a.id >= :fromId and a.id <= :toId",
+                Author.class)
+            .setParameter("fromId", fromId)
+            .setParameter("toId", toId)
             .getResultList();
     }
 }
