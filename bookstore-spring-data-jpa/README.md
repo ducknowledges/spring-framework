@@ -12,3 +12,4 @@
 - Use @Transactional only for service methods.
 
 ## Demonstration
+<a href="https://asciinema.org/a/557891" target="_blank"><img src="https://asciinema.org/a/557891.svg" width="627"  /></a>
