@@ -10,7 +10,7 @@ public interface BookCommentService {
 
     Optional<BookComment> getComment(long id);
 
-    List<BookComment> getComments(int from, int size);
+    List<BookComment> getComments(long fromId, long toId);
 
     List<BookComment> getCommentsByBookId(long bookId);
 

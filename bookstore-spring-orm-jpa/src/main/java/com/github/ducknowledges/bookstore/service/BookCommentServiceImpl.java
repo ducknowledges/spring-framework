@@ -35,8 +35,8 @@ public class BookCommentServiceImpl implements BookCommentService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<BookComment> getComments(int from, int size) {
-        return bookCommentDao.readAll(from, size);
+    public List<BookComment> getComments(long fromId, long toId) {
+        return bookCommentDao.readAll(fromId, toId);
     }
 
     @Override

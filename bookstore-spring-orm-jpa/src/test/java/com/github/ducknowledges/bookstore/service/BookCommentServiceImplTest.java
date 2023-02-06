@@ -72,11 +72,11 @@ class BookCommentServiceImplTest {
     @Test
     @DisplayName("should return all comments")
     void shouldReturnAllComments() {
-        int from = 1;
-        int size = 1;
-        when(bookCommentDao.readAll(from, size)).thenReturn(List.of(comment));
+        long fromId = 1;
+        long toId = 2;
+        when(bookCommentDao.readAll(fromId, toId)).thenReturn(List.of(comment));
         List<BookComment> expectedComments = List.of(comment);
-        List<BookComment> actualComments = commentService.getComments(from, size);
+        List<BookComment> actualComments = commentService.getComments(fromId, toId);
         assertThat(actualComments).isEqualTo(expectedComments);
     }
 
