@@ -22,7 +22,7 @@ import org.springframework.context.annotation.Import;
 class BookDaoJpaTest {
 
     private static final long FIRST_BOOK_ID = 1L;
-    private static final int BOOK_ENTRIES_SIZE = 3;
+    private static final long BOOK_ENTRIES_SIZE = 3;
     private static final int EXPECTED_QUERIES_COUNT = 1;
 
     @Autowired
@@ -66,20 +66,28 @@ class BookDaoJpaTest {
     @Test
     @DisplayName("should return all books")
     void shouldReadAllBooks() {
-        List<Book> expectedBooks = manager.getEntityManager()
-            .createQuery("select b from Book b join fetch b.author join fetch b.genre", Book.class)
-            .setFirstResult((int) FIRST_BOOK_ID - 1)
-            .setMaxResults(BOOK_ENTRIES_SIZE - 1)
+        List<Book> expectedBooks = manager.getEntityManager().createQuery(
+                "select b from Book b join fetch b.author join fetch b.genre "
+                    + "where b.id >= :fromId and b.id <= :toId",
+                Book.class)
+            .setParameter("fromId", FIRST_BOOK_ID)
+            .setParameter("toId", FIRST_BOOK_ID + 1)
             .getResultList();
-        List<Book> actualBooks = bookDao.readAll((int) FIRST_BOOK_ID, BOOK_ENTRIES_SIZE - 1);
-        assertThat(actualBooks)
+        List<Book> actualBooks = bookDao.readAll(
+            FIRST_BOOK_ID,
+            FIRST_BOOK_ID + 1
+        );
+        assertThat(actualBooks).hasSize(2)
             .usingRecursiveComparison().isEqualTo(expectedBooks);
     }
 
     @Test
     @DisplayName("should return empty books")
     void shouldReadEmptyBooks() {
-        List<Book> actualBooks = bookDao.readAll(0, 0);
+        List<Book> actualBooks = bookDao.readAll(
+            BOOK_ENTRIES_SIZE + 1,
+            BOOK_ENTRIES_SIZE + 2
+        );
         assertThat(actualBooks).isEmpty();
     }
 
@@ -90,8 +98,8 @@ class BookDaoJpaTest {
             .unwrap(SessionFactory.class);
         sessionFactory.getStatistics().setStatisticsEnabled(true);
 
-        List<Book> actualBooks = bookDao.readAll((int) FIRST_BOOK_ID, BOOK_ENTRIES_SIZE);
-        assertThat(actualBooks).isNotNull().hasSize(BOOK_ENTRIES_SIZE)
+        List<Book> actualBooks = bookDao.readAll(FIRST_BOOK_ID, BOOK_ENTRIES_SIZE);
+        assertThat(actualBooks).isNotNull().hasSize((int) BOOK_ENTRIES_SIZE)
             .allMatch(b -> !b.getName().isEmpty())
             .allMatch(b -> b.getAuthor() != null && !b.getAuthor().getName().isEmpty())
             .allMatch(b -> b.getGenre() != null && !b.getGenre().getName().isEmpty());

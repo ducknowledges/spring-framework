@@ -31,11 +31,13 @@ public class BookDaoJpa implements BookDao {
     }
 
     @Override
-    public List<Book> readAll(int from, int size) {
-        return manager.createQuery("select b from Book b join fetch b.author join fetch b.genre",
+    public List<Book> readAll(long fromId, long toId) {
+        return manager.createQuery(
+            "select b from Book b join fetch b.author join fetch b.genre "
+                + "where b.id >= :fromId and b.id <= :toId",
                 Book.class)
-            .setFirstResult(from < 1 ? 0 : from - 1)
-            .setMaxResults(size < 1 ? 0 : size)
+            .setParameter("fromId", fromId)
+            .setParameter("toId", toId)
             .getResultList();
     }
 

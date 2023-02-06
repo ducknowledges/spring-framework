@@ -9,7 +9,7 @@ public interface BookDao {
 
     Optional<Book> readById(long id);
 
-    List<Book> readAll(int from, int size);
+    List<Book> readAll(long fromId, long toId);
 
     Book update(Book book);
 
