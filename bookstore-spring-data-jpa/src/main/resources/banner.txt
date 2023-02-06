@@ -1,0 +1,13 @@
+${AnsiColor.BRIGHT_GREEN}
+,-----.               ,--.
+|  |) /_  ,---. ,---. |  |,-.
+|  .-.  \| .-. | .-. ||     /
+|  '--' /' '-' ' '-' '|  \  \
+`------'  `---' `---' `--'`--'${AnsiColor.BRIGHT_YELLOW}
+     ,---.   ,--.
+    '   .-',-'  '-. ,---. ,--.--. ,---.
+    `.  `-.'-.  .-'| .-. ||  .--'| .-. :
+    .-'    | |  |  ' '-' '|  |   \   --.
+    `-----'  `--'   `---' `--'    `----'${AnsiColor.DEFAULT}
+${AnsiColor.BRIGHT_GREEN}${application.title} ${application.version}
+Powered by Spring Boot ${spring-boot.version}${AnsiColor.DEFAULT}
