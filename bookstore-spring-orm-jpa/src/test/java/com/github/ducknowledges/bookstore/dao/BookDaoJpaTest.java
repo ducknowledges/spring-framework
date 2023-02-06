@@ -106,6 +106,8 @@ class BookDaoJpaTest {
 
         assertThat(sessionFactory.getStatistics().getPrepareStatementCount())
             .isEqualTo(EXPECTED_QUERIES_COUNT);
+        sessionFactory.getStatistics().clear();
+        sessionFactory.getStatistics().setStatisticsEnabled(false);
     }
 
     @DisplayName("should update book")

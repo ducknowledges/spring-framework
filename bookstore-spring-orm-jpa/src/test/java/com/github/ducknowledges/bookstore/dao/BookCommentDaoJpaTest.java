@@ -110,6 +110,8 @@ class BookCommentDaoJpaTest {
 
         assertThat(sessionFactory.getStatistics().getPrepareStatementCount())
             .isEqualTo(EXPECTED_QUERIES_COUNT);
+        sessionFactory.getStatistics().clear();
+        sessionFactory.getStatistics().setStatisticsEnabled(false);
     }
 
     @DisplayName("should update comment content by id")
