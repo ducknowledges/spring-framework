@@ -8,5 +8,5 @@ public interface GenreService {
 
     Optional<Genre> getGenre(long id);
 
-    List<Genre> getGenres(int from, int size);
+    List<Genre> getGenres(long fromId, long toId);
 }

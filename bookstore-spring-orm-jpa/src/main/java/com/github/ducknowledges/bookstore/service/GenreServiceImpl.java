@@ -23,7 +23,7 @@ public class GenreServiceImpl implements GenreService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<Genre> getGenres(int from, int size) {
-        return genreDao.readAll(from, size);
+    public List<Genre> getGenres(long fromId, long toId) {
+        return genreDao.readAll(fromId, toId);
     }
 }

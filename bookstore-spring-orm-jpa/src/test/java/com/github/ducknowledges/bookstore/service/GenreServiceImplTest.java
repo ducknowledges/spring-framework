@@ -39,13 +39,13 @@ class GenreServiceImplTest {
     @Test
     @DisplayName("should get all genres")
     void shouldGetGenres() {
-        int from = 1;
-        int size = 1;
+        long fromId = 1;
+        long toId = 2;
         Genre genre = new Genre(1L, "genre");
-        when(genreDao.readAll(from, size)).thenReturn(List.of(genre));
+        when(genreDao.readAll(fromId, toId)).thenReturn(List.of(genre));
 
         List<Genre> expectedGenres = List.of(genre);
-        List<Genre> actualGenre = genreService.getGenres(from, size);
+        List<Genre> actualGenre = genreService.getGenres(fromId, toId);
         assertThat(actualGenre).isEqualTo(expectedGenres);
     }
 }
