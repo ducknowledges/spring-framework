@@ -22,9 +22,9 @@ public class BookAuthorCommand {
     }
 
     @ShellMethod(value = "Read all authors command", key = "read-authors")
-    public String getAuthors(@ShellOption int from,
-                             @ShellOption int size) {
-        List<Author> authors = authorService.getAuthors(from, size);
+    public String getAuthors(@ShellOption long fromId,
+                             @ShellOption long toId) {
+        List<Author> authors = authorService.getAuthors(fromId, toId);
         return printformatter.format(authors);
     }
 
