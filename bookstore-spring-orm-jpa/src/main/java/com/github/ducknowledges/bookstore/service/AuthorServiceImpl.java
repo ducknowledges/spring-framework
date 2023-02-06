@@ -24,7 +24,7 @@ public class AuthorServiceImpl implements AuthorService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<Author> getAuthors(int from, int size) {
-        return authorDao.readAll(from, size);
+    public List<Author> getAuthors(long fromId, long toId) {
+        return authorDao.readAll(fromId, toId);
     }
 }

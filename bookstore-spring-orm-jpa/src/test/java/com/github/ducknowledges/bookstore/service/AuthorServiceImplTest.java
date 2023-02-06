@@ -37,13 +37,13 @@ class AuthorServiceImplTest {
     @Test
     @DisplayName("should get all authors")
     void shouldGetAuthors() {
-        int from = 1;
-        int size = 1;
+        long fromId = 1;
+        long toId = 2;
         Author author = new Author(1L, "author");
-        when(authorDao.readAll(from, size)).thenReturn(List.of(author));
+        when(authorDao.readAll(fromId, toId)).thenReturn(List.of(author));
 
         List<Author> expectedAuthors = List.of(author);
-        List<Author> actualAuthors = authorService.getAuthors(from, size);
+        List<Author> actualAuthors = authorService.getAuthors(fromId, toId);
         assertThat(actualAuthors).isEqualTo(expectedAuthors);
     }
 }
