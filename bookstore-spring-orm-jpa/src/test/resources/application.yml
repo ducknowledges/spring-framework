@@ -1,0 +1,33 @@
+logging:
+  level:
+    root: error
+
+spring:
+  main:
+    banner-mode: off
+
+  shell:
+    interactive:
+      enabled: false
+
+  datasource:
+    url: jdbc:h2:mem:bookstore
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+
+  flyway:
+    enabled: true
+    locations:
+      - db/migration/schema/
+      - db/migration/test-data
+
+  jpa:
+    generate-ddl: false
+    hibernate:
+      ddl-auto: none
+    properties:
+      hibernate:
+        format_sql: true
+        show_sql: false
+    show-sql: false
