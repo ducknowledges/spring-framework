@@ -9,7 +9,7 @@ public interface BookService {
 
     Optional<Book> getBook(long id);
 
-    List<Book> getBooks(int from, int size);
+    List<Book> getBooks(long fromId, long toId);
 
     Book update(Book book);
 

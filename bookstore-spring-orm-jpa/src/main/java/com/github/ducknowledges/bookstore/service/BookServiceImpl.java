@@ -33,8 +33,8 @@ public class BookServiceImpl implements BookService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<Book> getBooks(int from, int size) {
-        return bookDao.readAll(from, size);
+    public List<Book> getBooks(long fromId, long toId) {
+        return bookDao.readAll(fromId, toId);
     }
 
     @Override

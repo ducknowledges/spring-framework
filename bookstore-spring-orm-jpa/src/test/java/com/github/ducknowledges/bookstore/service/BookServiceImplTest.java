@@ -73,11 +73,11 @@ class BookServiceImplTest {
     @Test
     @DisplayName("should return all books")
     void shouldReturnAllBooks() {
-        int from = 1;
-        int size = 1;
-        when(bookDao.readAll(from, size)).thenReturn(List.of(book));
+        long fromId = 1;
+        long toId = 1;
+        when(bookDao.readAll(fromId, toId)).thenReturn(List.of(book));
         List<Book> expectedBooks = List.of(book);
-        List<Book> actualBooks = bookService.getBooks(from, size);
+        List<Book> actualBooks = bookService.getBooks(fromId, toId);
         assertThat(actualBooks).isEqualTo(expectedBooks);
     }
 
