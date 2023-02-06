@@ -65,22 +65,27 @@ class BookCommentDaoJpaTest {
     @Test
     @DisplayName("should return all Comments")
     void shouldReadAllComments() {
-        List<BookComment> expectedBooks = manager.getEntityManager()
-            .createQuery("select c from BookComment c", BookComment.class)
-            .setFirstResult((int) FIRST_BOOK_COMMENT_ID - 1)
-            .setMaxResults(BOOK_COMMENT_ENTRIES_SIZE - 1)
+        List<BookComment> expectedBooks = manager.getEntityManager().createQuery(
+                "select c from BookComment c where c.id >= :fromId and c.id <= :toId",
+                BookComment.class)
+            .setParameter("fromId", FIRST_BOOK_COMMENT_ID)
+            .setParameter("toId", FIRST_BOOK_COMMENT_ID + 1)
             .getResultList();
         List<BookComment> actualBooks = bookCommentDao.readAll(
-            (int) FIRST_BOOK_COMMENT_ID, BOOK_COMMENT_ENTRIES_SIZE - 1
+            FIRST_BOOK_COMMENT_ID,
+            FIRST_BOOK_COMMENT_ID + 1
         );
-        assertThat(actualBooks).hasSize(BOOK_COMMENT_ENTRIES_SIZE - 1)
+        assertThat(actualBooks).hasSize(BOOK_COMMENT_ENTRIES_SIZE - 2)
             .usingRecursiveComparison().isEqualTo(expectedBooks);
     }
 
     @Test
     @DisplayName("should return empty comments")
     void shouldReadEmptyComments() {
-        List<BookComment> actualComments = bookCommentDao.readAll(0, 0);
+        List<BookComment> actualComments = bookCommentDao.readAll(
+            BOOK_COMMENT_ENTRIES_SIZE + 1,
+            BOOK_COMMENT_ENTRIES_SIZE + 2
+        );
         assertThat(actualComments).isEmpty();
     }
 
@@ -92,7 +97,7 @@ class BookCommentDaoJpaTest {
         sessionFactory.getStatistics().setStatisticsEnabled(true);
 
         List<BookComment> actualComments = bookCommentDao.readAll(
-            (int) FIRST_BOOK_COMMENT_ID,
+            FIRST_BOOK_COMMENT_ID,
             BOOK_COMMENT_ENTRIES_SIZE);
 
         assertThat(actualComments).isNotNull().hasSize(BOOK_COMMENT_ENTRIES_SIZE)

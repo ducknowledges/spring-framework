@@ -10,7 +10,7 @@ public interface BookCommentDao {
 
     Optional<BookComment> readById(long id);
 
-    List<BookComment> readAll(int from, int size);
+    List<BookComment> readAll(long fromId, long toId);
 
     BookComment update(BookComment comment);
 

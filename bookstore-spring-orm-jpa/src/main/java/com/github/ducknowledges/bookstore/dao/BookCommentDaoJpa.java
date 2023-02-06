@@ -2,6 +2,7 @@ package com.github.ducknowledges.bookstore.dao;
 
 import static java.util.Objects.isNull;
 
+import com.github.ducknowledges.bookstore.domain.Author;
 import com.github.ducknowledges.bookstore.domain.BookComment;
 import java.util.List;
 import java.util.Optional;
@@ -30,11 +31,12 @@ public class BookCommentDaoJpa implements BookCommentDao {
     }
 
     @Override
-    public List<BookComment> readAll(int from, int size) {
-        return manager.createQuery("select c from BookComment c",
+    public List<BookComment> readAll(long fromId, long toId) {
+        return manager.createQuery(
+                "select c from BookComment c where c.id >= :fromId and c.id <= :toId",
                 BookComment.class)
-            .setFirstResult(from < 1 ? 0 : from - 1)
-            .setMaxResults(size < 1 ? 0 : size)
+            .setParameter("fromId", fromId)
+            .setParameter("toId", toId)
             .getResultList();
     }
 
