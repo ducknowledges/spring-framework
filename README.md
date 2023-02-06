@@ -19,7 +19,7 @@
 - [X] JPQL, Spring ORM, DAO based on Spring ORM + JPA
   - [X] [Task][task-6]
 - [X] Transactions, Spring Tx
-- [ ] Spring Data: Spring Data JPA
+- [X] Spring Data: Spring Data JPA
   - [ ] [Task][task-7]
 - [ ] SQL and NoSQL databases
 - [ ] Spring Data for connecting to non-relational databases
