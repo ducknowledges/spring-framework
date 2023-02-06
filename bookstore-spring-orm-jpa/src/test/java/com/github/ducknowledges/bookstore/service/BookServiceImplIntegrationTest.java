@@ -71,17 +71,15 @@ class BookServiceImplIntegrationTest {
     @Test
     @DisplayName("should return all books")
     void shouldReturnAllBooks() {
-        int from = 0;
-        int size = 1;
-        List<Book> expectedBooks = manager.getEntityManager()
-            .createQuery(
-                "select b from Book b join fetch b.author join fetch b.genre",
+        List<Book> expectedBooks = manager.getEntityManager().createQuery(
+                "select b from Book b join fetch b.author join fetch b.genre "
+                    + "where b.id >= :fromId and b.id <= :toId",
                 Book.class)
-            .setFirstResult(from)
-            .setMaxResults(size)
+            .setParameter("fromId", FIRST_BOOK_ID)
+            .setParameter("toId", FIRST_BOOK_ID + 1)
             .getResultList();
 
-        List<Book> actualBooks = bookService.getBooks(from, size);
+        List<Book> actualBooks = bookService.getBooks(FIRST_BOOK_ID, FIRST_BOOK_ID + 1);
         assertThat(actualBooks)
             .usingRecursiveComparison().isEqualTo(expectedBooks);
     }
