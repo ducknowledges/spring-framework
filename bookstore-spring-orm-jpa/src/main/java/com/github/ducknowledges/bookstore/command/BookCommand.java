@@ -56,9 +56,9 @@ public class BookCommand {
     }
 
     @ShellMethod(value = "Read all books command", key = "read-books")
-    public String getBooks(@ShellOption int from,
-                           @ShellOption int size) {
-        List<Book> books = bookService.getBooks(from, size);
+    public String getBooks(@ShellOption long fromId,
+                           @ShellOption long toId) {
+        List<Book> books = bookService.getBooks(fromId, toId);
         return printFormatter.format(books);
     }
 
