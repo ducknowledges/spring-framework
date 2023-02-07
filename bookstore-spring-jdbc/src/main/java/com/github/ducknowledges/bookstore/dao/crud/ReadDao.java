@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface ReadDao<T> {
-    Optional<T> readById(long id);
+    Optional<T> findById(long id);
 
-    List<T> readAll();
+    List<T> findAll(long fromId, long toId);
 }
