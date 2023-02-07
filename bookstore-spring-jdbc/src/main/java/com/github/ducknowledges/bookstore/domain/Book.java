@@ -17,10 +17,10 @@ public class Book {
     }
 
     public Book(Long id, String name, Author author, Genre genre) {
-        this.id = id;
-        this.name = name;
-        this.author = author;
-        this.genre = genre;
+        this.id = Objects.requireNonNull(id);
+        this.name = Objects.requireNonNull(name);
+        this.author = Objects.requireNonNull(author);
+        this.genre = Objects.requireNonNull(genre);
     }
 
     public Long getId() {

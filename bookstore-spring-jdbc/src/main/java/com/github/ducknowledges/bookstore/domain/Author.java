@@ -13,7 +13,7 @@ public class Author {
     }
 
     public Author(Long id, String name) {
-        this.id = id;
+        this.id = Objects.requireNonNull(id);
         this.name = Objects.requireNonNull(name);
     }
 

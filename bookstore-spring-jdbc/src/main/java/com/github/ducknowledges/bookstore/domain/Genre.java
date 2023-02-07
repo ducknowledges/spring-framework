@@ -13,7 +13,7 @@ public class Genre {
     }
 
     public Genre(Long id, String name) {
-        this.id = id;
+        this.id = Objects.requireNonNull(id);
         this.name = Objects.requireNonNull(name);
     }
 
