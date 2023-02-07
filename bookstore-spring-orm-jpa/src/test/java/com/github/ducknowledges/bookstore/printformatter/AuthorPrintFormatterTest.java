@@ -22,14 +22,11 @@ class AuthorPrintFormatterTest {
         Author author1 = new Author(1L, "author1");
         Author author2 = new Author(2L, "author2");
 
-        StringBuilder stringBuilder = new StringBuilder("Authors:" + System.lineSeparator());
-        stringBuilder
-            .append("id: " + author1.getId() + " name: " + author1.getName())
-            .append(System.lineSeparator())
-            .append("id: " + author2.getId() + " name: " + author2.getName())
-            .append(System.lineSeparator());
-
-        String expected = stringBuilder.toString();
+        String expected = "Authors:" + System.lineSeparator()
+            + "id: " + author1.getId() + " name: " + author1.getName()
+            + System.lineSeparator()
+            + "id: " + author2.getId() + " name: " + author2.getName()
+            + System.lineSeparator();
         String actual = authorFormatter.format(List.of(author1, author2));
         assertThat(actual).isEqualTo(expected);
     }
