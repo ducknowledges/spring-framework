@@ -33,8 +33,8 @@ public class BookCommand {
 
     @ShellMethod(value = "Create book command", key = "create-book")
     public String createBook(@ShellOption String name,
-                             @ShellOption int authorId,
-                             @ShellOption int genreId) {
+                             @ShellOption long authorId,
+                             @ShellOption long genreId) {
         Optional<Author> author = authorService.getAuthor(authorId);
         if (author.isEmpty()) {
             return "Author does not exist";
@@ -81,9 +81,9 @@ public class BookCommand {
         return "Book was updated: " + printFormatter.format(updatedBook);
     }
 
-    @ShellMethod(value = "Delete book command", key = "delete-book")
-    public String delete(@ShellOption int bookId) {
-        bookService.delete(bookId);
+    @ShellMethod(value = "Delete book with comments command", key = "delete-book")
+    public String delete(@ShellOption long bookId) {
+        bookService.deleteWithChildComments(bookId);
         return "Book was deleted";
     }
 }

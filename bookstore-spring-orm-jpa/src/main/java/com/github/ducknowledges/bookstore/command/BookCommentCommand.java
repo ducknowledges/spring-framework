@@ -68,8 +68,8 @@ public class BookCommentCommand {
     }
 
     @ShellMethod(value = "Delete book command", key = "delete-comment")
-    public String delete(@ShellOption int bookId) {
-        bookService.delete(bookId);
+    public String delete(@ShellOption long commentId) {
+        commentService.delete(commentId);
         return "Comment was deleted";
     }
 }

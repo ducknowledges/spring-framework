@@ -4,7 +4,6 @@ import com.github.ducknowledges.bookstore.domain.Genre;
 import com.github.ducknowledges.bookstore.printformatter.PrintFormatter;
 import com.github.ducknowledges.bookstore.service.GenreService;
 import java.util.List;
-import java.util.Optional;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
 import org.springframework.shell.standard.ShellOption;
@@ -30,10 +29,8 @@ public class BookGenreCommand {
 
     @ShellMethod(value = "Read genre command", key = "read-genre")
     public String getAuthor(@ShellOption long genreId) {
-        Optional<Genre> author = genreService.getGenre(genreId);
-        if (author.isPresent()) {
-            return printformatter.format(author.get());
-        }
-        return "Genre doesn't exist";
+        return genreService.getGenre(genreId)
+            .map(printformatter::format)
+            .orElse("Genre doesn't exist");
     }
 }
