@@ -21,7 +21,7 @@ public class AuthorDaoJdbc implements AuthorDao {
     }
 
     @Override
-    public Optional<Author> readById(long id) {
+    public Optional<Author> findById(long id) {
         Author author;
         try {
             author = jdbc.queryForObject("select id, name from author where id = :id",
@@ -33,7 +33,10 @@ public class AuthorDaoJdbc implements AuthorDao {
     }
 
     @Override
-    public List<Author> readAll() {
-        return jdbc.query("select id, name from author", authorMapper);
+    public List<Author> findAll(long fromId, long toId) {
+        return jdbc.query(
+            "select id, name from author where id >= :fromId and id <= :toId",
+            Map.of("fromId", fromId, "toId", toId),
+            authorMapper);
     }
 }
