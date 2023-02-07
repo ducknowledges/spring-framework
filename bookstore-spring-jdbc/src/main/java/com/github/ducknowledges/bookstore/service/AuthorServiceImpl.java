@@ -17,11 +17,11 @@ public class AuthorServiceImpl implements AuthorService {
 
     @Override
     public Optional<Author> getAuthor(long id) {
-        return authorDao.readById(id);
+        return authorDao.findById(id);
     }
 
     @Override
-    public List<Author> getAuthors() {
-        return authorDao.readAll();
+    public List<Author> getAuthors(long fromId, long toId) {
+        return authorDao.findAll(fromId, toId);
     }
 }

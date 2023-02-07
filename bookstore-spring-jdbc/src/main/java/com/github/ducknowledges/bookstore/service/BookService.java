@@ -11,9 +11,9 @@ public interface BookService {
 
     Optional<Book> getBook(long id);
 
-    List<Book> getBooks();
+    List<Book> getBooks(long fromId, long toId);
 
     void update(Book book);
 
-    void delete(long id);
+    void deleteWithChildComments(long id);
 }
