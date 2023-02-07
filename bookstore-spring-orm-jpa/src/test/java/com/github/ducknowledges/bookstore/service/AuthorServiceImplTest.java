@@ -27,7 +27,7 @@ class AuthorServiceImplTest {
     @DisplayName("should get author by id")
     void shouldGetAuthorById() {
         Author author = new Author(1L, "author");
-        when(authorDao.readById(author.getId())).thenReturn(Optional.of(author));
+        when(authorDao.findById(author.getId())).thenReturn(Optional.of(author));
 
         Optional<Author> expectedAuthor = Optional.of(author);
         Optional<Author> actualAuthor = authorService.getAuthor(author.getId());
@@ -40,7 +40,7 @@ class AuthorServiceImplTest {
         long fromId = 1;
         long toId = 2;
         Author author = new Author(1L, "author");
-        when(authorDao.readAll(fromId, toId)).thenReturn(List.of(author));
+        when(authorDao.findAll(fromId, toId)).thenReturn(List.of(author));
 
         List<Author> expectedAuthors = List.of(author);
         List<Author> actualAuthors = authorService.getAuthors(fromId, toId);

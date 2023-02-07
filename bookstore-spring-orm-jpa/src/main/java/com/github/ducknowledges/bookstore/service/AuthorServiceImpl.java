@@ -19,12 +19,12 @@ public class AuthorServiceImpl implements AuthorService {
     @Override
     @Transactional(readOnly = true)
     public Optional<Author> getAuthor(long id) {
-        return authorDao.readById(id);
+        return authorDao.findById(id);
     }
 
     @Override
     @Transactional(readOnly = true)
     public List<Author> getAuthors(long fromId, long toId) {
-        return authorDao.readAll(fromId, toId);
+        return authorDao.findAll(fromId, toId);
     }
 }
