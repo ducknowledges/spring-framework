@@ -32,7 +32,7 @@ class GenreDaoJpaTest {
         Genre genre = manager.find(Genre.class, FIRST_GENRE_ID);
         Optional<Genre> expectedGenre = Optional.of(genre);
         Optional<Genre> actualGenre = genreDao.readById(FIRST_GENRE_ID);
-        assertThat(actualGenre).isEqualTo(expectedGenre);
+        assertThat(actualGenre).isNotEmpty().isEqualTo(expectedGenre);
     }
 
     @Test
@@ -54,7 +54,7 @@ class GenreDaoJpaTest {
         List<Genre> actualGenres = genreDao.readAll(
             FIRST_GENRE_ID,
             FIRST_GENRE_ID + 1);
-        assertThat(actualGenres)
+        assertThat(actualGenres).hasSize(2)
             .usingRecursiveComparison().isEqualTo(expectedGenres);
     }
 

@@ -91,8 +91,9 @@ class BookDaoJpaTest {
         assertThat(actualBooks).isEmpty();
     }
 
-    @DisplayName("should return list of books without n + 1 request")
+
     @Test
+    @DisplayName("should return list of books without n + 1 request")
     void shouldReturnCorrectBooksWithAllInfo() {
         SessionFactory sessionFactory = manager.getEntityManager().getEntityManagerFactory()
             .unwrap(SessionFactory.class);
@@ -110,8 +111,8 @@ class BookDaoJpaTest {
         sessionFactory.getStatistics().setStatisticsEnabled(false);
     }
 
-    @DisplayName("should update book")
     @Test
+    @DisplayName("should update book")
     void shouldUpdateBook() {
         Author newAuthor = new Author(2L, "author2");
         Genre newGenre = new Genre(2L, "genre2");
@@ -123,8 +124,9 @@ class BookDaoJpaTest {
 
     }
 
-    @DisplayName("should delete book by id with orphan comments")
+
     @Test
+    @DisplayName("should delete book by id with orphan comments")
     void shouldDeleteBookByIdWithChildComments() {
         List<BookComment> orphanCommentsBefore = manager.getEntityManager().createQuery(
             "select c from BookComment c where c.book.id = :bookId", BookComment.class)
