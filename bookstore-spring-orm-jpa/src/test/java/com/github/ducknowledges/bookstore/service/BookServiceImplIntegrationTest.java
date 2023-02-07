@@ -104,7 +104,7 @@ class BookServiceImplIntegrationTest {
         List<BookComment> orphanCommentsBefore = commentService.getCommentsByBookId(FIRST_BOOK_ID);
         assertThat(orphanCommentsBefore).hasSize(2);
 
-        bookService.delete(FIRST_BOOK_ID);
+        bookService.deleteWithChildComments(FIRST_BOOK_ID);
         Optional<Book> bookAfter = bookService.getBook(FIRST_BOOK_ID);
         assertThat(bookAfter).isEmpty();
 
