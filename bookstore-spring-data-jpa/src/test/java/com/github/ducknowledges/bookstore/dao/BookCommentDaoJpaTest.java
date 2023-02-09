@@ -38,7 +38,8 @@ class BookCommentDaoJpaTest {
             .setParameter("bookId", FIRST_BOOK_COMMENT_ID)
             .getResultList();
         List<BookComment> actualComments = bookCommentDao
-            .findAllByBookId(FIRST_BOOK_ID, PageRequest.of(0, BOOK_COMMENT_ENTRIES_SIZE)).getContent();
+            .findAllByBookId(FIRST_BOOK_ID, PageRequest.of(0, BOOK_COMMENT_ENTRIES_SIZE))
+            .getContent();
         assertThat(actualComments).hasSize(2)
             .usingRecursiveComparison().isEqualTo(expectedComments);
     }
@@ -66,7 +67,6 @@ class BookCommentDaoJpaTest {
                 FIRST_BOOK_ID,
                 PageRequest.of(0, BOOK_COMMENT_ENTRIES_SIZE)
             ).getContent();
-        //List<BookComment> actualComments = bookCommentDao.findAllByIdGreaterThanEqualAndIdLessThanEqual(0L, 4L);
 
         assertThat(actualComments).isNotNull().hasSize(2)
             .allMatch(c -> !c.getContent().isEmpty())
