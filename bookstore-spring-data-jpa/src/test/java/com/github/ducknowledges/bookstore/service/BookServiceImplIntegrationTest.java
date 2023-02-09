@@ -14,6 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.context.annotation.Import;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 
 @DataJpaTest
 @Import({BookServiceImpl.class, BookCommentServiceImpl.class})
@@ -67,6 +69,8 @@ class BookServiceImplIntegrationTest {
     @Test
     @DisplayName("should return all books")
     void shouldReturnAllBooks() {
+        int page = 0;
+        int size = 2;
         List<Book> expectedBooks = manager.getEntityManager().createQuery(
                 "select b from Book b join fetch b.author join fetch b.genre "
                     + "where b.id >= :fromId and b.id <= :toId",
@@ -75,7 +79,7 @@ class BookServiceImplIntegrationTest {
             .setParameter("toId", FIRST_BOOK_ID + 1)
             .getResultList();
 
-        List<Book> actualBooks = bookService.getBooks(FIRST_BOOK_ID, FIRST_BOOK_ID + 1);
+        List<Book> actualBooks = bookService.getBooks(page, size).getContent();
         assertThat(actualBooks)
             .usingRecursiveComparison().isEqualTo(expectedBooks);
     }
@@ -96,15 +100,24 @@ class BookServiceImplIntegrationTest {
     void shouldDeleteBookWithOrphanComments() {
         Optional<Book> bookBefore = bookService.getBook(FIRST_BOOK_ID);
         assertThat(bookBefore).isPresent();
-
-        List<BookComment> orphanCommentsBefore = commentService.getCommentsByBookId(FIRST_BOOK_ID);
+        int page = 0;
+        int size = 2;
+        List<BookComment> orphanCommentsBefore = manager.getEntityManager().createQuery(
+                "select c from BookComment c where c.book.id = :bookId",
+                BookComment.class)
+            .setParameter("bookId", FIRST_BOOK_ID)
+            .getResultList();
         assertThat(orphanCommentsBefore).hasSize(2);
 
         bookService.deleteById(FIRST_BOOK_ID);
         Optional<Book> bookAfter = bookService.getBook(FIRST_BOOK_ID);
         assertThat(bookAfter).isEmpty();
 
-        List<BookComment> orphanCommentsAfter = commentService.getCommentsByBookId(FIRST_BOOK_ID);
+        List<BookComment> orphanCommentsAfter = manager.getEntityManager().createQuery(
+                "select c from BookComment c where c.book.id = :bookId",
+                BookComment.class)
+            .setParameter("bookId", FIRST_BOOK_ID)
+            .getResultList();
         assertThat(orphanCommentsAfter).isEmpty();
     }
 }

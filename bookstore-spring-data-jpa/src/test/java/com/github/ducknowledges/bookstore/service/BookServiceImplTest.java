@@ -12,12 +12,16 @@ import com.github.ducknowledges.bookstore.domain.Book;
 import com.github.ducknowledges.bookstore.domain.Genre;
 import java.util.List;
 import java.util.Optional;
+import java.util.Stack;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 
 @SpringBootTest
 @DisplayName("Class BookServiceImpl")
@@ -73,12 +77,12 @@ class BookServiceImplTest {
     @Test
     @DisplayName("should return all books")
     void shouldReturnAllBooks() {
-        long fromId = 1;
-        long toId = 1;
-        when(bookDao.findAllByIdGreaterThanEqualAndIdLessThanEqual(fromId, toId))
-            .thenReturn(List.of(book));
-        List<Book> expectedBooks = List.of(book);
-        List<Book> actualBooks = bookService.getBooks(fromId, toId);
+        int page = 0;
+        int size = 1;
+        when(bookDao.findAll(PageRequest.of(page, size)))
+            .thenReturn(new PageImpl<>(List.of(book)));
+        Page<Book> expectedBooks = new PageImpl<>(List.of(book));
+        Page<Book> actualBooks = bookService.getBooks(page, size);
         assertThat(actualBooks).isEqualTo(expectedBooks);
     }
 

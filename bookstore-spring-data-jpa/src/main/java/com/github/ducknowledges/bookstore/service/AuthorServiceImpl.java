@@ -4,6 +4,9 @@ import com.github.ducknowledges.bookstore.dao.AuthorDao;
 import com.github.ducknowledges.bookstore.domain.Author;
 import java.util.List;
 import java.util.Optional;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,7 +27,7 @@ public class AuthorServiceImpl implements AuthorService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<Author> getAuthors(long from, long to) {
-        return authorDao.findAllByIdGreaterThanEqualAndIdLessThanEqual(from, to);
+    public Page<Author> getAuthors(int page, int size) {
+        return authorDao.findAll(PageRequest.of(page, size));
     }
 }

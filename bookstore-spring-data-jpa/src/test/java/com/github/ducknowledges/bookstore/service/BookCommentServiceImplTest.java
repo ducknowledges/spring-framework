@@ -18,6 +18,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 
 @SpringBootTest
 @DisplayName("Class BookServiceImpl")
@@ -72,34 +75,42 @@ class BookCommentServiceImplTest {
     @Test
     @DisplayName("should return all comments")
     void shouldReturnAllComments() {
-        long fromId = 1;
-        long toId = 2;
-        when(bookCommentDao.findAllByIdGreaterThanEqualAndIdLessThanEqual(fromId, toId))
-            .thenReturn(List.of(comment));
-        List<BookComment> expectedComments = List.of(comment);
-        List<BookComment> actualComments = commentService.getComments(fromId, toId);
+        int page = 1;
+        int size = 2;
+        when(bookCommentDao.findAll(PageRequest.of(page, size)))
+            .thenReturn(new PageImpl<>(List.of(comment)));
+        Page<BookComment> expectedComments = new PageImpl<>(List.of(comment));
+        Page<BookComment> actualComments = commentService.getComments(page, size);
         assertThat(actualComments).isEqualTo(expectedComments);
     }
 
     @Test
     @DisplayName("should return all comments by book id")
     void shouldReturnAllCommentsByBookId() {
+        int page = 1;
+        int size = 2;
         long bookId = 1L;
+
         Book book = mock(Book.class);
-        when(book.getComments()).thenReturn(List.of(comment));
+        when(book.getId()).thenReturn(bookId);
         when(bookDao.findById(bookId)).thenReturn(Optional.of(book));
-        List<BookComment> expectedComments = List.of(comment);
-        List<BookComment> actualComments = commentService.getCommentsByBookId(bookId);
+        when(bookCommentDao.findAllByBookId(bookId, PageRequest.of(page, size)))
+            .thenReturn(new PageImpl<>(List.of(comment)));
+
+        Page<BookComment> expectedComments = new PageImpl<>(List.of(comment));
+        Page<BookComment> actualComments = commentService.getCommentsByBookId(bookId, page, size);
         assertThat(actualComments).isEqualTo(expectedComments);
     }
 
     @Test
     @DisplayName("should return empty comments if book id not exist")
     void shouldReturnEmptyCommentsIfBookIdNotExist() {
+        int page = 1;
+        int size = 2;
         long bookId = 1L;
         when(bookDao.findById(bookId)).thenReturn(Optional.empty());
-        List<BookComment> expectedComments = List.of();
-        List<BookComment> actualComments = commentService.getCommentsByBookId(bookId);
+        Page<BookComment> expectedComments = Page.empty();
+        Page<BookComment> actualComments = commentService.getCommentsByBookId(bookId, page, size);
         assertThat(actualComments).isEqualTo(expectedComments);
     }
 

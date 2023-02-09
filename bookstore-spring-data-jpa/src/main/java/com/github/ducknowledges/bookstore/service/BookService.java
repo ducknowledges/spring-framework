@@ -1,15 +1,15 @@
 package com.github.ducknowledges.bookstore.service;
 
 import com.github.ducknowledges.bookstore.domain.Book;
-import java.util.List;
 import java.util.Optional;
+import org.springframework.data.domain.Page;
 
 public interface BookService {
     Book createBook(Book book);
 
     Optional<Book> getBook(long id);
 
-    List<Book> getBooks(long fromId, long toId);
+    Page<Book> getBooks(int page, int size);
 
     Book update(Book book);
 

@@ -7,6 +7,8 @@ import com.github.ducknowledges.bookstore.domain.BookComment;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -35,16 +37,16 @@ public class BookCommentServiceImpl implements BookCommentService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<BookComment> getComments(long from, long to) {
-        return bookCommentDao.findAllByIdGreaterThanEqualAndIdLessThanEqual(from, to);
+    public Page<BookComment> getComments(int page, int size) {
+        return bookCommentDao.findAll(PageRequest.of(page, size));
     }
 
     @Override
     @Transactional(readOnly = true)
-    public List<BookComment> getCommentsByBookId(long bookId) {
-        Optional<Book> book = bookDao.findById(bookId);
-        return book.map(b -> new ArrayList<>(b.getComments()))
-            .orElse(new ArrayList<>());
+    public Page<BookComment> getCommentsByBookId(long bookId, int page, int size) {
+        return bookDao.findById(bookId).map(
+            b -> bookCommentDao.findAllByBookId(b.getId(), PageRequest.of(page, size))
+        ).orElse(Page.empty());
     }
 
     @Override

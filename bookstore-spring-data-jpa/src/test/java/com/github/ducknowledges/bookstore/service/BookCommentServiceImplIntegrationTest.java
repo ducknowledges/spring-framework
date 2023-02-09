@@ -34,7 +34,11 @@ class BookCommentServiceImplIntegrationTest {
             .setParameter("bookId", FIRST_BOOK_ID)
             .getResultList();
 
-        List<BookComment> actualComments = commentService.getCommentsByBookId(FIRST_BOOK_ID);
+        int page = 0;
+        int size = 2;
+        List<BookComment> actualComments = commentService
+            .getCommentsByBookId(FIRST_BOOK_ID, page, size)
+            .getContent();
         assertThat(actualComments).hasSize(2).isEqualTo(expectedComments);
     }
 
@@ -46,8 +50,12 @@ class BookCommentServiceImplIntegrationTest {
                 BookComment.class)
             .setParameter("bookId", BOOK_ENTRIES_SIZE + 1)
             .getResultList();
-        List<BookComment> actualComments = commentService.getCommentsByBookId(
-            BOOK_ENTRIES_SIZE + 1);
+
+        int page = 0;
+        int size = 2;
+        List<BookComment> actualComments = commentService
+            .getCommentsByBookId(FIRST_BOOK_ID, page, size)
+            .getContent();
         assertThat(actualComments).isEqualTo(expectedComments);
     }
 }

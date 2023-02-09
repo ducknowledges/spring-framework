@@ -12,6 +12,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 
 @SpringBootTest
 @DisplayName("Class AuthorServiceImpl")
@@ -37,14 +40,14 @@ class AuthorServiceImplTest {
     @Test
     @DisplayName("should get all authors")
     void shouldGetAuthors() {
-        long fromId = 1;
-        long toId = 2;
+        int page = 0;
+        int size = 2;
         Author author = new Author(1L, "author");
-        when(authorDao.findAllByIdGreaterThanEqualAndIdLessThanEqual(fromId, toId))
-            .thenReturn(List.of(author));
+        when(authorDao.findAll(PageRequest.of(page, size)))
+            .thenReturn(new PageImpl<>(List.of(author)));
 
-        List<Author> expectedAuthors = List.of(author);
-        List<Author> actualAuthors = authorService.getAuthors(fromId, toId);
+        Page<Author> expectedAuthors = new PageImpl<>(List.of(author));
+        Page<Author> actualAuthors = authorService.getAuthors(page, size);
         assertThat(actualAuthors).isEqualTo(expectedAuthors);
     }
 }

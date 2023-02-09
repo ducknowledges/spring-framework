@@ -12,6 +12,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 
 @SpringBootTest
 @DisplayName("Class GenreServiceImplImpl")
@@ -37,14 +40,14 @@ class GenreServiceImplTest {
     @Test
     @DisplayName("should get all genres")
     void shouldGetGenres() {
-        long fromId = 1;
-        long toId = 1;
+        int page = 0;
+        int size = 1;
         Genre genre = new Genre(1L, "genre");
-        when(genreDao.findAllByIdGreaterThanEqualAndIdLessThanEqual(fromId, toId))
-            .thenReturn(List.of(genre));
+        when(genreDao.findAll(PageRequest.of(page, size)))
+            .thenReturn(new PageImpl<>(List.of(genre)));
 
-        List<Genre> expectedGenres = List.of(genre);
-        List<Genre> actualGenre = genreService.getGenres(fromId, toId);
+        Page<Genre> expectedGenres = new PageImpl<>(List.of(genre));
+        Page<Genre> actualGenre = genreService.getGenres(page, size);
         assertThat(actualGenre).isEqualTo(expectedGenres);
     }
 }
