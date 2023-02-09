@@ -10,6 +10,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 
 @SpringBootTest
 @DisplayName("Class BookPrintFormatter")
@@ -29,21 +31,19 @@ class BookPrintFormatterTest {
         Genre genre2 = new Genre(2L, "genre");
         Book book2 = new Book(2L, "book", author2, genre2);
 
-        StringBuilder stringBuilder = new StringBuilder("Books:" + System.lineSeparator());
-        stringBuilder
-            .append("id: " + book1.getId()
-                + " name: " + book1.getName()
-                + " author: " + book1.getAuthor().getName()
-                + " genre: " + book1.getGenre().getName())
-            .append(System.lineSeparator())
-            .append("id: " + book2.getId()
-                + " name: " + book2.getName()
-                + " author: " + book2.getAuthor().getName()
-                + " genre: " + book2.getGenre().getName())
-            .append(System.lineSeparator());
-
-        String expected = stringBuilder.toString();
-        String actual = bookFormatter.format(List.of(book1, book2));
+        String expected = "Books:" + System.lineSeparator()
+            + "id: " + book1.getId() + " name: " + book1.getName()
+            + " author: " + book1.getAuthor().getName()
+            + " genre: " + book1.getGenre().getName()
+            + System.lineSeparator()
+            + "id: " + book2.getId() + " name: " + book2.getName()
+            + " author: " + book2.getAuthor().getName()
+            + " genre: " + book2.getGenre().getName()
+            + System.lineSeparator()
+            + "Total pages: 1"
+            + System.lineSeparator();
+        Page<Book> bookPage = new PageImpl<>(List.of(book1, book2));
+        String actual = bookFormatter.format(bookPage);
         assertThat(actual).isEqualTo(expected);
     }
 }
