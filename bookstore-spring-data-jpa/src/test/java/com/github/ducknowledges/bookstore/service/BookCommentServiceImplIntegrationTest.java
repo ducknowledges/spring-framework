@@ -54,7 +54,7 @@ class BookCommentServiceImplIntegrationTest {
         int page = 0;
         int size = 2;
         List<BookComment> actualComments = commentService
-            .getCommentsByBookId(FIRST_BOOK_ID, page, size)
+            .getCommentsByBookId(BOOK_ENTRIES_SIZE + 1, page, size)
             .getContent();
         assertThat(actualComments).isEqualTo(expectedComments);
     }
