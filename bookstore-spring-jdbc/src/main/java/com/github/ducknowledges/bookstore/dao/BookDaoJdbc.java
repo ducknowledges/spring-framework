@@ -1,7 +1,5 @@
 package com.github.ducknowledges.bookstore.dao;
 
-import static java.util.Objects.isNull;
-
 import com.github.ducknowledges.bookstore.domain.Book;
 import java.util.List;
 import java.util.Map;
@@ -30,7 +28,9 @@ public class BookDaoJdbc implements BookDao {
         jdbc.update(
             "insert into BOOK(NAME, AUTHOR_ID, GENRE_ID)\n"
                 + "values (:name, :authorId, :genreId)",
-            Map.of("name", name, "authorId", authorId, "genreId", genreId));
+            Map.of("name", name,
+                "authorId", authorId,
+                "genreId", genreId));
     }
 
     @Override
@@ -40,21 +40,21 @@ public class BookDaoJdbc implements BookDao {
     }
 
     @Override
-    public Optional<Book> readById(long id) {
+    public Optional<Book> findById(long id) {
         Book book;
         try {
             book = jdbc.queryForObject(
                 "select\n"
-                    + "    BOOK.ID as id,\n"
-                    + "    BOOK.NAME as name,\n"
-                    + "    BOOK.AUTHOR_ID as author_id,\n"
-                    + "    A.NAME as author_name,\n"
-                    + "    BOOK.GENRE_ID as genre_id,\n"
-                    + "    G.NAME as genre_name\n"
-                    + "from BOOK\n"
-                    + "         join AUTHOR A on A.ID = BOOK.AUTHOR_ID\n"
-                    + "         join GENRE G on G.ID = BOOK.GENRE_ID\n"
-                    + "where BOOK.ID = :id",
+                    + "    book.id as id,\n"
+                    + "    book.name as name,\n"
+                    + "    book.author_id as author_id,\n"
+                    + "    a.name as author_name,\n"
+                    + "    book.genre_id as genre_id,\n"
+                    + "    g.name as genre_name\n"
+                    + "from book\n"
+                    + "         join author a on a.id = book.author_id\n"
+                    + "         join genre g on g.id = book.genre_id\n"
+                    + "where book.id = :id",
                 Map.of("id", id),
                 bookMapper);
         } catch (EmptyResultDataAccessException e) {
@@ -64,18 +64,20 @@ public class BookDaoJdbc implements BookDao {
     }
 
     @Override
-    public List<Book> readAll() {
+    public List<Book> findAll(long fromId, long toId) {
         return jdbc.query(
             "select\n"
-                + "    BOOK.ID as id,\n"
-                + "    BOOK.NAME as name,\n"
-                + "    BOOK.AUTHOR_ID as author_id,\n"
-                + "    A.NAME as author_name,\n"
-                + "    BOOK.GENRE_ID as genre_id,\n"
-                + "    G.NAME as genre_name\n"
-                + "from BOOK\n"
-                + "         join AUTHOR A on A.ID = BOOK.AUTHOR_ID\n"
-                + "         join GENRE G on G.ID = BOOK.GENRE_ID",
+                + "    book.id as id,\n"
+                + "    book.name as name,\n"
+                + "    book.author_id as author_id,\n"
+                + "    a.name as author_name,\n"
+                + "    book.genre_id as genre_id,\n"
+                + "    g.name as genre_name\n"
+                + "from book\n"
+                + "         join author a on a.id = book.author_id\n"
+                + "         join genre g on g.id = book.genre_id\n"
+                + "where book.id >= :fromId and book.id <= :toId",
+            Map.of("fromId", fromId, "toId", toId),
             bookMapper);
     }
 
@@ -86,18 +88,23 @@ public class BookDaoJdbc implements BookDao {
         long authorId = book.getAuthor().getId();
         long genreId = book.getGenre().getId();
         jdbc.update(
-            "update BOOK\n"
-                + "SET NAME      = :name,\n"
-                + "    AUTHOR_ID = :authorId,\n"
-                + "    GENRE_ID  = :genreId\n"
-                + "where ID = :id",
-            Map.of("id", id, "name", name, "authorId", authorId, "genreId", genreId));
+            "update book\n"
+                + "SET name      = :name,\n"
+                + "    author_id = :authorId,\n"
+                + "    genre_id  = :genreId\n"
+                + "where id = :id",
+            Map.of("id", id,
+                "name", name,
+                "authorId", authorId,
+                "genreId", genreId)
+        );
     }
 
     @Override
-    public void delete(long id) {
-        jdbc.update("delete from BOOK where ID = :id", Map.of("id", id));
+    public void deleteById(long id) {
+        jdbc.update(
+            "delete from book where id = :id",
+            Map.of("id", id)
+        );
     }
-
-
 }

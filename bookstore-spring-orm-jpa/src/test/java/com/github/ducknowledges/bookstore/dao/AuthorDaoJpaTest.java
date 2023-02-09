@@ -31,14 +31,14 @@ class AuthorDaoJpaTest {
     void shouldReadAuthorById() {
         var author = manager.find(Author.class, FIRST_AUTHOR_ID);
         Optional<Author> expectedAuthor = Optional.of(author);
-        Optional<Author> actualAuthor = authorDao.readById(FIRST_AUTHOR_ID);
-        assertThat(actualAuthor).isEqualTo(expectedAuthor);
+        Optional<Author> actualAuthor = authorDao.findById(FIRST_AUTHOR_ID);
+        assertThat(actualAuthor).isNotEmpty().isEqualTo(expectedAuthor);
     }
 
     @Test
     @DisplayName("should return empty author by id if author does not exist")
     void shouldReturnEmptyAuthor() {
-        Optional<Author> actualAuthor = authorDao.readById(AUTHOR_ENTRIES_SIZE + 1);
+        Optional<Author> actualAuthor = authorDao.findById(AUTHOR_ENTRIES_SIZE + 1);
         assertThat(actualAuthor).isEmpty();
     }
 
@@ -52,14 +52,14 @@ class AuthorDaoJpaTest {
             .setParameter("fromId", FIRST_AUTHOR_ID)
             .setParameter("toId", FIRST_AUTHOR_ID + 2)
             .getResultList();
-        List<Author> actualAuthors = authorDao.readAll(FIRST_AUTHOR_ID, FIRST_AUTHOR_ID + 2);
+        List<Author> actualAuthors = authorDao.findAll(FIRST_AUTHOR_ID, FIRST_AUTHOR_ID + 2);
         assertThat(actualAuthors).hasSize(2).usingRecursiveComparison().isEqualTo(expectedAuthors);
     }
 
     @Test
     @DisplayName("should return empty authors")
     void shouldReadEmptyAuthors() {
-        List<Author> actualAuthors = authorDao.readAll(
+        List<Author> actualAuthors = authorDao.findAll(
             AUTHOR_ENTRIES_SIZE + 1,
             AUTHOR_ENTRIES_SIZE + 2
         );

@@ -22,17 +22,16 @@ public class BookAuthorCommand {
     }
 
     @ShellMethod(value = "Read all authors command", key = "read-authors")
-    public String getAuthors() {
-        List<Author> authors = authorService.getAuthors();
+    public String getAuthors(@ShellOption long fromId,
+                             @ShellOption long toId) {
+        List<Author> authors = authorService.getAuthors(fromId, toId);
         return printformatter.format(authors);
     }
 
     @ShellMethod(value = "Read author command", key = "read-author")
     public String getAuthor(@ShellOption long authorId) {
-        Optional<Author> author = authorService.getAuthor(authorId);
-        if (author.isPresent()) {
-            return printformatter.format(author.get());
-        }
-        return "Author doesn't exist";
+        return authorService.getAuthor(authorId)
+            .map(printformatter::format)
+            .orElse("Author doesn't exist");
     }
 }

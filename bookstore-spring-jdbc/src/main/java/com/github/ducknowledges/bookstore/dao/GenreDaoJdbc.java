@@ -21,7 +21,7 @@ public class GenreDaoJdbc implements GenreDao {
     }
 
     @Override
-    public Optional<Genre> readById(long id) {
+    public Optional<Genre> findById(long id) {
         Genre genre;
         try {
             genre = jdbc.queryForObject("select id, name from genre where id = :id",
@@ -33,7 +33,11 @@ public class GenreDaoJdbc implements GenreDao {
     }
 
     @Override
-    public List<Genre> readAll() {
-        return jdbc.query("select id, name from genre", genreMapper);
+    public List<Genre> findAll(long fromId, long toId) {
+        return jdbc.query(
+            "select id, name from genre where id >= :fromId and id <= :toId",
+            Map.of("fromId", fromId, "toId", toId),
+            genreMapper
+        );
     }
 }

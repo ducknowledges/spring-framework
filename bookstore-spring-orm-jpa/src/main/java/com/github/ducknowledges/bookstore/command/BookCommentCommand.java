@@ -49,7 +49,7 @@ public class BookCommentCommand {
         return printFormatter.format(comments);
     }
 
-    @ShellMethod(value = "Read all comments by book id command", key = "read-comments")
+    @ShellMethod(value = "Read all comments by book id command", key = "read-comments-book")
     public String getCommentsByBookId(@ShellOption long bookId) {
         List<BookComment> comments = commentService.getCommentsByBookId(bookId);
         return printFormatter.format(comments);
@@ -68,8 +68,8 @@ public class BookCommentCommand {
     }
 
     @ShellMethod(value = "Delete book command", key = "delete-comment")
-    public String delete(@ShellOption int bookId) {
-        bookService.delete(bookId);
-        return "Book was deleted";
+    public String delete(@ShellOption long commentId) {
+        commentService.delete(commentId);
+        return "Comment was deleted";
     }
 }

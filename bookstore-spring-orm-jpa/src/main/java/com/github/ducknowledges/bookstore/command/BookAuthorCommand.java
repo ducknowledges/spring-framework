@@ -4,7 +4,6 @@ import com.github.ducknowledges.bookstore.domain.Author;
 import com.github.ducknowledges.bookstore.printformatter.PrintFormatter;
 import com.github.ducknowledges.bookstore.service.AuthorService;
 import java.util.List;
-import java.util.Optional;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
 import org.springframework.shell.standard.ShellOption;
@@ -30,10 +29,8 @@ public class BookAuthorCommand {
 
     @ShellMethod(value = "Read author command", key = "read-author")
     public String getAuthor(@ShellOption long authorId) {
-        Optional<Author> author = authorService.getAuthor(authorId);
-        if (author.isPresent()) {
-            return printformatter.format(author.get());
-        }
-        return "Author doesn't exist";
+        return authorService.getAuthor(authorId)
+            .map(printformatter::format)
+            .orElse("Author doesn't exist");
     }
 }

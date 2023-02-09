@@ -18,12 +18,12 @@ public class AuthorDaoJpa implements AuthorDao {
     }
 
     @Override
-    public Optional<Author> readById(long id) {
+    public Optional<Author> findById(long id) {
         return Optional.ofNullable(manager.find(Author.class, id));
     }
 
     @Override
-    public List<Author> readAll(long fromId, long toId) {
+    public List<Author> findAll(long fromId, long toId) {
         return manager.createQuery(
             "select a from Author a where a.id >= :fromId and a.id <= :toId",
                 Author.class)

@@ -5,7 +5,6 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import com.github.ducknowledges.bookstore.dao.BookCommentDao;
 import com.github.ducknowledges.bookstore.dao.BookDao;
 import com.github.ducknowledges.bookstore.domain.Author;
 import com.github.ducknowledges.bookstore.domain.Book;
@@ -25,9 +24,6 @@ class BookServiceImplTest {
 
     @MockBean
     private BookDao bookDao;
-
-    @MockBean
-    private BookCommentDao commentDao;
 
     @Autowired
     private BookService bookService;
@@ -94,7 +90,7 @@ class BookServiceImplTest {
     @DisplayName("should delete book with all comments")
     void shouldDeleteBookWithAllComments() {
         long id = 1;
-        bookService.delete(id);
+        bookService.deleteWithChildComments(id);
         verify(bookDao, times(1)).delete(id);
     }
 }

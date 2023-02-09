@@ -50,16 +50,14 @@ public class BookCommand {
 
     @ShellMethod(value = "Read book command", key = "read-book")
     public String getBook(@ShellOption long bookId) {
-        Optional<Book> book = bookService.getBook(bookId);
-        if (book.isPresent()) {
-            return printFormatter.format(book.get());
-        }
-        return "Book doesn't exist";
+        return bookService.getBook(bookId)
+            .map(printFormatter::format)
+            .orElse("Book doesn't exist");
     }
 
     @ShellMethod(value = "Read all books command", key = "read-books")
-    public String getBooks() {
-        List<Book> books = bookService.getBooks();
+    public String getBooks(long fromId, long toId) {
+        List<Book> books = bookService.getBooks(fromId, toId);
         return printFormatter.format(books);
     }
 
@@ -84,9 +82,9 @@ public class BookCommand {
         return "Book was updated";
     }
 
-    @ShellMethod(value = "Delete book command", key = "delete-book")
+    @ShellMethod(value = "Delete book with comments command", key = "delete-book")
     public String delete(@ShellOption int bookId) {
-        bookService.delete(bookId);
+        bookService.deleteWithChildComments(bookId);
         return "Book was deleted";
     }
 }

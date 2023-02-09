@@ -16,11 +16,11 @@ public class GenreServiceImpl implements GenreService {
 
     @Override
     public Optional<Genre> getGenre(long id) {
-        return genreDao.readById(id);
+        return genreDao.findById(id);
     }
 
     @Override
-    public List<Genre> getGenres() {
-        return genreDao.readAll();
+    public List<Genre> getGenres(long fromId, long toId) {
+        return genreDao.findAll(fromId, toId);
     }
 }

@@ -22,14 +22,11 @@ class GenrePrintFormatterTest {
         Genre genre1 = new Genre(1L, "genre1");
         Genre genre2 = new Genre(2L, "genre2");
 
-        StringBuilder stringBuilder = new StringBuilder("Genres:" + System.lineSeparator());
-        stringBuilder
-            .append("id: " + genre1.getId() + " name: " + genre1.getName())
-            .append(System.lineSeparator())
-            .append("id: " + genre2.getId() + " name: " + genre2.getName())
-            .append(System.lineSeparator());
-
-        String expected = stringBuilder.toString();
+        String expected = "Genres:" + System.lineSeparator()
+            + "id: " + genre1.getId() + " name: " + genre1.getName()
+            + System.lineSeparator()
+            + "id: " + genre2.getId() + " name: " + genre2.getName()
+            + System.lineSeparator();
         String actual = genreFormatter.format(List.of(genre1, genre2));
         assertThat(actual).isEqualTo(expected);
     }

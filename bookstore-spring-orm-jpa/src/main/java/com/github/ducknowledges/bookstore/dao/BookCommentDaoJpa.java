@@ -2,7 +2,6 @@ package com.github.ducknowledges.bookstore.dao;
 
 import static java.util.Objects.isNull;
 
-import com.github.ducknowledges.bookstore.domain.Author;
 import com.github.ducknowledges.bookstore.domain.BookComment;
 import java.util.List;
 import java.util.Optional;

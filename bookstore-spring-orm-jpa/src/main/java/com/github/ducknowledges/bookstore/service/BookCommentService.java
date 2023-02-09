@@ -1,6 +1,5 @@
 package com.github.ducknowledges.bookstore.service;
 
-import com.github.ducknowledges.bookstore.domain.Book;
 import com.github.ducknowledges.bookstore.domain.BookComment;
 import java.util.List;
 import java.util.Optional;
