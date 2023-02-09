@@ -5,6 +5,8 @@ import com.github.ducknowledges.bookstore.printformatter.PrintFormatter;
 import com.github.ducknowledges.bookstore.service.AuthorService;
 import java.util.List;
 import java.util.Optional;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
 import org.springframework.shell.standard.ShellOption;
@@ -22,9 +24,9 @@ public class BookAuthorCommand {
     }
 
     @ShellMethod(value = "Read all authors command", key = "read-authors")
-    public String getAuthors(@ShellOption long fromId,
-                             @ShellOption long toId) {
-        List<Author> authors = authorService.getAuthors(fromId, toId);
+    public String getAuthors(@ShellOption int page,
+                             @ShellOption int size) {
+        Page<Author> authors = authorService.getAuthors(page, size);
         return printformatter.format(authors);
     }
 

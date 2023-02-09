@@ -5,6 +5,7 @@ import com.github.ducknowledges.bookstore.printformatter.PrintFormatter;
 import com.github.ducknowledges.bookstore.service.GenreService;
 import java.util.List;
 import java.util.Optional;
+import org.springframework.data.domain.Page;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
 import org.springframework.shell.standard.ShellOption;
@@ -22,9 +23,9 @@ public class BookGenreCommand {
     }
 
     @ShellMethod(value = "Read all genres command", key = "read-genres")
-    public String getGenres(@ShellOption long fromId,
-                            @ShellOption long toId) {
-        List<Genre> genres = genreService.getGenres(fromId, toId);
+    public String getGenres(@ShellOption int page,
+                            @ShellOption int size) {
+        Page<Genre> genres = genreService.getGenres(page, size);
         return printformatter.format(genres);
     }
 

@@ -9,6 +9,7 @@ import com.github.ducknowledges.bookstore.service.BookService;
 import com.github.ducknowledges.bookstore.service.GenreService;
 import java.util.List;
 import java.util.Optional;
+import org.springframework.data.domain.Page;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
 import org.springframework.shell.standard.ShellOption;
@@ -56,9 +57,9 @@ public class BookCommand {
     }
 
     @ShellMethod(value = "Read all books command", key = "read-books")
-    public String getBooks(@ShellOption long fromId,
-                           @ShellOption long toId) {
-        List<Book> books = bookService.getBooks(fromId, toId);
+    public String getBooks(@ShellOption int page,
+                           @ShellOption int size) {
+        Page<Book> books = bookService.getBooks(page, size);
         return printFormatter.format(books);
     }
 

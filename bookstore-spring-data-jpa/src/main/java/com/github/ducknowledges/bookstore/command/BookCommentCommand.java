@@ -5,6 +5,7 @@ import com.github.ducknowledges.bookstore.printformatter.PrintFormatter;
 import com.github.ducknowledges.bookstore.service.BookCommentService;
 import com.github.ducknowledges.bookstore.service.BookService;
 import java.util.List;
+import org.springframework.data.domain.Page;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
 import org.springframework.shell.standard.ShellOption;
@@ -43,15 +44,17 @@ public class BookCommentCommand {
     }
 
     @ShellMethod(value = "Read all comments command", key = "read-comments")
-    public String getComments(@ShellOption long fromId,
-                              @ShellOption long toId) {
-        List<BookComment> comments = commentService.getComments(fromId, toId);
+    public String getComments(@ShellOption int page,
+                              @ShellOption int size) {
+        Page<BookComment> comments = commentService.getComments(page, size);
         return printFormatter.format(comments);
     }
 
     @ShellMethod(value = "Read all comments by book id command", key = "read-comments-book")
-    public String getCommentsByBookId(@ShellOption long bookId) {
-        List<BookComment> comments = commentService.getCommentsByBookId(bookId);
+    public String getCommentsByBookId(@ShellOption long bookId,
+                                      @ShellOption int page,
+                                      @ShellOption int size) {
+        Page<BookComment> comments = commentService.getCommentsByBookId(bookId, page, size);
         return printFormatter.format(comments);
     }
 
