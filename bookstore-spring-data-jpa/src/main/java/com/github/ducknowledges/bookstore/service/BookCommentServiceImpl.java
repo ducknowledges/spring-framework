@@ -24,13 +24,11 @@ public class BookCommentServiceImpl implements BookCommentService {
     }
 
     @Override
-    @Transactional
     public BookComment createComment(BookComment comment) {
         return bookCommentDao.save(comment);
     }
 
     @Override
-    @Transactional(readOnly = true)
     public Optional<BookComment> getComment(long id) {
         return bookCommentDao.findById(id);
     }
@@ -50,13 +48,11 @@ public class BookCommentServiceImpl implements BookCommentService {
     }
 
     @Override
-    @Transactional
     public BookComment update(BookComment comment) {
         return bookCommentDao.save(comment);
     }
 
     @Override
-    @Transactional
     public void deleteById(long id) {
         bookCommentDao.deleteById(id);
     }

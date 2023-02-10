@@ -1,9 +1,7 @@
 package com.github.ducknowledges.bookstore.service;
 
-import com.github.ducknowledges.bookstore.dao.BookCommentDao;
 import com.github.ducknowledges.bookstore.dao.BookDao;
 import com.github.ducknowledges.bookstore.domain.Book;
-import java.util.List;
 import java.util.Optional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -20,13 +18,11 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    @Transactional
     public Book createBook(Book book) {
         return bookDao.save(book);
     }
 
     @Override
-    @Transactional(readOnly = true)
     public Optional<Book> getBook(long id) {
         return bookDao.findById(id);
     }
@@ -38,13 +34,11 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    @Transactional
     public Book update(Book book) {
         return bookDao.save(book);
     }
 
     @Override
-    @Transactional
     public void deleteById(long id) {
         bookDao.deleteById(id);
     }
