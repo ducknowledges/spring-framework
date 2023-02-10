@@ -56,5 +56,4 @@ jobs:
         run: |
           cd ${{ matrix.dir }} 
           ./mvnw  verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar \
-          -Dsonar.projectKey=${{ matrix.dir }} \
-          -Dsonar.coverage.jacoco.xmlReportPaths=/target/jacoco-report/jacoco.xml 
+          -Dsonar.projectKey=${{ matrix.dir }} 
