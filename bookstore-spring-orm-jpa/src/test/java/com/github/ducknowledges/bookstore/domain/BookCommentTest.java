@@ -39,4 +39,23 @@ class BookCommentTest {
         assertThat(new BookComment(1L, "content", book))
             .isEqualTo(new BookComment(1L, "content", book));
     }
+
+    @Test
+    @DisplayName("should has correct setters")
+    void shouldHasCorrectSetters() {
+        Author author = new Author(1L, "name");
+        Genre genre = new Genre(1L, "name");
+        Book book = new Book(1L, "name", author, genre);
+
+        BookComment comment = new BookComment();
+        comment.setId(1L);
+        comment.setContent("content");
+        comment.setBook(book);
+
+        assertAll(
+            () -> assertThat(comment.getId()).isEqualTo(1L),
+            () -> assertThat(comment.getContent()).isEqualTo("content"),
+            () -> assertThat(comment.getBook()).isEqualTo(book)
+        );
+    }
 }

@@ -56,4 +56,16 @@ class AuthorTest {
         assertThat(new Author(1L, "name"))
             .isEqualTo(new Author(1L, "name"));
     }
+
+    @Test
+    @DisplayName("should has correct setters")
+    void shouldHasCorrectSetters() {
+        Author author = new Author();
+        author.setId(1L);
+        author.setName("name");
+        assertAll(
+            () -> assertThat(author.getId()).isEqualTo(1L),
+            () -> assertThat(author.getName()).isEqualTo("name")
+        );
+    }
 }

@@ -33,4 +33,16 @@ class GenreTest {
         assertThat(new Genre(1L, "name"))
             .isEqualTo(new Genre(1L, "name"));
     }
+
+    @Test
+    @DisplayName("should has correct setters")
+    void shouldHasCorrectSetters() {
+        Genre genre = new Genre();
+        genre.setId(1L);
+        genre.setName("name");
+        assertAll(
+            () -> assertThat(genre.getId()).isEqualTo(1L),
+            () -> assertThat(genre.getName()).isEqualTo("name")
+        );
+    }
 }
