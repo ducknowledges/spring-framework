@@ -20,15 +20,15 @@
   - [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=quiz-spring-advanced-configuration&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=quiz-spring-advanced-configuration)
   - [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=quiz-spring-advanced-configuration&metric=coverage)](https://sonarcloud.io/summary/new_code?id=quiz-spring-advanced-configuration)
 - [X] [Task#5: Bookstore][task-5]
-  - Spring Shell, Spring Boot, Spring Data JDBC, H2
+  - Spring Shell, Spring Boot, Spring Data JDBC, Flyway migration, H2
   - [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=bookstore-spring-jdbc&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=bookstore-spring-jdbc)
   - [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=bookstore-spring-jdbc&metric=coverage)](https://sonarcloud.io/summary/new_code?id=bookstore-spring-jdbc)
 - [X] [Task#6: Bookstore][task-6]
-  - Spring Shell, Spring Boot, JPA, Hibernate, H2
+  - Spring Shell, Spring Boot, JPA, Hibernate, Flyway migration, H2
   - [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=bookstore-spring-orm-jpa&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=bookstore-spring-orm-jpa)
   - [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=bookstore-spring-orm-jpa&metric=coverage)](https://sonarcloud.io/summary/new_code?id=bookstore-spring-orm-jpa)
 - [X] [Task#7: Bookstore][task-7]
-  - Spring Shell, Spring Boot, Spring Data Jpa, H2
+  - Spring Shell, Spring Boot, Spring Data Jpa, Flyway migration, H2
   - [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=bookstore-spring-data-jpa&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=bookstore-spring-data-jpa)
   - [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=bookstore-spring-data-jpa&metric=coverage)](https://sonarcloud.io/summary/new_code?id=bookstore-spring-data-jpa)
 
