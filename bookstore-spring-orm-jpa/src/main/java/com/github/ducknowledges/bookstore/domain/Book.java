@@ -95,15 +95,6 @@ public class Book {
         this.comments = Objects.requireNonNull(comments);
     }
 
-    @Override
-    public String toString() {
-        return "Book{"
-            + "id=" + id
-            + ", name='" + name + '\''
-            + ", author=" + author
-            + ", genre=" + genre
-            + '}';
-    }
 
     @Override
     public boolean equals(Object o) {
