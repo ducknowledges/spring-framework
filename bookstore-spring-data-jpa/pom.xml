@@ -11,9 +11,10 @@
     </parent>
 
     <groupId>com.github.ducknowledges</groupId>
-    <artifactId>bookstore-spring-jdbc</artifactId>
+    <artifactId>bookstore-spring-data-jpa</artifactId>
     <version>3.0-SNAPSHOT</version>
     <packaging>jar</packaging>
+    <name>bookstore</name>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -22,7 +23,7 @@
 
         <!-- external dependency libraries -->
         <h2.version>2.1.214</h2.version>
-        <spring.shell.version>2.1.4</spring.shell.version>
+        <spring.shell.version>2.1.6</spring.shell.version>
         <flyway-core.version>9.12.0</flyway-core.version>
 
         <!-- maven plugins -->
@@ -30,7 +31,7 @@
         <maven-enforcer-plugin.version>3.1.0</maven-enforcer-plugin.version>
         <jacoco-maven-plugin.version>0.8.8</jacoco-maven-plugin.version>
         <maven-checkstyle-plugin.version>3.2.0</maven-checkstyle-plugin.version>
-        <checkstyle.version>10.3.4</checkstyle.version>
+        <checkstyle.version>10.5.0</checkstyle.version>
 
         <!-- sonarcloud integration -->
         <sonar.organization>ducknowledges</sonar.organization>
@@ -44,10 +45,10 @@
 
         <!-- external dependency libraries -->
 
-        <!-- Spring Boot -->
+        <!-- Spring Boot Starter -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-jdbc</artifactId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
 
         <dependency>
@@ -78,6 +79,19 @@
         </dependency>
 
     </dependencies>
+
+    <dependencyManagement>
+        <dependencies>
+            <!-- Resolve conflict spring-boot-starter-data-jpa vs spring-shell-starter -->
+            <!-- https://mvnrepository.com/artifact/net.java.dev.jna/jna -->
+            <dependency>
+                <groupId>net.java.dev.jna</groupId>
+                <artifactId>jna</artifactId>
+                <version>5.12.1</version>
+            </dependency>
+
+        </dependencies>
+    </dependencyManagement>
 
     <build>
 
