@@ -4,7 +4,6 @@ import com.github.ducknowledges.bookstore.domain.BookComment;
 import com.github.ducknowledges.bookstore.printformatter.PrintFormatter;
 import com.github.ducknowledges.bookstore.service.BookCommentService;
 import com.github.ducknowledges.bookstore.service.BookService;
-import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
