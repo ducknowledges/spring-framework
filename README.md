@@ -12,11 +12,11 @@
   - [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=quiz-spring-application-configuration&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=quiz-spring-application-configuration)
   - [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=quiz-spring-application-configuration&metric=coverage)](https://sonarcloud.io/summary/new_code?id=quiz-spring-application-configuration)
 - [X] [Task#3: Quiz][task-3]
-  - Spring Boot: Localisation
+  - Spring Boot: Localization/i18n
   - [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=quiz-spring-boot&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=quiz-spring-boot)
   - [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=quiz-spring-boot&metric=coverage)](https://sonarcloud.io/summary/new_code?id=quiz-spring-boot)
 - [X] [Task#4: Quiz][task-4]
-  - Spring Shell, Spring Boot: Advanced configuration
+  - Spring Shell, Spring Boot: Advanced configuration, Localization/i18n
   - [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=quiz-spring-advanced-configuration&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=quiz-spring-advanced-configuration)
   - [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=quiz-spring-advanced-configuration&metric=coverage)](https://sonarcloud.io/summary/new_code?id=quiz-spring-advanced-configuration)
 - [X] [Task#5: Bookstore][task-5]
@@ -31,6 +31,11 @@
   - Spring Shell, Spring Boot, Spring Data Jpa, Flyway migration, H2
   - [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=bookstore-spring-data-jpa&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=bookstore-spring-data-jpa)
   - [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=bookstore-spring-data-jpa&metric=coverage)](https://sonarcloud.io/summary/new_code?id=bookstore-spring-data-jpa)
+- [X] [Task#9: Bookstore][task-9]
+  - Spring Boot, Spring MVC, Spring Data Jpa, Thymeleaf, Flyway migration, H2
+  - [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=bookstore-spring-mvc-view&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=bookstore-spring-mvc-view)
+  - [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=bookstore-spring-mvc-view&metric=coverage)](https://sonarcloud.io/summary/new_code?id=bookstore-spring-mvc-view)
+
 
 ## Course topics
 
@@ -48,8 +53,8 @@
 - [X] Spring Data: Spring Data JPA
 - [X] SQL and NoSQL databases
 - [ ] Spring Data for connecting to non-relational databases
-- [ ] Introduction to Spring MVC, Spring MVC on Spring Boot
-- [ ] Spring MVC View
+- [X] Introduction to Spring MVC, Spring MVC on Spring Boot
+- [X] Spring MVC View
 - [ ] Modern Spring MVC Applications
 - [ ] Reactive programming
 - [ ] Reactive Spring Frameworks
@@ -70,8 +75,6 @@
 - [ ] Zuul, Hystrix Circuit Breaker, Sleuth, Zipkin, Hystrix Dashboard, Secure Configuration Properties
 - [ ] Overview of Additional Spring Technologies, Rapid Application Development
 
-<Task Links>
-
 [task-1]:https://github.com/ducknowledges/2022-11-otus-spring-kononov/tree/main/quiz-introduction-to-spring-framework
 [task-2]:https://github.com/ducknowledges/2022-11-otus-spring-kononov/tree/main/quiz-spring-application-configuration
 [task-3]:https://github.com/ducknowledges/2022-11-otus-spring-kononov/tree/main/quiz-spring-boot
@@ -79,3 +82,4 @@
 [task-5]:https://github.com/ducknowledges/2022-11-otus-spring-kononov/tree/main/bookstore-spring-jdbc
 [task-6]:https://github.com/ducknowledges/2022-11-otus-spring-kononov/tree/main/bookstore-spring-orm-jpa
 [task-7]:https://github.com/ducknowledges/2022-11-otus-spring-kononov/tree/main/bookstore-spring-data-jpa
+[task-8]:https://github.com/ducknowledges/2022-11-otus-spring-kononov/tree/main/bookstore-spring-mvc-view
