@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org" th:replace="~{fragments/layout :: layout (~{::body}, 'books')}">
+
+<body>
+
+<h2>Books</h2>
+<div class="container container-sm text-end">
+    <a th:href="@{/book/create}">
+        <button class="btn btn-primary">New</button>
+    </a>
+</div>
+
+<table class="table table-sm table-borderless table-hover">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Author</th>
+        <th>Genre</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="book : ${books}" class="align-middle">
+        <td th:text="${book.id}">1</td>
+        <td th:text="${book.name}">John Doe</td>
+        <td th:text="${book.author.name}">1</td>
+        <td th:text="${book.genre.name}">John Doe</td>
+        <td>
+            <a th:href="@{/book/edit/{id}(id=${book.id})}">
+                <button class="btn btn-outline-primary btn-sm">Edit</button>
+            </a>
+        </td>
+    </tr>
+    </tbody>
+
+</table>
+
+<div class="container container-sm text-center">
+    Total pages: <span th:text="${totalPages}"></span>
+</div>
+
+<div class="container container-sm text-center" th:if="${totalPages > 0}">
+
+    <a th:href="@{/books(page=${currentPage - 1}, size=${5})}"
+       th:if="${currentPage > 1}"
+    >
+        <button class="btn btn-outline-primary">Previous</button>
+    </a>
+    Page: <span th:text="${currentPage}">1</span>
+    <a th:href="@{/books(page=${currentPage + 1}, size=${5})}"
+       th:if="${currentPage < totalPages}"
+    >
+        <button class="btn btn-outline-primary">Next</button>
+    </a>
+
+</div>
+
+</body>
+
+</html>

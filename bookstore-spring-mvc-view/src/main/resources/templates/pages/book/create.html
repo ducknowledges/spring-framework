@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org" th:replace="~{fragments/layout :: layout (~{::body}, 'book')}">
+
+<body>
+
+<h2>Book</h2>
+
+<div class="container text-end">
+  <a href="books" th:href="@{/books}">
+    <button type="button" class="btn btn-close">
+    </button>
+  </a>
+</div>
+
+<form id="edit-form"
+      action="create.html"
+      th:action="@{/book/create}"
+      th:object="${book}"
+      method="post"
+      class="container">
+  <h3>Create book:</h3>
+
+  <div class="row">
+    <div class="col-4">
+      <label class="form-label" for="book-name">Name:</label>
+      <input th:class="${#fields.hasErrors('name')} ? 'form-control is-invalid' : 'from-control'"
+             id="book-name" name="name" type="text"
+             th:value="*{name}"
+             value="Book"
+      />
+      <div class="invalid-feedback" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Wrong book name error</div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="dropdown col-4">
+      <label class="form-label" for="authorId">Choose an author:</label>
+
+      <select class="form-control" name="authorId" id="authorId" >
+        <option th:each="author : ${authors}"
+                th:value="${author.id}"
+                th:text="${author.name}">
+          Author
+        </option>
+      </select>
+    </div>
+  </div>
+  <div class="row">
+    <div class="dropdown col-4">
+      <label class="form-label" for="genres">Choose an author:</label>
+
+      <select class="form-control" name="genreId" id="genres" >
+        <option th:each="genre : ${genres}"
+                th:value="${genre.id}"
+                th:text="${genre.name}">
+          Genre
+        </option>
+      </select>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-4 m-2 p-0">
+      <button class="btn btn-success" type="submit" >Create</button>
+    </div>
+  </div>
+
+</form>
+
+</body>
+
+</html>
