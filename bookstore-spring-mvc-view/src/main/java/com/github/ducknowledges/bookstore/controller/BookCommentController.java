@@ -19,10 +19,10 @@ public class BookCommentController {
     }
 
     @GetMapping("/comments")
-    public String commentsPage(@RequestParam("bookId") Optional<Long> bookId,
+    public String commentsPage(@RequestParam("book_id") Optional<Long> bookId,
                                @RequestParam("page") Optional<Integer> optionalPage,
                                @RequestParam("size") Optional<Integer> optionalSize,
-                             Model model) {
+                               Model model) {
         int page = optionalPage.filter(p -> p > 0).orElse(1);
         int size = optionalSize.filter(s -> s == 5).orElse(5);
 
@@ -32,7 +32,8 @@ public class BookCommentController {
 
         model.addAttribute("comments", comments.getContent())
             .addAttribute("totalPages", comments.getTotalPages())
-            .addAttribute("currentPage", page);
+            .addAttribute("currentPage", page)
+            .addAttribute("book_id", bookId.map(Object::toString).orElse(""));
         return "pages/comments";
     }
 }

@@ -54,4 +54,31 @@ class BookCommentControllerTest {
             .andExpect(model().attribute("totalPages", commentPage.getTotalPages()))
             .andExpect(model().attribute("currentPage", page));
     }
+
+    @Test
+    @DisplayName("should correct handle get /comments request")
+    void shouldCorrectHandleCommentsPageByBookId() throws Exception {
+        long bookId = 1L;
+        int page = 1;
+        int size = 5;
+        List<BookComment> comments = List.of(
+            new BookComment("comment1", new Book()),
+            new BookComment("comment1", new Book())
+        );
+        Page<BookComment> commentPage = new PageImpl<>(comments);
+        when(commentService.getComments(0, size)).thenReturn(commentPage);
+
+        MultiValueMap<String, String> parameters = new LinkedMultiValueMap<>();
+        parameters.add("book_id", Long.toString(bookId));
+        parameters.add("page", Integer.toString(page));
+        parameters.add("size", Integer.toString(size));
+        MockHttpServletRequestBuilder request = get("/comments").params(parameters);
+
+        mvc.perform(request).andExpect(status().isOk())
+            .andExpect(view().name("pages/comments"))
+            .andExpect(model().attribute("comments", comments))
+            .andExpect(model().attribute("totalPages", commentPage.getTotalPages()))
+            .andExpect(model().attribute("currentPage", page))
+            .andExpect(model().attribute("book_id", Long.toString(bookId)));
+    }
 }
