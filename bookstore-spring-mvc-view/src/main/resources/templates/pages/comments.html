@@ -11,12 +11,14 @@
   <tr>
     <th>ID</th>
     <th>Message</th>
+    <th>Book</th>
   </tr>
   </thead>
   <tbody>
   <tr th:each="comment : ${comments}" class="align-middle">
     <td th:text="${comment.id}">1</td>
     <td th:text="${comment.message}">Non-fiction</td>
+    <td th:text="${comment.book.name}">Book</td>
   </tr>
   </tbody>
 </table>
@@ -27,13 +29,13 @@
 
 <div class="container container-sm text-center" th:if="${totalPages > 0}">
 
-  <a th:href="@{/comments(page=${currentPage - 1}, size=${5})}"
+  <a th:href="@{/comments(book_id=${book_id}, page=${currentPage - 1}, size=${5})}"
      th:if="${currentPage > 1}"
   >
     <button class="btn btn-outline-primary">Previous</button>
   </a>
   Page: <span th:text="${currentPage}">1</span>
-  <a th:href="@{/comments(page=${currentPage + 1}, size=${5})}"
+  <a th:href="@{/comments(book_id=${book_id}, page=${currentPage + 1}, size=${5})}"
      th:if="${currentPage < totalPages}"
   >
     <button class="btn btn-outline-primary">Next</button>

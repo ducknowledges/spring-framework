@@ -18,12 +18,13 @@
       th:object="${book}"
       method="post"
       class="container">
+
   <h3>Create book:</h3>
 
   <div class="row">
     <div class="col-4">
       <label class="form-label" for="book-name">Name:</label>
-      <input th:class="${#fields.hasErrors('name')} ? 'form-control is-invalid' : 'from-control'"
+      <input th:class="${#fields.hasErrors('name')} ? 'form-control is-invalid' : 'form-control'"
              id="book-name" name="name" type="text"
              th:value="*{name}"
              value="Book"

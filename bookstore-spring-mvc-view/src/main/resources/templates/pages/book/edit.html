@@ -18,15 +18,10 @@
       method="post"
       th:object="${book}"
       class="container container-sm">
+
     <h3>Edit book:</h3>
 
-    <div class="row">
-        <div class="col-4">
-
-        </div>
-    </div>
-
-    <div class="row">
+    <div class="row" style="display: none">
         <div class="col-4">
             <label class="form-label" for="id">ID:</label>
             <input class="form-control" id="id" type="text" name="id" readonly="readonly" th:value="*{id}" value="2"/>
