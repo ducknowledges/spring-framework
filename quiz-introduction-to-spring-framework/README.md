@@ -1,4 +1,7 @@
 # Quiz App
+[![CI with Maven](https://github.com/ducknowledges/2022-11-otus-spring-kononov/actions/workflows/build.yml/badge.svg)](https://github.com/ducknowledges/2022-11-otus-spring-kononov/actions/workflows/build.yml)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=quiz-introduction-to-spring-framework&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=quiz-introduction-to-spring-framework)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=quiz-introduction-to-spring-framework&metric=coverage)](https://sonarcloud.io/summary/new_code?id=quiz-introduction-to-spring-framework)
 
 ## Goal
 - Create an application with Spring IoC to get familiar with the core IoC functionality that all of Spring is built on.

@@ -3,35 +3,39 @@
 [![CI with Maven](https://github.com/ducknowledges/2022-11-otus-spring-kononov/actions/workflows/build.yml/badge.svg)](https://github.com/ducknowledges/2022-11-otus-spring-kononov/actions/workflows/build.yml)
 
 ## Course tasks
-- [X] [Task#1: Quiz][task-1]
+- [X] [#1: Quiz-introduction-to-spring-framework][task-1]
   - Spring Framework: IoC
   - [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=quiz-introduction-to-spring-framework&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=quiz-introduction-to-spring-framework)
   - [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=quiz-introduction-to-spring-framework&metric=coverage)](https://sonarcloud.io/summary/new_code?id=quiz-introduction-to-spring-framework)
-- [X] [Task#2: Quiz][task-2]
+- [X] [#2: Quiz-spring-application-configuration][task-2]
   - Spring Framework: Configuration
   - [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=quiz-spring-application-configuration&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=quiz-spring-application-configuration)
   - [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=quiz-spring-application-configuration&metric=coverage)](https://sonarcloud.io/summary/new_code?id=quiz-spring-application-configuration)
-- [X] [Task#3: Quiz][task-3]
+- [X] [#3: Quiz-spring-boot][task-3]
   - Spring Boot: Localization/i18n
   - [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=quiz-spring-boot&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=quiz-spring-boot)
   - [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=quiz-spring-boot&metric=coverage)](https://sonarcloud.io/summary/new_code?id=quiz-spring-boot)
-- [X] [Task#4: Quiz][task-4]
+- [X] [#4: Quiz-spring-advanced-configuration][task-4]
   - Spring Shell, Spring Boot: Advanced configuration, Localization/i18n
   - [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=quiz-spring-advanced-configuration&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=quiz-spring-advanced-configuration)
   - [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=quiz-spring-advanced-configuration&metric=coverage)](https://sonarcloud.io/summary/new_code?id=quiz-spring-advanced-configuration)
-- [X] [Task#5: Bookstore][task-5]
+- [X] [#5: Bookstore-spring-jdbc][task-5]
   - Spring Shell, Spring Boot, Spring Data JDBC, Flyway migration, H2
   - [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=bookstore-spring-jdbc&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=bookstore-spring-jdbc)
   - [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=bookstore-spring-jdbc&metric=coverage)](https://sonarcloud.io/summary/new_code?id=bookstore-spring-jdbc)
-- [X] [Task#6: Bookstore][task-6]
+- [X] [#6: Bookstore-spring-orm-jpa][task-6]
   - Spring Shell, Spring Boot, JPA, Hibernate, Flyway migration, H2
   - [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=bookstore-spring-orm-jpa&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=bookstore-spring-orm-jpa)
   - [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=bookstore-spring-orm-jpa&metric=coverage)](https://sonarcloud.io/summary/new_code?id=bookstore-spring-orm-jpa)
-- [X] [Task#7: Bookstore][task-7]
+- [X] [#7: Bookstore-spring-data-jpa][task-7]
   - Spring Shell, Spring Boot, Spring Data Jpa, Flyway migration, H2
   - [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=bookstore-spring-data-jpa&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=bookstore-spring-data-jpa)
   - [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=bookstore-spring-data-jpa&metric=coverage)](https://sonarcloud.io/summary/new_code?id=bookstore-spring-data-jpa)
-- [X] [Task#9: Bookstore][task-9]
+- [ ] [#8: Bookstore-spring-data-mongodb][task-8]
+  - Spring Shell, Spring Boot, Spring Data MongoDB,
+  - [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=bookstore-spring-data-mongodb&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=bookstore-spring-data-mongodb)
+  - [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=bookstore-spring-data-mongodb&metric=coverage)](https://sonarcloud.io/summary/new_code?id=bookstore-spring-data-mongodb)
+- [X] [#9: Bookstore-spring-mvc-view][task-9]
   - Spring Boot, Spring MVC, Spring Data Jpa, Thymeleaf, Flyway migration, H2
   - [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=bookstore-spring-mvc-view&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=bookstore-spring-mvc-view)
   - [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=bookstore-spring-mvc-view&metric=coverage)](https://sonarcloud.io/summary/new_code?id=bookstore-spring-mvc-view)
@@ -52,10 +56,10 @@
 - [X] Transactions, Spring Tx
 - [X] Spring Data: Spring Data JPA
 - [X] SQL and NoSQL databases
-- [ ] Spring Data for connecting to non-relational databases
+- [X] Spring Data for connecting to non-relational databases
 - [X] Introduction to Spring MVC, Spring MVC on Spring Boot
 - [X] Spring MVC View
-- [ ] Modern Spring MVC Applications
+- [X] Modern Spring MVC Applications
 - [ ] Reactive programming
 - [ ] Reactive Spring Frameworks
 - [ ] Spring Web Flux
@@ -82,4 +86,5 @@
 [task-5]:https://github.com/ducknowledges/2022-11-otus-spring-kononov/tree/main/bookstore-spring-jdbc
 [task-6]:https://github.com/ducknowledges/2022-11-otus-spring-kononov/tree/main/bookstore-spring-orm-jpa
 [task-7]:https://github.com/ducknowledges/2022-11-otus-spring-kononov/tree/main/bookstore-spring-data-jpa
-[task-8]:https://github.com/ducknowledges/2022-11-otus-spring-kononov/tree/main/bookstore-spring-mvc-view
+[task-8]:https://github.com/ducknowledges/2022-11-otus-spring-kononov/tree/main/bookstore-spring-data-mongodb
+[task-9]:https://github.com/ducknowledges/2022-11-otus-spring-kononov/tree/main/bookstore-spring-mvc-view

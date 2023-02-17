@@ -1,4 +1,7 @@
 # Book Store App
+[![CI with Maven](https://github.com/ducknowledges/2022-11-otus-spring-kononov/actions/workflows/build.yml/badge.svg)](https://github.com/ducknowledges/2022-11-otus-spring-kononov/actions/workflows/build.yml)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=bookstore-spring-mvc-view&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=bookstore-spring-mvc-view)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=bookstore-spring-mvc-view&metric=coverage)](https://sonarcloud.io/summary/new_code?id=bookstore-spring-mvc-view)
 
 ## Goal
 - Develop full-fledged classic Web applications
