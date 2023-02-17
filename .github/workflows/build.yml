@@ -22,7 +22,8 @@ jobs:
               'quiz-spring-boot',
               'bookstore-spring-jdbc',
               'bookstore-spring-orm-jpa',
-              'bookstore-spring-data-jpa']
+              'bookstore-spring-data-jpa',
+              'bookstore-spring-mvc-view']
 
     steps:
       - uses: actions/checkout@v3
