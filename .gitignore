@@ -1,0 +1,12 @@
+# Idea
+.idea
+*.iws
+*.iml
+*.ipr
+
+# Data Base
+*.db
+
+# Other
+HELP.md
+.DS_store
