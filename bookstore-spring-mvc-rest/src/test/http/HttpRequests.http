@@ -1,0 +1,65 @@
+### Create Book
+POST http://localhost:8080/api/book
+Accept: */*
+Content-Type: application/json
+Cache-Control: no-cache
+
+{
+  "name": "",
+  "authorId": 3,
+  "genreId":  3
+}
+
+### Read Book
+GET http://localhost:8080/api/book/1
+Accept: */*
+Content-Type: application/json
+Cache-Control: no-cache
+
+### Read Books
+GET http://localhost:8080/api/books
+Accept: */*
+Content-Type: application/json
+Cache-Control: no-cache
+
+### Update Book
+PUT http://localhost:8080/api/book/1
+Accept: */*
+Content-Type: application/json
+Cache-Control: no-cache
+
+{
+  "name": "updated book1",
+  "authorId": 3,
+  "genreId": 3
+}
+
+### Delete Book
+DELETE http://localhost:8080/api/book/1
+Accept: */*
+Content-Type: application/json
+Cache-Control: no-cache
+
+### Read Comments
+GET http://localhost:8080/api/comments?book_id=1
+Accept: */*
+Content-Type: application/json
+Cache-Control: no-cache
+
+### Read All Comments
+GET http://localhost:8080/api/comments
+Accept: */*
+Content-Type: application/json
+Cache-Control: no-cache
+
+### Read Authors
+GET http://localhost:8080/api/authors
+Accept: */*
+Content-Type: application/json
+Cache-Control: no-cache
+
+### Read Genres
+GET http://localhost:8080/api/genres
+Accept: */*
+Content-Type: application/json
+Cache-Control: no-cache
