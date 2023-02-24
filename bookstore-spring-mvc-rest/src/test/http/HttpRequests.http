@@ -58,8 +58,20 @@ Accept: */*
 Content-Type: application/json
 Cache-Control: no-cache
 
+### Read All Authors
+GET http://localhost:8080/api/authors/all
+Accept: */*
+Content-Type: application/json
+Cache-Control: no-cache
+
 ### Read Genres
 GET http://localhost:8080/api/genres
+Accept: */*
+Content-Type: application/json
+Cache-Control: no-cache
+
+### Read All Genres
+GET http://localhost:8080/api/genres/all
 Accept: */*
 Content-Type: application/json
 Cache-Control: no-cache
