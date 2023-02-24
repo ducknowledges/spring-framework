@@ -5,7 +5,7 @@ import com.github.ducknowledges.bookstore.domain.Book;
 import com.github.ducknowledges.bookstore.dto.BookDto;
 import com.github.ducknowledges.bookstore.dto.PageRequestDto;
 import com.github.ducknowledges.bookstore.dto.PageResponseDto;
-import com.github.ducknowledges.bookstore.mapper.DomainMapper;
+import com.github.ducknowledges.bookstore.mapper.Mapper;
 import com.github.ducknowledges.bookstore.rest.error.ElementNotFoundException;
 import com.github.ducknowledges.bookstore.service.BookService;
 import javax.validation.Valid;
@@ -22,9 +22,9 @@ import org.springframework.web.bind.annotation.RestController;
 public class BookController {
 
     private final BookService bookService;
-    private final DomainMapper<Book, BookDto> mapper;
+    private final Mapper<Book, BookDto> mapper;
 
-    public BookController(BookService bookService, DomainMapper<Book, BookDto> mapper) {
+    public BookController(BookService bookService, Mapper<Book, BookDto> mapper) {
         this.bookService = bookService;
         this.mapper = mapper;
     }
