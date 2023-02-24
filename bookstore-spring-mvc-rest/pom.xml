@@ -11,7 +11,7 @@
     </parent>
 
     <groupId>com.github.ducknowledges</groupId>
-    <artifactId>bookstore-spring-mvc-view</artifactId>
+    <artifactId>bookstore-spring-mvc-rest</artifactId>
     <version>3.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
@@ -188,7 +188,7 @@
                             <goal>install-node-and-npm</goal>
                         </goals>
                         <configuration>
-                            <workingDirectory>bookstore-ui</workingDirectory>
+                            <workingDirectory>src-ui</workingDirectory>
                             <nodeVersion>v16.16.0</nodeVersion>
                             <npmVersion>8.11.0</npmVersion>
                         </configuration>
@@ -200,7 +200,7 @@
                         </goals>
                         <phase>generate-resources</phase>
                         <configuration>
-                            <workingDirectory>bookstore-ui</workingDirectory>
+                            <workingDirectory>src-ui</workingDirectory>
                             <arguments>install</arguments>
                         </configuration>
                     </execution>
@@ -211,7 +211,7 @@
                         </goals>
                         <phase>generate-resources</phase>
                         <configuration>
-                            <workingDirectory>bookstore-ui</workingDirectory>
+                            <workingDirectory>src-ui</workingDirectory>
                             <arguments>run build</arguments>
                         </configuration>
                     </execution>
