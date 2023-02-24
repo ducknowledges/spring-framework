@@ -18,8 +18,8 @@ spring:
   flyway:
     enabled: true
     locations:
-      - migration/schema/
-      - migration/test-data
+      - db/migration/schema/
+      - db/migration/test-data
 
   jpa:
     generate-ddl: false
