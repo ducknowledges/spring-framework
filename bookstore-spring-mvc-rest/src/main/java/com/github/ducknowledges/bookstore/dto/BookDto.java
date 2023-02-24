@@ -12,7 +12,11 @@ public class BookDto {
 
     private Long authorId;
 
+    private String author;
+
     private Long genreId;
+
+    private String genre;
 
     public BookDto() {
 
@@ -22,7 +26,9 @@ public class BookDto {
         this.id = book.getId();
         this.name = book.getName();
         this.authorId = book.getAuthor().getId();
+        this.author = book.getAuthor().getName();
         this.genreId = book.getGenre().getId();
+        this.genre = book.getGenre().getName();
     }
 
     public Long getId() {
@@ -41,20 +47,36 @@ public class BookDto {
         this.name = name;
     }
 
-    public long getAuthorId() {
+    public Long getAuthorId() {
         return authorId;
     }
 
-    public void setAuthorId(long authorId) {
+    public void setAuthorId(Long authorId) {
         this.authorId = authorId;
     }
 
-    public long getGenreId() {
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    public Long getGenreId() {
         return genreId;
     }
 
-    public void setGenreId(long genreId) {
+    public void setGenreId(Long genreId) {
         this.genreId = genreId;
+    }
+
+    public String getGenre() {
+        return genre;
+    }
+
+    public void setGenre(String genre) {
+        this.genre = genre;
     }
 
     @Override
