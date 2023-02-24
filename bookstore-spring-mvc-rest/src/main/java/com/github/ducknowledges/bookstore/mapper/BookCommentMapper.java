@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class BookCommentMapper implements PageResponseMapper<BookComment, BookCommentDto> {
 
+    @Override
     public PageResponseDto<BookCommentDto> getPageResponseDto(Page<BookComment> commentPage) {
         return new PageResponseDto<>(commentPage.map(BookCommentDto::new));
     }

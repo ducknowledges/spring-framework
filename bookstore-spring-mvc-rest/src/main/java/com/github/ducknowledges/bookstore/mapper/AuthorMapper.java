@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class AuthorMapper implements PageResponseMapper<Author, Author> {
 
+    @Override
     public PageResponseDto<Author> getPageResponseDto(Page<Author> authorPage) {
         return new PageResponseDto<>(authorPage);
     }

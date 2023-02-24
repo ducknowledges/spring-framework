@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class GenreMapper implements PageResponseMapper<Genre, Genre> {
 
+    @Override
     public PageResponseDto<Genre> getPageResponseDto(Page<Genre> genrePage) {
         return new PageResponseDto<>(genrePage);
     }
