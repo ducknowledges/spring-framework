@@ -1,6 +1,6 @@
 package com.github.ducknowledges.bookstore.mapper;
 
-public interface DomainMapper<T1, T2> extends PageResponseMapper<T1, T2> {
+public interface Mapper<T1, T2> extends PageResponseMapper<T1, T2> {
 
     T1 toDomain(T2 dto);
 
