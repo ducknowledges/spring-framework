@@ -1,19 +1,53 @@
 # Book Store App
 [![CI with Maven](https://github.com/ducknowledges/2022-11-otus-spring-kononov/actions/workflows/build.yml/badge.svg)](https://github.com/ducknowledges/2022-11-otus-spring-kononov/actions/workflows/build.yml)
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=bookstore-spring-mvc-view&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=bookstore-spring-mvc-view)
-[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=bookstore-spring-mvc-view&metric=coverage)](https://sonarcloud.io/summary/new_code?id=bookstore-spring-mvc-view)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=bookstore-spring-mvc-rest&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=bookstore-spring-mvc-rest)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=bookstore-spring-mvc-rest&metric=coverage)](https://sonarcloud.io/summary/new_code?id=bookstore-spring-mvc-rest)
 
 ## Goal
-- Develop full-fledged classic Web applications
+- Develop modern AJAX/SPA applications with Spring MVC
 
 ## Result
-- Web application entirely on the Spring stack
+- Modern application on the Spring stack + Vue.js SPA
 
 ## Description
-- Application with storing entities in a database
-- Classic View on Thymeleaf, classic Controllers;
-- Spring MVC
-- Spring Data Jpa
+- Frontend based on SPA architecture
+- Backend based on REST controllers
+- FlyWay DB Migration
+- H2 Data base
+- Docker containerization
 
 ## Demonstration
-<a href="https://asciinema.org/a/560087" target="_blank"><img src="https://asciinema.org/a/560087.svg" width="627" /></a>
+
+### Clone
+```bash
+#ssh
+git clone git@github.com:ducknowledges/2022-11-otus-spring-kononov.git
+```
+or
+
+```bash
+#https
+git clone https://github.com/ducknowledges/2022-11-otus-spring-kononov.git
+```
+
+### Build
+```bash
+cd 2022-11-otus-spring-kononov/bookstore-spring-mvc-rest
+./mvnw clean package
+```
+
+### Run with docker
+```bash
+docker build -t bookstore-image .
+docker run --rm --name bookstore-container -dp 8080:8080 bookstore-image
+```
+
+or
+
+### Run with JVM
+```bash
+./target/bookstore-spring-mvc-rest-3.0-SNAPSHOT.jar
+```
+
+### Open
+http://localhost:8080/
