@@ -39,6 +39,11 @@
   - Spring Boot, Spring MVC, Spring Data Jpa, Thymeleaf, Flyway migration, H2
   - [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=bookstore-spring-mvc-view&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=bookstore-spring-mvc-view)
   - [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=bookstore-spring-mvc-view&metric=coverage)](https://sonarcloud.io/summary/new_code?id=bookstore-spring-mvc-view)
+- [X] [#10: Bookstore-spring-mvc-rest][task-10]
+  - Backend: Spring Boot, Spring MVC, Validation, Spring Data Jpa, Flyway migration, H2, 
+  - Frontend: Vue.js 
+  - [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=bookstore-spring-mvc-rest-view&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=bookstore-spring-mvc-rest)
+  - [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=bookstore-spring-mvc-rest-view&metric=coverage)](https://sonarcloud.io/summary/new_code?id=bookstore-spring-mvc-rest)
 
 
 ## Course topics
@@ -88,3 +93,4 @@
 [task-7]:https://github.com/ducknowledges/2022-11-otus-spring-kononov/tree/main/bookstore-spring-data-jpa
 [task-8]:https://github.com/ducknowledges/2022-11-otus-spring-kononov/tree/main/bookstore-spring-data-mongodb
 [task-9]:https://github.com/ducknowledges/2022-11-otus-spring-kononov/tree/main/bookstore-spring-mvc-view
+[task-10]:https://github.com/ducknowledges/2022-11-otus-spring-kononov/tree/main/bookstore-spring-mvc-rest
