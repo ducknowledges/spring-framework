@@ -40,10 +40,11 @@
   - [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=bookstore-spring-mvc-view&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=bookstore-spring-mvc-view)
   - [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=bookstore-spring-mvc-view&metric=coverage)](https://sonarcloud.io/summary/new_code?id=bookstore-spring-mvc-view)
 - [X] [#10: Bookstore-spring-mvc-rest][task-10]
+- - Demo: http://ec2-54-218-121-204.us-west-2.compute.amazonaws.com/
   - Backend: Spring Boot, Spring MVC, Validation, Spring Data Jpa, Flyway migration, H2, 
-  - Frontend: Vue.js 
-  - [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=bookstore-spring-mvc-rest-view&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=bookstore-spring-mvc-rest)
-  - [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=bookstore-spring-mvc-rest-view&metric=coverage)](https://sonarcloud.io/summary/new_code?id=bookstore-spring-mvc-rest)
+  - Frontend: SPA Vue.js
+  - [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=bookstore-spring-mvc-rest&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=bookstore-spring-mvc-rest)
+  - [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=bookstore-spring-mvc-rest&metric=coverage)](https://sonarcloud.io/summary/new_code?id=bookstore-spring-mvc-rest)
 
 
 ## Course topics
