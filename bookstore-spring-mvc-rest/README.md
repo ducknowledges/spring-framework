@@ -18,7 +18,13 @@
 
 ## Demonstration
 
-### Clone
+### In browser
+
+http://ec2-54-218-121-204.us-west-2.compute.amazonaws.com/
+
+### Local
+
+#### Clone
 ```bash
 #ssh
 git clone git@github.com:ducknowledges/2022-11-otus-spring-kononov.git
@@ -30,13 +36,13 @@ or
 git clone https://github.com/ducknowledges/2022-11-otus-spring-kononov.git
 ```
 
-### Build
+#### Build
 ```bash
 cd 2022-11-otus-spring-kononov/bookstore-spring-mvc-rest
 ./mvnw clean package
 ```
 
-### Run with docker
+#### Run with docker
 ```bash
 docker build -t bookstore-image .
 docker run --rm --name bookstore-container -dp 8080:8080 bookstore-image
@@ -44,10 +50,10 @@ docker run --rm --name bookstore-container -dp 8080:8080 bookstore-image
 
 or
 
-### Run with JVM
+#### Run with JVM
 ```bash
 ./target/bookstore-spring-mvc-rest-3.0-SNAPSHOT.jar
 ```
 
-### Open
+#### Open
 http://localhost:8080/
