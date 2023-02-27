@@ -1,13 +1,10 @@
 package com.github.ducknowledges.bookstore.service;
 
 import com.github.ducknowledges.bookstore.dao.GenreDao;
-import com.github.ducknowledges.bookstore.domain.Author;
 import com.github.ducknowledges.bookstore.domain.Genre;
-import com.github.ducknowledges.bookstore.dto.PageResponseDto;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +14,11 @@ public class GenreServiceImpl implements GenreService {
 
     public GenreServiceImpl(GenreDao genreDao) {
         this.genreDao = genreDao;
+    }
+
+    @Override
+    public boolean isExistById(Long genreId) {
+        return genreDao.existsById(genreId);
     }
 
     @Override

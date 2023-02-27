@@ -2,12 +2,9 @@ package com.github.ducknowledges.bookstore.service;
 
 import com.github.ducknowledges.bookstore.dao.AuthorDao;
 import com.github.ducknowledges.bookstore.domain.Author;
-import com.github.ducknowledges.bookstore.dto.PageRequestDto;
-import com.github.ducknowledges.bookstore.dto.PageResponseDto;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +15,11 @@ public class AuthorServiceImpl implements AuthorService {
 
     public AuthorServiceImpl(AuthorDao authorDao) {
         this.authorDao = authorDao;
+    }
+
+    @Override
+    public boolean isExistById(Long authorId) {
+        return authorDao.existsById(authorId);
     }
 
     @Override

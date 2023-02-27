@@ -12,7 +12,7 @@ public interface BookService {
 
     Page<Book> getBooks(Pageable pageable);
 
-    public Book save(Book book);
+    Book save(Book book);
 
     void deleteById(long id);
 

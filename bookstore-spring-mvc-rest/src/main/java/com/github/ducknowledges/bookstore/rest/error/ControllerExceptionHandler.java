@@ -30,7 +30,9 @@ public class ControllerExceptionHandler {
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ResponseBody
     public ErrorDto handleNotFountException(ElementNotFoundException e) {
-        String errorMessage = String.format("Element with id = %d was not found", e.getId());
+        String errorMessage = String.format(
+            "%s with id = %d was not found", e.getDomainName(), e.getId()
+        );
         return new ErrorDto(HttpStatus.NOT_FOUND, errorMessage);
     }
 

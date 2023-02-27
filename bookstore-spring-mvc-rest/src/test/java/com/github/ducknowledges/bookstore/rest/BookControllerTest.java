@@ -1,6 +1,5 @@
 package com.github.ducknowledges.bookstore.rest;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
@@ -78,11 +77,44 @@ class BookControllerTest {
         MockHttpServletRequestBuilder request = post("/api/book")
             .contentType(MediaType.APPLICATION_JSON)
             .content(mapper.writeValueAsString(newBookDto));
+        when(authorService.isExistById(newBookDto.getAuthorId())).thenReturn(true);
+        when(genreService.isExistById(newBookDto.getGenreId())).thenReturn(true);
         when(bookService.create(newBook)).thenReturn(book);
 
         mvc.perform(request).andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
             .andExpect(content().json(mapper.writeValueAsString(bookDto)));
+    }
+
+    @Test
+    @DisplayName("should correct handle post /book request if author not exist")
+    void shouldGetErrorIfAuthorNotExist() throws Exception {
+        newBookDto.setAuthorId(123L);
+        MockHttpServletRequestBuilder request = post("/api/book")
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(mapper.writeValueAsString(newBookDto));
+        when(authorService.isExistById(newBookDto.getAuthorId())).thenReturn(false);
+        ErrorDto dto = new ErrorDto(HttpStatus.NOT_FOUND, "Author with id = 123 was not found");
+
+        mvc.perform(request).andExpect(status().isNotFound())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+            .andExpect(content().json(mapper.writeValueAsString(dto)));
+    }
+
+    @Test
+    @DisplayName("should correct handle post /book request if genre not exist")
+    void shouldGetErrorIfGenreNotExist() throws Exception {
+        newBookDto.setGenreId(123L);
+        MockHttpServletRequestBuilder request = post("/api/book")
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(mapper.writeValueAsString(newBookDto));
+        when(authorService.isExistById(newBookDto.getAuthorId())).thenReturn(true);
+        when(genreService.isExistById(newBookDto.getGenreId())).thenReturn(false);
+        ErrorDto dto = new ErrorDto(HttpStatus.NOT_FOUND, "Genre with id = 123 was not found");
+
+        mvc.perform(request).andExpect(status().isNotFound())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+            .andExpect(content().json(mapper.writeValueAsString(dto)));
     }
 
     @Test
@@ -113,10 +145,12 @@ class BookControllerTest {
     @Test
     @DisplayName("should correct handle get /book/{id} request if id not exist")
     void shouldGetErrorResponse() throws Exception {
+        when(authorService.isExistById(newBookDto.getAuthorId())).thenReturn(true);
+        when(genreService.isExistById(newBookDto.getGenreId())).thenReturn(true);
         when(bookService.getBook(book.getId())).thenReturn(Optional.empty());
         ErrorDto errorDto = new ErrorDto(
             HttpStatus.NOT_FOUND,
-            String.format("Element with id = %d was not found", book.getId())
+            String.format("Book with id = %d was not found", book.getId())
         );
         mvc.perform(get("/api/book/1")).andExpect(status().isNotFound())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
@@ -152,6 +186,8 @@ class BookControllerTest {
         MockHttpServletRequestBuilder request = put("/api/book/1")
             .contentType(MediaType.APPLICATION_JSON)
             .content(mapper.writeValueAsString(bookDto));
+        when(authorService.isExistById(newBookDto.getAuthorId())).thenReturn(true);
+        when(genreService.isExistById(newBookDto.getGenreId())).thenReturn(true);
         when(bookService.getBook(bookDto.getId())).thenReturn(Optional.of(book));
         when(bookService.save(book)).thenReturn(book);
 

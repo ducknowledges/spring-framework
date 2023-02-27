@@ -8,11 +8,13 @@ import org.springframework.data.domain.Pageable;
 
 public interface AuthorService {
 
+    boolean isExistById(Long authorId);
+
     Optional<Author> getAuthor(long id);
 
     Page<Author> getAuthors(Pageable pageable);
 
-    public List<Author> getAllAuthors();
+    List<Author> getAllAuthors();
 
-    public Long count();
+    Long count();
 }
