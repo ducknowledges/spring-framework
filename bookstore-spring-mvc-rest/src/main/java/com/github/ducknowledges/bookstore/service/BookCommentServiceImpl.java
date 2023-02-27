@@ -2,13 +2,9 @@ package com.github.ducknowledges.bookstore.service;
 
 import com.github.ducknowledges.bookstore.dao.BookCommentDao;
 import com.github.ducknowledges.bookstore.dao.BookDao;
-import com.github.ducknowledges.bookstore.domain.Book;
 import com.github.ducknowledges.bookstore.domain.BookComment;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
