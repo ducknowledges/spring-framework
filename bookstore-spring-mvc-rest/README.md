@@ -29,30 +29,32 @@ http://ec2-54-218-121-204.us-west-2.compute.amazonaws.com/
 #ssh
 git clone git@github.com:ducknowledges/2022-11-otus-spring-kononov.git
 ```
-or
+OR
 
 ```bash
 #https
 git clone https://github.com/ducknowledges/2022-11-otus-spring-kononov.git
 ```
 
-#### Build
+#### Build and Run with JVM
 ```bash
 cd 2022-11-otus-spring-kononov/bookstore-spring-mvc-rest
 ./mvnw clean package
+./target/bookstore-spring-mvc-rest-3.0-SNAPSHOT.jar
 ```
 
-#### Run with docker
+#### Run with PODMAN
+```bash
+podman build -t bookstore-image .
+podman run --rm --name bookstore-container -dp 8080:8080 bookstore-image
+```
+
+OR
+
+#### Run with DOCKER
 ```bash
 docker build -t bookstore-image .
 docker run --rm --name bookstore-container -dp 8080:8080 bookstore-image
-```
-
-or
-
-#### Run with JVM
-```bash
-./target/bookstore-spring-mvc-rest-3.0-SNAPSHOT.jar
 ```
 
 #### Open
