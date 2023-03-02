@@ -66,7 +66,7 @@
 - [X] Introduction to Spring MVC, Spring MVC on Spring Boot
 - [X] Spring MVC View
 - [X] Modern Spring MVC Applications
-- [ ] Reactive programming
+- [X] Reactive programming
 - [ ] Reactive Spring Frameworks
 - [ ] Spring Web Flux
 - [ ] Spring Security Architecture
