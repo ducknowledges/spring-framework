@@ -23,7 +23,8 @@ jobs:
               'bookstore-spring-jdbc',
               'bookstore-spring-orm-jpa',
               'bookstore-spring-data-jpa',
-              'bookstore-spring-mvc-view']
+              'bookstore-spring-mvc-view',
+              'bookstore-spring-mvc-rest']
 
     steps:
       - uses: actions/checkout@v3
