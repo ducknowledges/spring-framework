@@ -18,9 +18,9 @@
 
 ## Demonstration
 
-### In browser
-
-http://ec2-54-218-121-204.us-west-2.compute.amazonaws.com/
+### Deployed
+- [Bookstore](http://ec2-34-217-66-66.us-west-2.compute.amazonaws.com/)
+- [Swagger-UI](http://ec2-34-217-66-66.us-west-2.compute.amazonaws.com/swagger-ui/index.html)
 
 ### Local
 
