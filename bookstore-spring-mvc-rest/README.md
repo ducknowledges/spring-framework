@@ -17,7 +17,7 @@
 - Docker containerization
 
 ## Stack
-- Back-end: Java 11, Spring Boot, DB H2, FlyWay migration
+- Back-end: Java 11, Spring Boot, Spring MVC, DB H2, FlyWay migration
 - Front-end: Vue.js, Bootstrap
 - Code quality: Checkstyle, Jacoco Test Coverage, SonarQube
 
