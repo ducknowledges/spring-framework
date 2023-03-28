@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org" th:replace="~{fragments/layout :: layout (~{::body}, 'book')}">
+
+<body>
+
+<h2>Book</h2>
+
+<div class="container text-end">
+    <a href="books" th:href="@{/books}">
+        <button type="button" class="btn btn-close">
+        </button>
+    </a>
+</div>
+
+<form id="edit-form"
+      action="edit.html"
+      th:action="@{/book/edit}"
+      method="post"
+      th:object="${book}"
+      class="container container-sm">
+
+    <h3>Edit book:</h3>
+
+    <div class="row" style="display: none">
+        <div class="col-4">
+            <label class="form-label" for="id">ID:</label>
+            <input class="form-control" id="id" type="text" name="id" readonly="readonly" th:value="*{id}" value="2"/>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-4">
+            <label class="form-label" for="book-name">Name:</label>
+            <input th:class="${#fields.hasErrors('name')} ? 'form-control is-invalid' : 'form-control'"
+                   id="book-name" name="name" type="text"
+                   th:value="*{name}"
+                   value="Book"
+            />
+            <div class="invalid-feedback" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Wrong book name error</div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="dropdown col-4">
+            <label class="form-label" for="authorId">Choose an author:</label>
+
+            <select class="form-control" name="authorId" id="authorId" th:field="*{authorId}">
+                <option th:each="author : ${authors}"
+                        th:value="${author.id}"
+                        th:text="${author.name}"
+                        th:selected="${author.id==authorId}">
+                    Author
+                </option>
+            </select>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="dropdown col-4">
+            <label class="form-label" for="genres">Choose an author:</label>
+
+            <select class="form-control" name="genreId" id="genres" th:field="*{genreId}">
+                <option th:each="genre : ${genres}"
+                        th:value="${genre.id}"
+                        th:text="${genre.name}"
+                        th:selected="${genre.id==genreId}">
+                    Genre
+                </option>
+            </select>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-4 m-2 p-0">
+            <button type="submit" class="btn btn-success col-4">Save</button>
+            <a th:href="@{/book/delete/{id}(id=${book.id})}" class="col-4" >
+                <button type="button" class="btn btn-danger">Delete</button>
+            </a>
+        </div>
+    </div>
+
+</form>
+
+</body>
+
+</html>
