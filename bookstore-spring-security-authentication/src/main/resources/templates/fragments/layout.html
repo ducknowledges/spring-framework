@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" th:fragment="layout (template, menu)">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="shortcut icon" type="image/x-icon" th:href="@{/images/favicon_io/favicon-16x16.png}">
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+
+    <title>Bookstore</title>
+</head>
+<body>
+    <h1 style="visibility: hidden">BookStore</h1>
+
+    <nav class="navbar navbar-expand-lg">
+        <div class="container xd-container">
+            <a class="navbar-brand" th:href="@{/}">
+                <img src="/images/favicon_io/book-192x192.png" alt="BookStore" width="30" height="36">
+            </a>
+            <div class="collapse navbar-collapse" id="main-navbar" style>
+
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0" th:remove="all">
+
+                    <li th:fragment="menuItem (link, active, title)" th:class="nav-item">
+                        <a th:class="${active == menu ? 'nav-link active fs-5' : 'nav-link'}"
+                           th:href="@{__${link}__}"
+                           th:title="${title}"
+                        >
+                            <span th:text="${title}">Template</span>
+                        </a>
+                    </li>
+
+                </ul>
+
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+                    <li th:replace="~{::menuItem ('/','home','Home')}">
+                        <span>Home</span>
+                    </li>
+
+                    <li th:replace="~{::menuItem ('/books','books','Books')}">
+                        <span>Books</span>
+                    </li>
+
+                    <li th:replace="~{::menuItem ('/authors','authors','Authors')}">
+                        <span>Authors</span>
+                    </li>
+
+                    <li th:replace="~{::menuItem ('/genres','genres','Genres')}">
+                        <span>Genres</span>
+                    </li>
+
+                    <li th:replace="~{::menuItem ('/comments','comments','Comments')}">
+                        <span>Comments</span>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+<div class="container-fluid">
+    <div class="container xd-container">
+
+        <th:block th:insert="${template}" />
+
+    </div>
+</div>
+
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+
+</body>
+</html>

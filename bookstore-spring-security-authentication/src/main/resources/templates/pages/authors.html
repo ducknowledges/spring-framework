@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org" th:replace="~{fragments/layout :: layout (~{::body}, 'authors')}">
+
+<body>
+
+<h2>Authors</h2>
+<table class="table table-sm table-borderless table-hover">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="author : ${authors}" class="align-middle">
+        <td th:text="${author.id}">1</td>
+        <td th:text="${author.name}">John Doe</td>
+    </tr>
+    </tbody>
+
+</table>
+
+<div class="container container-sm text-center">
+    Total pages: <span th:text="${totalPages}"></span>
+</div>
+
+<div class="container container-sm text-center" th:if="${totalPages > 0}">
+
+    <a th:href="@{/authors(page=${currentPage - 1}, size=${5})}"
+       th:if="${currentPage > 1}"
+    >
+        <button class="btn btn-outline-primary">Previous</button>
+    </a>
+    Page: <span th:text="${currentPage}">1</span>
+    <a th:href="@{/authors(page=${currentPage + 1}, size=${5})}"
+       th:if="${currentPage < totalPages}"
+    >
+        <button class="btn btn-outline-primary">Next</button>
+    </a>
+
+</div>
+
+</body>
+
+</html>
