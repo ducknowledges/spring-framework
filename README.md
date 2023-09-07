@@ -1,4 +1,4 @@
-# Spring Framework Developer Course
+# Spring Framework Examples
 
 [![CI with Maven](https://github.com/ducknowledges/2022-11-otus-spring-kononov/actions/workflows/build.yml/badge.svg)](https://github.com/ducknowledges/2022-11-otus-spring-kononov/actions/workflows/build.yml)
 
