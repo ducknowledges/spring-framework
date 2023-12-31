@@ -1,0 +1,17 @@
+logging:
+  level:
+    root: OFF
+
+spring:
+  output:
+    ansi:
+      enabled: always
+  messages:
+    basename: "i18n/appmessages"
+    encoding: "UTF-8"
+
+quiz:
+  locale: en
+  ru-quiz-path: quiz_ru.csv
+  en-quiz-path: quiz_en.csv
+  success-score: 4
